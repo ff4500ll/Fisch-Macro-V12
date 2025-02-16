@@ -607,18 +607,6 @@ if Control == 0:
 WhiteBarSize := Round((A_ScreenWidth / 247.03) * (InStr(Control, "0.") ? (Control * 100) : Control) + (A_ScreenWidth / 8.2759), 0)
 sleep 50
 goto BarMinigameSingle
-
-CheckClick:
-ClickState := GetKeyState("lbutton", "P")
-if ClickState
-{
-    State := "Down"
-}
-else
-{
-    State := "Up"
-}
-return
 ;====================================================================================================;
 
 BarMinigameSingle:
@@ -633,7 +621,6 @@ BarMinigameSingle:
 	MaxLeftBar := FishBarLeft+(WhiteBarSize*SideBarRatio)
 	MaxRightBar := FishBarRight-(WhiteBarSize*SideBarRatio)
 	settimer, BarMinigame2, %ScanDelay%
-	settimer, CheckClick, %ScanDelay%
 	
 BarMinigameAction:
 if (EndMinigame == true)

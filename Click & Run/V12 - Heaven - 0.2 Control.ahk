@@ -66,7 +66,7 @@ NavigationSpamDelay := 10
 ;     MINIGAME SETTINGS     ====================================================================================================;
 
 ; Based on the rod's control stat
-Control := 0.22
+Control := 0.2
 ; Color range to scan for fish bar
 FishBarColorTolerance := 5
 ; Color range to scan for minigame white bar
@@ -84,27 +84,27 @@ ScanDelay := 10
 BaitDelay := 600
 
 ; Strength for moving right in correct zone
-StableRightMultiplier := 1.95
+StableRightMultiplier := 2.121
 ; Counter strafe after moving right in correct zone
-StableRightDivision := 1.25
+StableRightDivision := 1.39
 ; Strength for moving left in correct zone
-StableLeftMultiplier := 1.85
+StableLeftMultiplier := 1.895
 ; Counter strafe after moving left in correct zone
-StableLeftDivision := 1.15
+StableLeftDivision := 1.25
 
 ; Strength for moving right when in wrong zone
-UnstableRightMultiplier := 2.4
+UnstableRightMultiplier := 2.3
 ; Counter strafe after moving right in wrong zone
-UnstableRightDivision := 1
+UnstableRightDivision := 1.54
 ; Strength for moving left when in wrong zone
-UnstableLeftMultiplier := 2.25
+UnstableLeftMultiplier := 2.05
 ; Counter strafe after moving left in wrong zone
-UnstableLeftDivision := 1.4
+UnstableLeftDivision := 1.25
 
 ; Strength for moving right after a shift in the middle
-RightAnkleBreakMultiplier := 0.65
+RightAnkleBreakMultiplier := 0.45
 ; Strength for moving left after a shift in the middle
-LeftAnkleBreakMultiplier := 0.45
+LeftAnkleBreakMultiplier := 0.25
 
 ;====================================================================================================;
 
@@ -607,18 +607,6 @@ if Control == 0:
 WhiteBarSize := Round((A_ScreenWidth / 247.03) * (InStr(Control, "0.") ? (Control * 100) : Control) + (A_ScreenWidth / 8.2759), 0)
 sleep 50
 goto BarMinigameSingle
-
-CheckClick:
-ClickState := GetKeyState("lbutton", "P")
-if ClickState
-{
-    State := "Down"
-}
-else
-{
-    State := "Up"
-}
-return
 ;====================================================================================================;
 
 BarMinigameSingle:
@@ -633,7 +621,6 @@ BarMinigameSingle:
 	MaxLeftBar := FishBarLeft+(WhiteBarSize*SideBarRatio)
 	MaxRightBar := FishBarRight-(WhiteBarSize*SideBarRatio)
 	settimer, BarMinigame2, %ScanDelay%
-	settimer, CheckClick, %ScanDelay%
 	
 BarMinigameAction:
 if (EndMinigame == true)
