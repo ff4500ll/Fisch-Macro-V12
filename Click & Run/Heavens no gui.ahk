@@ -11,14 +11,14 @@ CoordMode, Mouse, Relative
 ;	 CREDITS		===============
 
 ; Rod name
-Rod := "Abyssal Spectre"
+Rod := "Heaven"
 ; Config maker credit
-Creator := "someone"
+Creator := "Saint Laurent"
 
 ;     GENERAL SETTINGS     ====================================================================================================;
 
 ; Set to true to automatically lower graphics to 1
-AutoLowerGraphics := true
+AutoLowerGraphics := false
 AutoGraphicsDelay := 50
 
 ; Set to true to automatically zoom in the camera
@@ -26,11 +26,11 @@ AutoZoomInCamera := true
 AutoZoomDelay := 50
 
 ; Set to true to check for camera mode and enable it
-AutoEnableCameraMode := true
+AutoEnableCameraMode := false
 AutoCameraDelay := 100
 
 ; Set to true to automatically look down
-AutoLookDownCamera := true
+AutoLookDownCamera := false
 AutoLookDelay := 200
 
 ; Set to true to automatically blur the camera
@@ -66,45 +66,45 @@ NavigationSpamDelay := 10
 ;     MINIGAME SETTINGS     ====================================================================================================;
 
 ; Based on the rod's control stat
-Control := 0.3
+Control := 0.2
 ; Color range to scan for fish bar
 FishBarColorTolerance := 5
 ; Color range to scan for minigame white bar
-WhiteBarColorTolerance := 15
+WhiteBarColorTolerance := 16
 ; Color range to scan for minigame arrow
-ArrowColorTolerance := 6
+ArrowColorTolerance := 0
 
 ; Ratio for bar side maximum hold (1 = max bar|0.5 = half bar)
-SideBarRatio := 0.65
+SideBarRatio := 0.8
 ; How long before moving before the bar after the fish moves out side the Deadzone
-SideDelay := 800
+SideDelay := 600
 ; Minigame Refresh Rate
 ScanDelay := 10
 ; Bait Delay leave at 600 as default
 BaitDelay := 600
 
 ; Strength for moving right in correct zone
-StableRightMultiplier := 2.121
+StableRightMultiplier := 2.73
 ; Counter strafe after moving right in correct zone
-StableRightDivision := 1.39
+StableRightDivision := 1.2
 ; Strength for moving left in correct zone
-StableLeftMultiplier := 1.895
+StableLeftMultiplier := 2.5
 ; Counter strafe after moving left in correct zone
-StableLeftDivision := 1.25
+StableLeftDivision := 1.2
 
 ; Strength for moving right when in wrong zone
-UnstableRightMultiplier := 2.4
+UnstableRightMultiplier := 2.5
 ; Counter strafe after moving right in wrong zone
-UnstableRightDivision := 1.54
+UnstableRightDivision := 1.2
 ; Strength for moving left when in wrong zone
-UnstableLeftMultiplier := 2.25
+UnstableLeftMultiplier := 2.5
 ; Counter strafe after moving left in wrong zone
-UnstableLeftDivision := 1.25
+UnstableLeftDivision := 1.2
 
 ; Strength for moving right after a shift in the middle
-RightAnkleBreakMultiplier := 0.45
+RightAnkleBreakMultiplier := 1.231
 ; Strength for moving left after a shift in the middle
-LeftAnkleBreakMultiplier := 0.25
+LeftAnkleBreakMultiplier := 0.751
 
 ;====================================================================================================;
 
@@ -173,7 +173,7 @@ CameraCheckRight := WindowWidth/1.5421
 CameraCheckTop := WindowHeight/1.28
 CameraCheckBottom := WindowHeight
 
-ClickShakeLeft := WindowWidth/4
+ClickShakeLeft := WindowWidth/4.6545
 ClickShakeRight := WindowWidth/1.2736
 ClickShakeTop := WindowHeight/9
 ClickShakeBottom := WindowHeight/1.3409
@@ -609,14 +609,14 @@ sleep 50
 goto BarMinigameSingle
 
 CheckClick:
-ClickState := GetKeyState("lbutton", "P")
+ClickState := GetKeyState(lbutton, P)
 if ClickState
 {
-    State := "Down"
+	State := "Up"
 }
 else
 {
-    State := "Up"
+	State := "Down"
 }
 return
 ;====================================================================================================;

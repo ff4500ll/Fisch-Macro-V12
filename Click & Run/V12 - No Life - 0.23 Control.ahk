@@ -66,7 +66,7 @@ NavigationSpamDelay := 10
 ;     MINIGAME SETTINGS     ====================================================================================================;
 
 ; Based on the rod's control stat
-Control := 0.22
+Control := 0.23
 ; Color range to scan for fish bar
 FishBarColorTolerance := 5
 ; Color range to scan for minigame white bar
@@ -77,7 +77,7 @@ ArrowColorTolerance := 6
 ; Ratio for bar side maximum hold (1 = max bar|0.5 = half bar)
 SideBarRatio := 0.77
 ; How long before moving before the bar after the fish moves out side the Deadzone
-SideDelay := 800
+SideDelay := 600
 ; Minigame Refresh Rate
 ScanDelay := 10
 ; Bait Delay leave at 600 as default

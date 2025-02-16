@@ -77,7 +77,7 @@ WhiteBarColorTolerance := 15
 ArrowColorTolerance := 6
 
 ; Ratio for bar side maximum hold (1 = max bar|0.5 = half bar)
-SideBarRatio := 0.75
+SideBarRatio := 0.7
 ; How long before moving before the bar after the fish moves out side the Deadzone
 SideDelay := 400
 ; Minigame Refresh Rate
@@ -86,11 +86,11 @@ ScanDelay := 10
 BaitDelay := 600
 
 ; Strength for moving right in correct zone
-StableRightMultiplier := 1.75
+StableRightMultiplier := 2.121
 ; Counter strafe after moving right in correct zone
-StableRightDivision := 1.25
+StableRightDivision := 1.39
 ; Strength for moving left in correct zone
-StableLeftMultiplier := 1.75
+StableLeftMultiplier := 1.895
 ; Counter strafe after moving left in correct zone
 StableLeftDivision := 1.25
 
@@ -104,9 +104,9 @@ UnstableLeftMultiplier := 2.25
 UnstableLeftDivision := 1.25
 
 ; Strength for moving right after a shift in the middle
-RightAnkleBreakMultiplier := 1.35
+RightAnkleBreakMultiplier := 0.45
 ; Strength for moving left after a shift in the middle
-LeftAnkleBreakMultiplier := 0.45
+LeftAnkleBreakMultiplier := 0.25
 
 ;====================================================================================================;
 
