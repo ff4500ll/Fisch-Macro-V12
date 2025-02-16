@@ -786,35 +786,30 @@ if !ErrorLevel
 			{
 				Action := 1
 				tooltip, Tracking direction: <, %TooltipX%, %Tooltip10%, 10
-				tooltip, Lbutton: %State%, %TooltipX%, %Tooltip11%, 11
 				tooltip, <, %BarX%, %FishBarTooltipHeight%, 19
 			}
 		else if (Direction < -Deadzone && Direction > -Deadzone2)
 			{
 				Action := 2
 				tooltip, Tracking direction: >, %TooltipX%, %Tooltip10%, 10
-				tooltip, Lbutton: %State%, %TooltipX%, %Tooltip11%, 11
 				tooltip, >, %BarX%, %FishBarTooltipHeight%, 19
 			}
 		else if (Direction > Deadzone2)
 			{
 				Action := 5
 				tooltip, Tracking direction: <, %TooltipX%, %Tooltip10%, 10
-				tooltip, Lbutton: %State%, %TooltipX%, %Tooltip11%, 11
 				tooltip, <, %BarX%, %FishBarTooltipHeight%, 19
 			}
 		else if (Direction < -Deadzone2)
 			{
 				Action := 6
 				tooltip, Tracking direction: >, %TooltipX%, %Tooltip10%, 10
-				tooltip, Lbutton: %State%, %TooltipX%, %Tooltip11%, 11
 				tooltip, >, %BarX%, %FishBarTooltipHeight%, 19
 			}
 		else
 			{
 				Action := 0
 				tooltip, Stablizing, %TooltipX%, %Tooltip10%, 10
-				tooltip, Lbutton: %State%, %TooltipX%, %Tooltip11%, 11
 				tooltip, ., %BarX%, %FishBarTooltipHeight%, 19
 			}
 		}
@@ -828,7 +823,6 @@ if !ErrorLevel
 				Action := 5
 				BarX := FishX+HalfBarSize
 				tooltip, Tracking direction: <, %TooltipX%, %Tooltip10%, 10
-				tooltip, Lbutton: %State%, %TooltipX%, %Tooltip11%, 11
 				tooltip, <, %BarX%, %FishBarTooltipHeight%, 19
 			}
 			else
@@ -836,7 +830,6 @@ if !ErrorLevel
 				Action := 6
 				BarX := FishX-HalfBarSize
 				tooltip, Tracking direction: >, %TooltipX%, %Tooltip10%, 10
-				tooltip, Lbutton: %State%, %TooltipX%, %Tooltip11%, 11
 				tooltip, >, %BarX%, %FishBarTooltipHeight%, 19
 			}
 		}
