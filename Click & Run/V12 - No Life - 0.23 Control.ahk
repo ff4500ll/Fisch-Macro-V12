@@ -84,22 +84,22 @@ ScanDelay := 10
 BaitDelay := 600
 
 ; Strength for moving right in correct zone
-StableRightMultiplier := 1.95
+StableRightMultiplier := 2.121
 ; Counter strafe after moving right in correct zone
-StableRightDivision := 1.25
+StableRightDivision := 1.39
 ; Strength for moving left in correct zone
-StableLeftMultiplier := 1.85
+StableLeftMultiplier := 1.895
 ; Counter strafe after moving left in correct zone
-StableLeftDivision := 1.05
+StableLeftDivision := 1.25
 
 ; Strength for moving right when in wrong zone
 UnstableRightMultiplier := 2.4
 ; Counter strafe after moving right in wrong zone
-UnstableRightDivision := 1
+UnstableRightDivision := 1.54
 ; Strength for moving left when in wrong zone
 UnstableLeftMultiplier := 2.25
 ; Counter strafe after moving left in wrong zone
-UnstableLeftDivision := 1
+UnstableLeftDivision := 1.25
 
 ; Strength for moving right after a shift in the middle
 RightAnkleBreakMultiplier := 0.45
