@@ -1,1 +1,0 @@
-Potential fix for the Bar getting stuck on the right side
