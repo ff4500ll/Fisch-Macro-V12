@@ -309,7 +309,7 @@ LoadSettings:
 		Gui, +AlwaysOnTop
 	} else {
 		Gui, -AlwaysOnTop
-		MsgBox, 0x40030, Loaded, Settings ailed to load.
+		MsgBox, 0x40030, Loaded, Settings failed to load.
 		Gui, +AlwaysOnTop
 	}
 	goto, SaveSettings
@@ -453,7 +453,7 @@ Tooltip19 := (WindowHeight/2)+(20*9)
 Tooltip20 := (WindowHeight/2)+(20*10)
 
 tooltip, Made By AsphaltCake, %TooltipX%, %Tooltip1%, 1
-tooltip, Fisch Macro V12, %TooltipX%, %Tooltip2%, 2
+tooltip, Fisch Macro V12 - Feb 8th, %TooltipX%, %Tooltip2%, 2
 tooltip, Runtime: 0h 0m 0s, %TooltipX%, %Tooltip3%, 3
 
 tooltip, Press "P" to Start, %TooltipX%, %Tooltip4%, 4
@@ -998,12 +998,11 @@ if !ErrorLevel
 			Action := 3
 			tooltip, |, %MaxLeftBar%, %FishBarTooltipHeight%, 19
 			tooltip, Direction: Max Left, %TooltipX%, %Tooltip10%, 10
-			PixelSearch, BarX, , FishBarLeft, FishBarTop, FishBarRight, FishBarBottom, 0xFFFFFF, %WhiteBarColorTolerance%, Fast
+			PixelSearch, ArrowX, , FishBarLeft, FishBarTop, FishBarRight, FishBarBottom, 0x878584, %ArrowColorTolerance%, Fast
 				if !ErrorLevel
 				{	
-					BarX := BarX+HalfBarSize
-					tooltip, -, %BarX%, %FishBarTooltipHeight%, 18
-					if (MaxLeftBar < BarX)
+					tooltip, <-, %ArrowX%, %FishBarTooltipHeight%, 18
+					if (MaxLeftBar < ArrowX)
 					{	
 						SideToggle := false
 					}
@@ -1015,12 +1014,11 @@ if !ErrorLevel
 			Action := 4
 			tooltip, |, %MaxRightBar%, %FishBarTooltipHeight%, 19
 			tooltip, Direction: Max Right, %TooltipX%, %Tooltip10%, 10
-			PixelSearch, BarX, , FishBarLeft, FishBarTop, FishBarRight, FishBarBottom, 0xFFFFFF, %WhiteBarColorTolerance%, Fast
+			PixelSearch, ArrowX, , FishBarLeft, FishBarTop, FishBarRight, FishBarBottom, 0x878584, %ArrowColorTolerance%, Fast
 				if !ErrorLevel
 				{	
-					BarX := BarX+HalfBarSize
-					tooltip, -, %BarX%, %FishBarTooltipHeight%, 18
-					if (MaxRightBar > BarX)
+					tooltip, ->, %ArrowX%, %FishBarTooltipHeight%, 18
+					if (MaxRightBar > ArrowX)
 					{	
 						SideToggle := false
 					}

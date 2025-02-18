@@ -758,12 +758,11 @@ if !ErrorLevel
 			Action := 3
 			tooltip, |, %MaxLeftBar%, %FishBarTooltipHeight%, 19
 			tooltip, Direction: Max Left, %TooltipX%, %Tooltip10%, 10
-			PixelSearch, BarX, , FishBarLeft, FishBarTop, FishBarRight, FishBarBottom, 0xFFFFFF, %WhiteBarColorTolerance%, Fast
+			PixelSearch, ArrowX, , FishBarLeft, FishBarTop, FishBarRight, FishBarBottom, 0x878584, %ArrowColorTolerance%, Fast
 				if !ErrorLevel
 				{	
-					BarX := BarX+HalfBarSize
-					tooltip, -, %BarX%, %FishBarTooltipHeight%, 18
-					if (MaxLeftBar < BarX)
+					tooltip, <-, %ArrowX%, %FishBarTooltipHeight%, 18
+					if (MaxLeftBar < ArrowX)
 					{	
 						SideToggle := false
 					}
@@ -775,12 +774,11 @@ if !ErrorLevel
 			Action := 4
 			tooltip, |, %MaxRightBar%, %FishBarTooltipHeight%, 19
 			tooltip, Direction: Max Right, %TooltipX%, %Tooltip10%, 10
-			PixelSearch, BarX, , FishBarLeft, FishBarTop, FishBarRight, FishBarBottom, 0xFFFFFF, %WhiteBarColorTolerance%, Fast
+			PixelSearch, ArrowX, , FishBarLeft, FishBarTop, FishBarRight, FishBarBottom, 0x878584, %ArrowColorTolerance%, Fast
 				if !ErrorLevel
 				{	
-					BarX := BarX+HalfBarSize
-					tooltip, -, %BarX%, %FishBarTooltipHeight%, 18
-					if (MaxRightBar > BarX)
+					tooltip, ->, %ArrowX%, %FishBarTooltipHeight%, 18
+					if (MaxRightBar > ArrowX)
 					{	
 						SideToggle := false
 					}
