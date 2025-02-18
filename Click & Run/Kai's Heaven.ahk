@@ -11,14 +11,14 @@ CoordMode, Mouse, Relative
 ;	 CREDITS		===============
 
 ; Rod name
-Rod := "NLR"
+Rod := "Heaven"
 ; Config maker credit
 Creator := "Saint Laurent"
 
 ;     GENERAL SETTINGS     ====================================================================================================;
 
 ; Set to true to automatically lower graphics to 1
-AutoLowerGraphics := true
+AutoLowerGraphics := false
 AutoGraphicsDelay := 50
 
 ; Set to true to automatically zoom in the camera
@@ -26,11 +26,11 @@ AutoZoomInCamera := true
 AutoZoomDelay := 50
 
 ; Set to true to check for camera mode and enable it
-AutoEnableCameraMode := true
+AutoEnableCameraMode := false
 AutoCameraDelay := 100
 
 ; Set to true to automatically look down
-AutoLookDownCamera := true
+AutoLookDownCamera := false
 AutoLookDelay := 200
 
 ; Set to true to automatically blur the camera
@@ -66,16 +66,16 @@ NavigationSpamDelay := 10
 ;     MINIGAME SETTINGS     ====================================================================================================;
 
 ; Based on the rod's control stat
-Control := 0.23
+Control := 0.2
 ; Color range to scan for fish bar
 FishBarColorTolerance := 5
 ; Color range to scan for minigame white bar
 WhiteBarColorTolerance := 16
 ; Color range to scan for minigame arrow
-ArrowColorTolerance := 6
+ArrowColorTolerance := 0
 
 ; Ratio for bar side maximum hold (1 = max bar|0.5 = half bar)
-SideBarRatio := 0.81
+SideBarRatio := 0.8
 ; How long before moving before the bar after the fish moves out side the Deadzone
 SideDelay := 600
 ; Minigame Refresh Rate
@@ -84,27 +84,27 @@ ScanDelay := 10
 BaitDelay := 600
 
 ; Strength for moving right in correct zone
-StableRightMultiplier := 2.0
+StableRightMultiplier := 2.73
 ; Counter strafe after moving right in correct zone
-StableRightDivision := 1.66
+StableRightDivision := 1.2
 ; Strength for moving left in correct zone
-StableLeftMultiplier := 1.93
+StableLeftMultiplier := 2.5
 ; Counter strafe after moving left in correct zone
-StableLeftDivision := 1.45
+StableLeftDivision := 1.2
 
 ; Strength for moving right when in wrong zone
-UnstableRightMultiplier := 2.3
+UnstableRightMultiplier := 2.5
 ; Counter strafe after moving right in wrong zone
 UnstableRightDivision := 1.2
 ; Strength for moving left when in wrong zone
 UnstableLeftMultiplier := 2.5
 ; Counter strafe after moving left in wrong zone
-UnstableLeftDivision := 1.0
+UnstableLeftDivision := 1.2
 
 ; Strength for moving right after a shift in the middle
-RightAnkleBreakMultiplier := 1.35
+RightAnkleBreakMultiplier := 1.231
 ; Strength for moving left after a shift in the middle
-LeftAnkleBreakMultiplier := 0.45
+LeftAnkleBreakMultiplier := 0.751
 
 ;====================================================================================================;
 
@@ -628,7 +628,7 @@ BarMinigameSingle:
 	tooltip, Bar Size: %WhiteBarSize%, %TooltipX%, %Tooltip8%, 8
 	HalfBarSize := WhiteBarSize/2
 	Deadzone := WhiteBarSize*0.1
-	Deadzone2 := WhiteBarSize*0.5
+	Deadzone2 := WhiteBarSize*0.75
 	
 	MaxLeftBar := FishBarLeft+(WhiteBarSize*SideBarRatio)
 	MaxRightBar := FishBarRight-(WhiteBarSize*SideBarRatio)
