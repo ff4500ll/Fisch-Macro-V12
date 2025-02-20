@@ -77,7 +77,7 @@ ArrowColorTolerance := 6
 ; Ratio for bar side maximum hold (1 = max bar|0.5 = half bar)
 SideBarRatio := 0.6
 ; How long before moving before the bar after the fish moves out side the Deadzone
-SideDelay := 800
+SideDelay := 700
 ; Minigame Refresh Rate
 ScanDelay := 10
 ; Bait Delay leave at 600 as default
