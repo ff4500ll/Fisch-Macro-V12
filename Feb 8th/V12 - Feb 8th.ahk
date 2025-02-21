@@ -385,7 +385,12 @@ else
 	MsgBox, 0x40030, Error, Make sure you are using the Roblox Player (not from Microsoft)
 	exitapp
 	}
-	
+
+if (A_ScreenDPI != 96) {
+    MsgBox, 0x40030, Error, Your display scale is not set to 100`nPlease check your display settings.
+	exitapp
+}
+
 ;====================================================================================================;
 
 send {lbutton up}
