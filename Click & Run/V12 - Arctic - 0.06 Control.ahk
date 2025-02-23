@@ -66,7 +66,7 @@ NavigationSpamDelay := 10
 ;     MINIGAME SETTINGS     ====================================================================================================;
 
 ; Based on the rod's control stat
-Control := 0.18
+Control := 0.06
 ; Color range to scan for fish bar
 FishBarColorTolerance := 5
 ; Color range to scan for minigame white bar
@@ -84,27 +84,27 @@ ScanDelay := 10
 BaitDelay := 600
 
 ; Strength for moving right in correct zone
-StableRightMultiplier := 2.25
+StableRightMultiplier := 2.36
 ; Counter strafe after moving right in correct zone
-StableRightDivision := 1.39
+StableRightDivision := 1.550
 ; Strength for moving left in correct zone
-StableLeftMultiplier := 1.995
+StableLeftMultiplier := 1.211
 ; Counter strafe after moving left in correct zone
-StableLeftDivision := 1.25
+StableLeftDivision := 1.12
 
 ; Strength for moving right when in wrong zone
-UnstableRightMultiplier := 2.331
+UnstableRightMultiplier := 2.45
 ; Counter strafe after moving right in wrong zone
-UnstableRightDivision := 1.62
+UnstableRightDivision := 1.55
 ; Strength for moving left when in wrong zone
-UnstableLeftMultiplier := 2.23
+UnstableLeftMultiplier := 2.190
 ; Counter strafe after moving left in wrong zone
-UnstableLeftDivision := 1.225
+UnstableLeftDivision := 1.17
 
 ; Strength for moving right after a shift in the middle
-RightAnkleBreakMultiplier := 0.751
+RightAnkleBreakMultiplier := 1.35
 ; Strength for moving left after a shift in the middle
-LeftAnkleBreakMultiplier := 0.436
+LeftAnkleBreakMultiplier := 0.45
 
 ;====================================================================================================;
 
