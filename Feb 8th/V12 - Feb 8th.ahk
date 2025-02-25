@@ -407,7 +407,7 @@ CameraCheckRight := WindowWidth/1.5421
 CameraCheckTop := WindowHeight/1.28
 CameraCheckBottom := WindowHeight
 
-ClickShakeLeft := WindowWidth/4.6545
+ClickShakeLeft := WindowWidth/4
 ClickShakeRight := WindowWidth/1.2736
 ClickShakeTop := WindowHeight/9
 ClickShakeBottom := WindowHeight/1.3409
