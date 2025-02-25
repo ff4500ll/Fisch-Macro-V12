@@ -11,7 +11,7 @@ CoordMode, Mouse, Relative
 ;	 CREDITS		===============
 
 ; Rod name
-Rod := "ROTD"
+Rod := "Tempest"
 ; Config maker credit
 Creator := ""
 
