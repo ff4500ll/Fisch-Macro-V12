@@ -11,9 +11,9 @@ CoordMode, Mouse, Relative
 ;	 CREDITS		===============
 
 ; Rod name
-Rod := "Mythical"
+Rod := "Steady"
 ; Config maker credit
-Creator := "someone"
+Creator := ""
 
 ;     GENERAL SETTINGS     ====================================================================================================;
 
@@ -55,7 +55,7 @@ NavigationKey := "\"
 ShakeMode := "Click"
 
 ; Seconds for shake minigame to be considered failed
-ShakeFailsafe := 15
+ShakeFailsafe := 22
 ; Color range to scan for "shake" text
 ClickShakeColorTolerance := 3
 ; Delay between each scan in miliseconds
@@ -77,34 +77,34 @@ ArrowColorTolerance := 6
 ; Ratio for bar side maximum hold (1 = max bar|0.5 = half bar)
 SideBarRatio := 0.8
 ; How long before moving before the bar after the fish moves out side the Deadzone
-SideDelay := 600
+SideDelay := 400
 ; Minigame Refresh Rate
 ScanDelay := 10
 ; Bait Delay leave at 600 as default
 BaitDelay := 600
 
 ; Strength for moving right in correct zone
-StableRightMultiplier := 2.360
+StableRightMultiplier := 2.36
 ; Counter strafe after moving right in correct zone
-StableRightDivision := 1.550
+StableRightDivision := 1.3
 ; Strength for moving left in correct zone
-StableLeftMultiplier := 1.211
+StableLeftMultiplier := 1.95
 ; Counter strafe after moving left in correct zone
-StableLeftDivision := 1.12
+StableLeftDivision := 1.29
 
 ; Strength for moving right when in wrong zone
-UnstableRightMultiplier := 2.665
+UnstableRightMultiplier := 2.38
 ; Counter strafe after moving right in wrong zone
-UnstableRightDivision := 1.5
+UnstableRightDivision := 1.3
 ; Strength for moving left when in wrong zone
-UnstableLeftMultiplier := 2.190
+UnstableLeftMultiplier := 2.264
 ; Counter strafe after moving left in wrong zone
-UnstableLeftDivision := 0.9
+UnstableLeftDivision := 1.75
 
 ; Strength for moving right after a shift in the middle
-RightAnkleBreakMultiplier := 1.35
+RightAnkleBreakMultiplier := 0.751
 ; Strength for moving left after a shift in the middle
-LeftAnkleBreakMultiplier := 0.725
+LeftAnkleBreakMultiplier := 0.356
 
 ;====================================================================================================;
 
@@ -780,6 +780,7 @@ if !ErrorLevel
 	PixelSearch, BarX, , FishBarLeft, FishBarTop, FishBarRight, FishBarBottom, 0xFFFFFF, %WhiteBarColorTolerance%, Fast
 	if !ErrorLevel
 		{
+		tooltip, , , , 18
 		BarX := BarX+(WhiteBarSize/2)
 		Direction := BarX-FishX
 		if (Direction > Deadzone && Direction < Deadzone2)
