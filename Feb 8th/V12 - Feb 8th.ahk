@@ -682,9 +682,13 @@ if (AutoLookDownCamera == true)
 tooltip, Current Task: AutoBlurCamera, %TooltipX%, %Tooltip7%, 7	
 if (AutoBlurCamera == true)
 	{
+	if (EndMinigame == true)
+	{
+		send ``
+	}
 	sleep 50
-	send {m}
-	tooltip, Action: Press M, %TooltipX%, %Tooltip8%, 8
+	send ``
+	tooltip, Action: Press ``, %TooltipX%, %Tooltip8%, 8
 	sleep 50
 	}
 

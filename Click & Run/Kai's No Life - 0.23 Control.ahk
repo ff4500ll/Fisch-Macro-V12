@@ -34,7 +34,7 @@ AutoLookDownCamera := true
 AutoLookDelay := 200
 
 ; Set to true to automatically blur the camera
-AutoBlurCamera := false
+AutoBlurCamera := true
 AutoBlurDelay := 50
 
 ; How long to wait after fishing before restarting
@@ -445,9 +445,13 @@ if (AutoLookDownCamera == true)
 tooltip, Current Task: AutoBlurCamera, %TooltipX%, %Tooltip7%, 7	
 if (AutoBlurCamera == true)
 	{
+	if (EndMinigame == true)
+	{
+		send ``
+	}
 	sleep %AutoBlurDelay%
-	send {m}
-	tooltip, Action: Press M, %TooltipX%, %Tooltip8%, 8
+	send ``
+	tooltip, Action: Press ``, %TooltipX%, %Tooltip8%, 8
 	sleep %AutoBlurDelay%
 	}
 

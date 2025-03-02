@@ -8,13 +8,6 @@ CoordMode, Tooltip, Relative
 CoordMode, Pixel, Relative
 CoordMode, Mouse, Relative
 
-;	 CREDITS		===============
-
-; Rod name
-Rod := "BRIC"
-; Config maker credit
-Creator := "someone"
-
 ;     GENERAL SETTINGS     ====================================================================================================;
 
 ; Set to true to automatically lower graphics to 1
@@ -27,7 +20,7 @@ AutoZoomDelay := 50
 
 ; Set to true to check for camera mode and enable it
 AutoEnableCameraMode := true
-AutoCameraDelay := 100
+AutoCameraDelay := 50
 
 ; Set to true to automatically look down
 AutoLookDownCamera := true
@@ -38,7 +31,7 @@ AutoBlurCamera := true
 AutoBlurDelay := 50
 
 ; How long to wait after fishing before restarting
-RestartDelay := 1500
+RestartDelay := 600
 
 ; How long to hold the cast for before releasing
 HoldRodCastDuration := 480
@@ -54,57 +47,65 @@ NavigationKey := "\"
 ; Change to "Navigation" or "Click"
 ShakeMode := "Click"
 
-; Seconds for shake minigame to be considered failed
-ShakeFailsafe := 15
+; Seconds for click shake to be considered failed
+ClickShakeFailsafe := 20
 ; Color range to scan for "shake" text
 ClickShakeColorTolerance := 3
 ; Delay between each scan in miliseconds
 ClickScanDelay := 20
+; How many scans before clicking regardless of repeats
+RepeatBypassCounter := 10
+
+; Seconds for navigation shake to be considered failed
+NavigationShakeFailsafe := 30
 ; Delay between each "S+Enter" in miliseconds
 NavigationSpamDelay := 10
 
 ;     MINIGAME SETTINGS     ====================================================================================================;
 
-; Based on the rod's control stat
-Control := 0.35
+; Bar size is automatically calculated, set manual value to override
+ManualBarSize := 0
+; Seconds for calculation to be considered failed
+BarCalculationFailsafe := 10
+; Color range to scan for initial white bar
+BarSizeCalculationColorTolerance := 15
+
 ; Color range to scan for fish bar
 FishBarColorTolerance := 5
 ; Color range to scan for minigame white bar
-WhiteBarColorTolerance := 15
+WhiteBarColorTolerance := 16
 ; Color range to scan for minigame arrow
 ArrowColorTolerance := 6
 
+; Amount of clicks per action cycle
+StabilizerLoop := 12
 ; Ratio for bar side maximum hold (1 = max bar|0.5 = half bar)
-SideBarRatio := 0.6
-; How long before moving before the bar after the fish moves out side the Deadzone
-SideDelay := 700
-; Minigame Refresh Rate
-ScanDelay := 10
-; Bait Delay leave at 600 as default
-BaitDelay := 600
+SideBarRatio := 0.8
+; Multiplier for how long to wait at the sides to prevent bounce
+SideBarWaitMultiplier := 3.5
 
 ; Strength for moving right in correct zone
-StableRightMultiplier := 1.5
+StableRightMultiplier := 2.360
 ; Counter strafe after moving right in correct zone
-StableRightDivision := 1.1
+StableRightDivision := 1.550
 ; Strength for moving left in correct zone
-StableLeftMultiplier := 1.4
+StableLeftMultiplier := 1.211
 ; Counter strafe after moving left in correct zone
-StableLeftDivision := 1
+StableLeftDivision := 1.12
 
 ; Strength for moving right when in wrong zone
-UnstableRightMultiplier := 2
+UnstableRightMultiplier := 2.665
 ; Counter strafe after moving right in wrong zone
-UnstableRightDivision := 1.3
+UnstableRightDivision := 1.55
 ; Strength for moving left when in wrong zone
-UnstableLeftMultiplier := 1.9
+UnstableLeftMultiplier := 2.190
 ; Counter strafe after moving left in wrong zone
-UnstableLeftDivision := 1.1
+UnstableLeftDivision := 1.17
 
 ; Strength for moving right after a shift in the middle
-RightAnkleBreakMultiplier := 0.4
+RightAnkleBreakMultiplier := 1.35
 ; Strength for moving left after a shift in the middle
-LeftAnkleBreakMultiplier := 0.25
+LeftAnkleBreakMultiplier := 0.45
 
 ;====================================================================================================;
 
@@ -147,20 +148,16 @@ if (ShakeMode != "Navigation" and ShakeMode != "Click")
 ;====================================================================================================;
 
 WinActivate, Roblox
-if WinActive("ahk_exe RobloxPlayerBeta.exe")
+if WinActive("Roblox")
 	{
 	WinMaximize, Roblox
 	}
 else
 	{
-	MsgBox, 0x40030, Error, Make sure you are using the Roblox Player (not from Microsoft)
+	msgbox, where roblox bruh
 	exitapp
 	}
 	
-if (A_ScreenDPI != 96) {
-    MsgBox, 0x40030, Error, Your display scale is not set to 100`nPlease check your display settings.
-	exitapp
-}
 ;====================================================================================================;
 
 send {lbutton up}
@@ -189,8 +186,7 @@ FishBarBottom := WindowHeight/1.1512
 
 FishBarTooltipHeight := WindowHeight/1.0626
 
-ResolutionScaling := WindowWidth / (WindowWidth * 2.37)
-PixelScaling := 1034/(FishBarRight-FishBarLeft)
+ResolutionScaling := 2560/WindowWidth
 
 LookDownX := WindowWidth/2
 LookDownY := WindowHeight/4
@@ -222,8 +218,7 @@ Tooltip19 := (WindowHeight/2)+(20*9)
 Tooltip20 := (WindowHeight/2)+(20*10)
 
 tooltip, Made By AsphaltCake, %TooltipX%, %Tooltip1%, 1
-tooltip, V12 Config for %Rod% by %Creator%, %TooltipX%, %Tooltip2%, 2
-tooltip, Runtime: 0h 0m 0s, %TooltipX%, %Tooltip3%, 3
+tooltip, Runtime: 0h 0m 0s, %TooltipX%, %Tooltip2%, 2
 
 tooltip, Press "P" to Start, %TooltipX%, %Tooltip4%, 4
 tooltip, Press "O" to Reload, %TooltipX%, %Tooltip5%, 5
@@ -302,7 +297,7 @@ runtime:
         runtimeH++
     }
 
-    tooltip, Runtime: %runtimeH%h %runtimeM%m %runtimeS%s, %TooltipX%, %Tooltip3%, 3
+    tooltip, Runtime: %runtimeH%h %runtimeM%m %runtimeS%s, %TooltipX%, %Tooltip2%, 2
 
     if (WinExist("ahk_exe RobloxPlayerBeta.exe")) {
         if (!WinActive("ahk_exe RobloxPlayerBeta.exe")) {
@@ -310,7 +305,6 @@ runtime:
         }
     }
     else {
-		MsgBox, 0x40030, Error, Make sure you are using the Roblox Player (not from Microsoft)
         exitapp
     }
 return
@@ -390,7 +384,7 @@ rightcounter := 0
 if (AutoEnableCameraMode == true)
 	{
 	PixelSearch, , , CameraCheckLeft, CameraCheckTop, CameraCheckRight, CameraCheckBottom, 0xFFFFFF, 0, Fast
-	if !ErrorLevel
+	if (ErrorLevel == 0)
 		{
 		sleep %AutoCameraDelay%
 		send {2}
@@ -442,16 +436,17 @@ if (AutoLookDownCamera == true)
 	sleep %AutoLookDelay%
 	}
 	
+if (EndMinigame == true)
+	{
+	send ``
+	}
+
 tooltip, Current Task: AutoBlurCamera, %TooltipX%, %Tooltip7%, 7	
 if (AutoBlurCamera == true)
 	{
-	if (EndMinigame == true)
-	{
-		send ``
-	}
 	sleep %AutoBlurDelay%
 	send ``
-	tooltip, Action: Press ``, %TooltipX%, %Tooltip8%, 8
+	tooltip, Action: Press `, %TooltipX%, %Tooltip8%, 8
 	sleep %AutoBlurDelay%
 	}
 
@@ -472,8 +467,8 @@ goto NavigationShakeMode
 
 ClickShakeFailsafe:
 ClickFailsafeCount++
-tooltip, Failsafe: %ClickFailsafeCount%/%ShakeFailsafe%, %TooltipX%, %Tooltip14%, 14
-if (ClickFailsafeCount >= ShakeFailsafe)
+tooltip, Failsafe: %ClickFailsafeCount%/%ClickShakeFailsafe%, %TooltipX%, %Tooltip14%, 14
+if (ClickFailsafeCount >= ClickShakeFailsafe)
 	{
 	settimer, ClickShakeFailsafe, off
 	ForceReset := true
@@ -487,9 +482,9 @@ tooltip, Click X: None, %TooltipX%, %Tooltip8%, 8
 tooltip, Click Y: None, %TooltipX%, %Tooltip9%, 9
 
 tooltip, Click Count: 0, %TooltipX%, %Tooltip11%, 11
-tooltip, Bypass Count: 0/10, %TooltipX%, %Tooltip12%, 12
+tooltip, Bypass Count: 0/%RepeatBypassCounter%, %TooltipX%, %Tooltip12%, 12
 
-tooltip, Failsafe: 0/%ShakeFailsafe%, %TooltipX%, %Tooltip14%, 14
+tooltip, Failsafe: 0/%ClickShakeFailsafe%, %TooltipX%, %Tooltip14%, 14
 
 ClickFailsafeCount := 0
 ClickCount := 0
@@ -510,7 +505,7 @@ if (ForceReset == true)
 	}
 sleep %ClickScanDelay%
 PixelSearch, , , FishBarLeft, FishBarTop, FishBarRight, FishBarBottom, 0x5B4B43, %FishBarColorTolerance%, Fast
-if !ErrorLevel
+if (ErrorLevel == 0)
 	{
 	settimer, ClickShakeFailsafe, off
 	tooltip, , , , 9
@@ -522,7 +517,7 @@ if !ErrorLevel
 else
 	{
 	PixelSearch, ClickX, ClickY, ClickShakeLeft, ClickShakeTop, ClickShakeRight, ClickShakeBottom, 0xFFFFFF, %ClickShakeColorTolerance%, Fast
-	if !ErrorLevel
+	if (ErrorLevel == 0)
 		{
 
 		tooltip, Click X: %ClickX%, %TooltipX%, %Tooltip8%, 8
@@ -531,7 +526,7 @@ else
 		if (ClickX != MemoryX and ClickY != MemoryY)
 			{
 			ClickShakeRepeatBypassCounter := 0
-			tooltip, Bypass Count: %ClickShakeRepeatBypassCounter%/10, %TooltipX%, %Tooltip12%, 12
+			tooltip, Bypass Count: %ClickShakeRepeatBypassCounter%/%RepeatBypassCounter%, %TooltipX%, %Tooltip12%, 12
 			ClickCount++
 			click, %ClickX%, %ClickY%
 			tooltip, Click Count: %ClickCount%, %TooltipX%, %Tooltip11%, 11
@@ -542,8 +537,8 @@ else
 		else
 			{
 			ClickShakeRepeatBypassCounter++
-			tooltip, Bypass Count: %ClickShakeRepeatBypassCounter%/10, %TooltipX%, %Tooltip12%, 12
-			if (ClickShakeRepeatBypassCounter >= 10)
+			tooltip, Bypass Count: %ClickShakeRepeatBypassCounter%/%RepeatBypassCounter%, %TooltipX%, %Tooltip12%, 12
+			if (ClickShakeRepeatBypassCounter >= RepeatBypassCounter)
 				{
 				MemoryX := 0
 				MemoryY := 0
@@ -561,8 +556,8 @@ else
 
 NavigationShakeFailsafe:
 NavigationFailsafeCount++
-tooltip, Failsafe: %NavigationFailsafeCount%/%ShakeFailsafe%, %TooltipX%, %Tooltip10%, 10
-if (NavigationFailsafeCount >= ShakeFailsafe)
+tooltip, Failsafe: %NavigationFailsafeCount%/%NavigationShakeFailsafe%, %TooltipX%, %Tooltip10%, 10
+if (NavigationFailsafeCount >= NavigationShakeFailsafe)
 	{
 	settimer, NavigationShakeFailsafe, off
 	ForceReset := true
@@ -574,7 +569,7 @@ NavigationShakeMode:
 tooltip, Current Task: Shaking, %TooltipX%, %Tooltip7%, 7
 tooltip, Attempt Count: 0, %TooltipX%, %Tooltip8%, 8
 
-tooltip, Failsafe: 0/%ShakeFailsafe%, %TooltipX%, %Tooltip10%, 10
+tooltip, Failsafe: 0/%NavigationShakeFailsafe%, %TooltipX%, %Tooltip10%, 10
 
 NavigationFailsafeCount := 0
 NavigationCounter := 0
@@ -589,7 +584,7 @@ if (ForceReset == true)
 	}
 sleep %NavigationSpamDelay%
 PixelSearch, , , FishBarLeft, FishBarTop, FishBarRight, FishBarBottom, 0x5B4B43, %FishBarColorTolerance%, Fast
-if !ErrorLevel
+if (ErrorLevel == 0)
 	{
 	settimer, NavigationShakeFailsafe, off
 	goto BarMinigame
@@ -605,252 +600,307 @@ else
 	goto NavigationShakeModeRedo
 	}
 
-;=========== BAR ====================================================================================================;
+;====================================================================================================;
+
+BarCalculationFailsafe:
+BarCalcFailsafeCounter++
+tooltip, Failsafe: %BarCalcFailsafeCounter%/%BarCalculationFailsafe%, %TooltipX%, %Tooltip10%, 10
+if (BarCalcFailsafeCounter >= BarCalculationFailsafe)
+	{
+	settimer, BarCalculationFailsafe, off
+	ForceReset := true
+	}
+return
 
 BarMinigame:
-sleep %BaitDelay%
-; Thanks Lunar ==================
-if Control == 0:
-	Control := 0.001
-WhiteBarSize := Round((A_ScreenWidth / 247.03) * (InStr(Control, "0.") ? (Control * 100) : Control) + (A_ScreenWidth / 8.2759), 0)
-sleep 50
-goto BarMinigameSingle
+sleep 600
+
+tooltip, Current Task: Calculating Bar Size, %TooltipX%, %Tooltip7%, 7
+tooltip, Bar Size: Not Found, %TooltipX%, %Tooltip8%, 8
+tooltip, Failsafe: 0/%BarCalculationFailsafe%, %TooltipX%, %Tooltip10%, 10
+
+ForceReset := false
+BarCalcFailsafeCounter := 0
+settimer, BarCalculationFailsafe, 1000
+
+BarMinigameRedo:
+if (ForceReset == true)
+	{
+	tooltip, , , , 10
+	goto RestartMacro
+	}
+PixelSearch, BarX, , FishBarLeft, FishBarTop, FishBarRight, FishBarBottom, 0xFFFFFF, %BarSizeCalculationColorTolerance%, Fast
+if (ErrorLevel == 0)
+	{
+	settimer, BarCalculationFailsafe, off
+	if (ManualBarSize != 0)
+		{
+		WhiteBarSize := ManualBarSize
+		goto BarMinigameSingle
+		}
+	WhiteBarSize := (FishBarRight-(BarX-FishBarLeft))-BarX
+	goto BarMinigameSingle
+	}
+sleep 1
+goto BarMinigameRedo
+
 ;====================================================================================================;
 
 BarMinigameSingle:
 
-	EndMinigame := false
-	tooltip, Current Task: Playing Bar Minigame, %TooltipX%, %Tooltip7%, 7
-	tooltip, Bar Size: %WhiteBarSize%, %TooltipX%, %Tooltip8%, 8
-	HalfBarSize := WhiteBarSize/2
-	Deadzone := WhiteBarSize*0.1
-	Deadzone2 := WhiteBarSize*0.75
-	
-	MaxLeftBar := FishBarLeft+(WhiteBarSize*SideBarRatio)
-	MaxRightBar := FishBarRight-(WhiteBarSize*SideBarRatio)
-	settimer, BarMinigame2, %ScanDelay%
-	
-BarMinigameAction:
-if (EndMinigame == true)
-	{
-		sleep %RestartDelay%
-		goto RestartMacro
-	}
-if (Action == 0)
-	{
-		SideToggle := false
-		send {lbutton down}
-		sleep 10
-		send {lbutton up}
-		sleep 10
-	}
-else if (Action == 1)
-	{
-		SideToggle := false
-		send {lbutton up}
-		if (AnkleBreak == false)
-		{
-			sleep %AnkleBreakDuration%
-			AnkleBreakDuration := 0
-		}
-		Duration := Abs(Direction)*StableLeftMultiplier*PixelScaling
-		sleep %Duration%
-		send {lbutton down}
-		CounterStrafe := Duration/StableLeftDivision
-		sleep %CounterStrafe%
-		AnkleBreak := true
-		AnkleBreakDuration := AnkleBreakDuration+(Duration-CounterStrafe)*LeftAnkleBreakMultiplier
-	}
-else if (Action == 2)
-	{
-		SideToggle := false
-		send {lbutton down}
-		if (AnkleBreak == true)
-		{
-			sleep %AnkleBreakDuration%
-			AnkleBreakDuration := 0
-		}
-		Duration := Abs(Direction)*StableRightMultiplier*PixelScaling
-		sleep %Duration%
-		send {lbutton up}
-		CounterStrafe := Duration/StableRightDivision
-		sleep %CounterStrafe%
-		AnkleBreak := false
-		AnkleBreakDuration := AnkleBreakDuration+(Duration-CounterStrafe)*RightAnkleBreakMultiplier
-	}
-else if (Action == 3)
-	{
-		if (SideToggle == false)
-		{
-			AnkleBreak := none
-			AnkleBreakDuration := 0
-			SideToggle := true
-			send {lbutton down}
-			send {lbutton up}
-			sleep %SideDelay%
-		}
-		sleep %ScanDelay%
-	}
-else if (Action == 4)
-	{
-		if (SideToggle == false)
-		{
-			AnkleBreak := none
-			AnkleBreakDuration := 0
-			SideToggle := true
-			send {lbutton down}
-			sleep %SideDelay%
-		}
-		sleep %ScanDelay%
-	}
-else if (Action == 5)
-	{
-		SideToggle := false
-		send {lbutton up}
-		if (AnkleBreak == false)
-		{
-			sleep %AnkleBreakDuration%
-			AnkleBreakDuration := 0
-		}
-		Duration := Abs(Direction)*UnstableLeftMultiplier*PixelScaling
-		sleep %Duration%
-		send {lbutton down}
-		CounterStrafe := Duration/UnstableLeftDivision
-		sleep %CounterStrafe%
-		AnkleBreak := true
-		AnkleBreakDuration := AnkleBreakDuration+(Duration-CounterStrafe)*LeftAnkleBreakMultiplier
-	}
-else if (Action == 6)
-	{
-		SideToggle := false
-		send {lbutton down}
-		if (AnkleBreak == true)
-		{
-			sleep %AnkleBreakDuration%
-			AnkleBreakDuration := 0
-		}
-		Duration := Abs(Direction)*UnstableRightMultiplier*PixelScaling
-		sleep %Duration%
-		send {lbutton up}
-		CounterStrafe := Duration/UnstableRightDivision
-		sleep %CounterStrafe%
-		AnkleBreak := false
-		AnkleBreakDuration := AnkleBreakDuration+(Duration-CounterStrafe)*RightAnkleBreakMultiplier
-	}
-else
-	{
-		sleep %ScanDelay%
-	}
-goto BarMinigameAction
+EndMinigame := false
+tooltip, Current Task: Playing Bar Minigame, %TooltipX%, %Tooltip7%, 7
+tooltip, Bar Size: %WhiteBarSize%, %TooltipX%, %Tooltip8%, 8
+
+tooltip, Direction: None, %TooltipX%, %Tooltip10%, 10
+tooltip, Forward Delay: None, %TooltipX%, %Tooltip11%, 11
+tooltip, Counter Delay: None, %TooltipX%, %Tooltip12%, 12
+tooltip, Ankle Delay: None, %TooltipX%, %Tooltip13%, 13
+
+tooltip, Side Delay: None, %TooltipX%, %Tooltip15%, 15
+
+HalfBarSize := WhiteBarSize/2
+SideDelay := 0
+AnkleBreakDelay := 0
+DirectionalToggle := "Disabled"
+AtLeastFindWhiteBar := false
+
+MaxLeftToggle := false
+MaxRightToggle := false
+MaxLeftBar := FishBarLeft+WhiteBarSize*SideBarRatio
+MaxRightBar := FishBarRight-WhiteBarSize*SideBarRatio
+
+tooltip, |, %MaxLeftBar%, %FishBarTooltipHeight%, 18
+tooltip, |, %MaxRightBar%, %FishBarTooltipHeight%, 17
 
 BarMinigame2:
 sleep 1
 PixelSearch, FishX, , FishBarLeft, FishBarTop, FishBarRight, FishBarBottom, 0x5B4B43, %FishBarColorTolerance%, Fast
-if !ErrorLevel
+if (ErrorLevel == 0)
 	{
-	tooltip, +, %FishX%, %FishBarTooltipHeight%, 20
+	tooltip, ., %FishX%, %FishBarTooltipHeight%, 20
 	if (FishX < MaxLeftBar)
 		{
-			Action := 3
-			tooltip, |, %MaxLeftBar%, %FishBarTooltipHeight%, 19
+		if (MaxLeftToggle == false)
+			{
+			tooltip, <, %MaxLeftBar%, %FishBarTooltipHeight%, 19
 			tooltip, Direction: Max Left, %TooltipX%, %Tooltip10%, 10
-			PixelSearch, ArrowX, , FishBarLeft, FishBarTop, FishBarRight, FishBarBottom, 0x878584, %ArrowColorTolerance%, Fast
-				if !ErrorLevel
-				{	
-					tooltip, <-, %ArrowX%, %FishBarTooltipHeight%, 18
-					if (MaxLeftBar < ArrowX)
-					{	
-						SideToggle := false
-					}
-				}
-			return
+			tooltip, Forward Delay: Infinite, %TooltipX%, %Tooltip11%, 11
+			tooltip, Counter Delay: None, %TooltipX%, %Tooltip12%, 12
+			tooltip, Ankle Delay: 0, %TooltipX%, %Tooltip13%, 13
+			DirectionalToggle := "Right"
+			MaxLeftToggle := true
+			send {lbutton up}
+			sleep 1
+			send {lbutton up}
+			sleep %SideDelay%
+			AnkleBreakDelay := 0
+			SideDelay := 0
+			tooltip, Side Delay: 0, %TooltipX%, %Tooltip15%, 15
+			}
+		goto BarMinigame2
 		}
 	else if (FishX > MaxRightBar)
 		{
-			Action := 4
-			tooltip, |, %MaxRightBar%, %FishBarTooltipHeight%, 19
+		if (MaxRightToggle == false)
+			{
+			tooltip, >, %MaxRightBar%, %FishBarTooltipHeight%, 19
 			tooltip, Direction: Max Right, %TooltipX%, %Tooltip10%, 10
-			PixelSearch, ArrowX, , FishBarLeft, FishBarTop, FishBarRight, FishBarBottom, 0x878584, %ArrowColorTolerance%, Fast
-				if !ErrorLevel
-				{	
-					tooltip, ->, %ArrowX%, %FishBarTooltipHeight%, 18
-					if (MaxRightBar > ArrowX)
-					{	
-						SideToggle := false
-					}
-				}
-			return
+			tooltip, Forward Delay: Infinite, %TooltipX%, %Tooltip11%, 11
+			tooltip, Counter Delay: None, %TooltipX%, %Tooltip12%, 12
+			tooltip, Ankle Delay: 0, %TooltipX%, %Tooltip13%, 13
+			DirectionalToggle := "Left"
+			MaxRightToggle := true
+			send {lbutton down}
+			sleep 1
+			send {lbutton down}
+			sleep %SideDelay%
+			AnkleBreakDelay := 0
+			SideDelay := 0
+			tooltip, Side Delay: 0, %TooltipX%, %Tooltip15%, 15
+			}
+		goto BarMinigame2
 		}
+	MaxLeftToggle := false
+	MaxRightToggle := false
 	PixelSearch, BarX, , FishBarLeft, FishBarTop, FishBarRight, FishBarBottom, 0xFFFFFF, %WhiteBarColorTolerance%, Fast
-	if !ErrorLevel
+	if (ErrorLevel == 0)
 		{
-		tooltip, , , , 18
+		AtLeastFindWhiteBar := true
 		BarX := BarX+(WhiteBarSize/2)
-		Direction := BarX-FishX
-		if (Direction > Deadzone && Direction < Deadzone2)
+		if (BarX > FishX)
 			{
-				Action := 1
-				tooltip, Tracking direction: <, %TooltipX%, %Tooltip10%, 10
-				tooltip, <, %BarX%, %FishBarTooltipHeight%, 19
-			}
-		else if (Direction < -Deadzone && Direction > -Deadzone2)
-			{
-				Action := 2
-				tooltip, Tracking direction: >, %TooltipX%, %Tooltip10%, 10
-				tooltip, >, %BarX%, %FishBarTooltipHeight%, 19
-			}
-		else if (Direction > Deadzone2)
-			{
-				Action := 5
-				tooltip, Tracking direction: <, %TooltipX%, %Tooltip10%, 10
-				tooltip, <, %BarX%, %FishBarTooltipHeight%, 19
-			}
-		else if (Direction < -Deadzone2)
-			{
-				Action := 6
-				tooltip, Tracking direction: >, %TooltipX%, %Tooltip10%, 10
-				tooltip, >, %BarX%, %FishBarTooltipHeight%, 19
+			tooltip, <, %BarX%, %FishBarTooltipHeight%, 19
+			tooltip, Direction: <, %TooltipX%, %Tooltip10%, 10
+			Difference := (BarX-FishX)*ResolutionScaling*StableLeftMultiplier
+			CounterDifference := Difference/StableLeftDivision
+			tooltip, Forward Delay: %Difference%, %TooltipX%, %Tooltip11%, 11
+			tooltip, Counter Delay: %CounterDifference%, %TooltipX%, %Tooltip12%, 12
+			send {lbutton up}
+			if (DirectionalToggle == "Right")
+				{
+				tooltip, Ankle Delay: 0, %TooltipX%, %Tooltip13%, 13
+				sleep %AnkleBreakDelay%
+				AnkleBreakDelay := 0
+				}
+			else
+				{
+				AnkleBreakDelay := AnkleBreakDelay+(Difference-CounterDifference)*LeftAnkleBreakMultiplier
+				SideDelay := AnkleBreakDelay/LeftAnkleBreakMultiplier*SideBarWaitMultiplier
+				tooltip, Ankle Delay: %AnkleBreakDelay%, %TooltipX%, %Tooltip13%, 13
+				tooltip, Side Delay: %SideDelay%, %TooltipX%, %Tooltip15%, 15
+				}
+			sleep %Difference%
+			PixelSearch, FishX, , FishBarLeft, FishBarTop, FishBarRight, FishBarBottom, 0x5B4B43, %FishBarColorTolerance%, Fast
+				{
+				if (FishX < MaxLeftBar)
+				goto BarMinigame2
+				}
+			send {lbutton down}
+			sleep %CounterDifference%
+			loop, %StabilizerLoop%
+				{
+				send {lbutton down}
+				send {lbutton up}
+				}
+			DirectionalToggle := "Left"
 			}
 		else
 			{
-				Action := 0
-				tooltip, Stablizing, %TooltipX%, %Tooltip10%, 10
-				tooltip, ., %BarX%, %FishBarTooltipHeight%, 19
+			tooltip, >, %BarX%, %FishBarTooltipHeight%, 19
+			tooltip, Direction: >, %TooltipX%, %Tooltip10%, 10
+			Difference := (FishX-BarX)*ResolutionScaling*StableRightMultiplier
+			CounterDifference := Difference/StableRightDivision
+			tooltip, Forward Delay: %Difference%, %TooltipX%, %Tooltip11%, 11
+			tooltip, Counter Delay: %CounterDifference%, %TooltipX%, %Tooltip12%, 12
+			send {lbutton down}
+			if (DirectionalToggle == "Left")
+				{
+				tooltip, Ankle Delay: 0, %TooltipX%, %Tooltip13%, 13
+				sleep %AnkleBreakDelay%
+				AnkleBreakDelay := 0
+				}
+			else
+				{
+				AnkleBreakDelay := AnkleBreakDelay+(Difference-CounterDifference)*RightAnkleBreakMultiplier
+				SideDelay := AnkleBreakDelay/RightAnkleBreakMultiplier*SideBarWaitMultiplier
+				tooltip, Ankle Delay: %AnkleBreakDelay%, %TooltipX%, %Tooltip13%, 13
+				tooltip, Side Delay: %SideDelay%, %TooltipX%, %Tooltip15%, 15
+				}
+			sleep %Difference%
+			PixelSearch, FishX, , FishBarLeft, FishBarTop, FishBarRight, FishBarBottom, 0x5B4B43, %FishBarColorTolerance%, Fast
+				{
+				if (FishX > MaxRightBar)
+				goto BarMinigame2
+				}
+			send {lbutton up}
+			sleep %CounterDifference%
+			loop, %StabilizerLoop%
+				{
+				send {lbutton down}
+				send {lbutton up}
+				}
+			DirectionalToggle := "Right"
 			}
 		}
 	else
 		{
-			Direction := HalfBarSize
-			PixelSearch, ArrowX, , FishBarLeft, FishBarTop, FishBarRight, FishBarBottom, 0x878584, %ArrowColorTolerance%, Fast
-			ArrowX := ArrowX-FishX
-			if (ArrowX > 0)
-			{	
-				Action := 5
-				BarX := FishX+HalfBarSize
-				tooltip, Tracking direction: <, %TooltipX%, %Tooltip10%, 10
-				tooltip, <, %BarX%, %FishBarTooltipHeight%, 19
+		if (AtLeastFindWhiteBar == false)
+			{
+			send {lbutton down}
+			send {lbutton up}
+			goto BarMinigame2
 			}
+		PixelSearch, ArrowX, , FishBarLeft, FishBarTop, FishBarRight, FishBarBottom, 0x878584, %ArrowColorTolerance%, Fast
+		if (ArrowX > FishX)
+			{
+			tooltip, <, %ArrowX%, %FishBarTooltipHeight%, 19
+			tooltip, Direction: <<<, %TooltipX%, %Tooltip10%, 10
+			Difference := HalfBarSize*UnstableLeftMultiplier
+			CounterDifference := Difference/UnstableLeftDivision
+			tooltip, Forward Delay: %Difference%, %TooltipX%, %Tooltip11%, 11
+			tooltip, Counter Delay: %CounterDifference%, %TooltipX%, %Tooltip12%, 12
+			send {lbutton up}
+			if (DirectionalToggle == "Right")
+				{
+				tooltip, Ankle Delay: 0, %TooltipX%, %Tooltip13%, 13
+				sleep %AnkleBreakDelay%
+				AnkleBreakDelay := 0
+				}
 			else
-			{	
-				Action := 6
-				BarX := FishX-HalfBarSize
-				tooltip, Tracking direction: >, %TooltipX%, %Tooltip10%, 10
-				tooltip, >, %BarX%, %FishBarTooltipHeight%, 19
+				{
+				AnkleBreakDelay := AnkleBreakDelay+(Difference-CounterDifference)*LeftAnkleBreakMultiplier
+				SideDelay := AnkleBreakDelay/LeftAnkleBreakMultiplier*SideBarWaitMultiplier
+				tooltip, Ankle Delay: %AnkleBreakDelay%, %TooltipX%, %Tooltip13%, 13
+				tooltip, Side Delay: %SideDelay%, %TooltipX%, %Tooltip15%, 15
+				}
+			sleep %Difference%
+			PixelSearch, FishX, , FishBarLeft, FishBarTop, FishBarRight, FishBarBottom, 0x5B4B43, %FishBarColorTolerance%, Fast
+				{
+				if (FishX < MaxLeftBar)
+				goto BarMinigame2
+				}
+			send {lbutton down}
+			sleep %CounterDifference%
+			loop, %StabilizerLoop%
+				{
+				send {lbutton down}
+				send {lbutton up}
+				}
+			DirectionalToggle := "Left"
+			}
+		else
+			{
+			tooltip, >, %ArrowX%, %FishBarTooltipHeight%, 19
+			tooltip, Direction: >>>, %TooltipX%, %Tooltip10%, 10
+			Difference := HalfBarSize*UnstableRightMultiplier
+			CounterDifference := Difference/UnstableRightDivision
+			tooltip, Forward Delay: %Difference%, %TooltipX%, %Tooltip11%, 11
+			tooltip, Counter Delay: %CounterDifference%, %TooltipX%, %Tooltip12%, 12
+			send {lbutton down}
+			if (DirectionalToggle == "Left")
+				{
+				tooltip, Ankle Delay: 0, %TooltipX%, %Tooltip13%, 13
+				sleep %AnkleBreakDelay%
+				AnkleBreakDelay := 0
+				}
+			else
+				{
+				AnkleBreakDelay := AnkleBreakDelay+(Difference-CounterDifference)*RightAnkleBreakMultiplier
+				SideDelay := AnkleBreakDelay/RightAnkleBreakMultiplier*SideBarWaitMultiplier
+				tooltip, Ankle Delay: %AnkleBreakDelay%, %TooltipX%, %Tooltip13%, 13
+				tooltip, Side Delay: %SideDelay%, %TooltipX%, %Tooltip15%, 15
+				}
+			sleep %Difference%
+			PixelSearch, FishX, , FishBarLeft, FishBarTop, FishBarRight, FishBarBottom, 0x5B4B43, %FishBarColorTolerance%, Fast
+				{
+				if (FishX > MaxRightBar)
+				goto BarMinigame2
+				}
+			send {lbutton up}
+			sleep %CounterDifference%
+			loop, %StabilizerLoop%
+				{
+				send {lbutton down}
+				send {lbutton up}
+				}
+			DirectionalToggle := "Right"
 			}
 		}
+	goto BarMinigame2
 	}
 else
 	{
-		tooltip, , , , 10
-		tooltip, , , , 11
-		tooltip, , , , 12
-		tooltip, , , , 13
-		tooltip, , , , 14
-		tooltip, , , , 15
-		tooltip, , , , 17
-		tooltip, , , , 18
-		tooltip, , , , 19
-		tooltip, , , , 20
-		EndMinigame := true
-		settimer, BarMinigame2, Off
+	tooltip, , , , 10
+	tooltip, , , , 11
+	tooltip, , , , 12
+	tooltip, , , , 13
+	tooltip, , , , 15
+	tooltip, , , , 17
+	tooltip, , , , 18
+	tooltip, , , , 19
+	tooltip, , , , 20
+	EndMinigame := true
+	sleep %RestartDelay%
+	goto RestartMacro
 	}
