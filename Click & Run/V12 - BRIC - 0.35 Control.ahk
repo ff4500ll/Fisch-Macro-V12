@@ -13,7 +13,7 @@ CoordMode, Mouse, Relative
 ; Rod name
 Rod := "BRIC"
 ; Config maker credit
-Creator := "someone"
+Creator := "Kai & Shiirou"
 
 ;     GENERAL SETTINGS     ====================================================================================================;
 
@@ -59,7 +59,7 @@ ShakeFailsafe := 15
 ; Color range to scan for "shake" text
 ClickShakeColorTolerance := 3
 ; Delay between each scan in miliseconds
-ClickScanDelay := 20
+ClickScanDelay := 10
 ; Delay between each "S+Enter" in miliseconds
 NavigationSpamDelay := 10
 
@@ -84,20 +84,20 @@ ScanDelay := 10
 BaitDelay := 600
 
 ; Strength for moving right in correct zone
-StableRightMultiplier := 1.5
+StableRightMultiplier := 1.0
 ; Counter strafe after moving right in correct zone
 StableRightDivision := 1.1
 ; Strength for moving left in correct zone
-StableLeftMultiplier := 1.4
+StableLeftMultiplier := 1.1
 ; Counter strafe after moving left in correct zone
 StableLeftDivision := 1
 
 ; Strength for moving right when in wrong zone
 UnstableRightMultiplier := 2
 ; Counter strafe after moving right in wrong zone
-UnstableRightDivision := 1.3
+UnstableRightDivision := 1.0
 ; Strength for moving left when in wrong zone
-UnstableLeftMultiplier := 1.9
+UnstableLeftMultiplier := 1.8
 ; Counter strafe after moving left in wrong zone
 UnstableLeftDivision := 1.1
 

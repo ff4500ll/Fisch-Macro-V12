@@ -13,7 +13,7 @@ CoordMode, Mouse, Relative
 ; Rod name
 Rod := "Abyssal Spectre"
 ; Config maker credit
-Creator := "someone"
+Creator := "Kai & Shiirou"
 
 ;     GENERAL SETTINGS     ====================================================================================================;
 
@@ -75,31 +75,31 @@ WhiteBarColorTolerance := 15
 ArrowColorTolerance := 6
 
 ; Ratio for bar side maximum hold (1 = max bar|0.5 = half bar)
-SideBarRatio := 0.6
+SideBarRatio := 0.725
 ; How long before moving before the bar after the fish moves out side the Deadzone
 SideDelay := 800
 ; Minigame Refresh Rate
-ScanDelay := 10
+ScanDelay := 1
 ; Bait Delay leave at 600 as default
-BaitDelay := 600
+BaitDelay := 100
 
 ; Strength for moving right in correct zone
-StableRightMultiplier := 2
+StableRightMultiplier := 2.7
 ; Counter strafe after moving right in correct zone
-StableRightDivision := 1.39
+StableRightDivision := 1.60
 ; Strength for moving left in correct zone
-StableLeftMultiplier := 1.795
+StableLeftMultiplier := 1.90
 ; Counter strafe after moving left in correct zone
-StableLeftDivision := 1.25
+StableLeftDivision := 1.50
 
 ; Strength for moving right when in wrong zone
-UnstableRightMultiplier := 2.1
+UnstableRightMultiplier := 2
 ; Counter strafe after moving right in wrong zone
-UnstableRightDivision := 1.54
+UnstableRightDivision := 1.3
 ; Strength for moving left when in wrong zone
-UnstableLeftMultiplier := 2
+UnstableLeftMultiplier := 1.9
 ; Counter strafe after moving left in wrong zone
-UnstableLeftDivision := 1.25
+UnstableLeftDivision := 1.2
 
 ; Strength for moving right after a shift in the middle
 RightAnkleBreakMultiplier := 0.45

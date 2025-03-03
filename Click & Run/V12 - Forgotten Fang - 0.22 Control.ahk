@@ -13,7 +13,7 @@ CoordMode, Mouse, Relative
 ; Rod name
 Rod := "Forgotten Fang"
 ; Config maker credit
-Creator := ""
+Creator := "Kai & Shiirou"
 
 ;     GENERAL SETTINGS     ====================================================================================================;
 
@@ -59,7 +59,7 @@ ShakeFailsafe := 15
 ; Color range to scan for "shake" text
 ClickShakeColorTolerance := 3
 ; Delay between each scan in miliseconds
-ClickScanDelay := 20
+ClickScanDelay := 10
 ; Delay between each "S+Enter" in miliseconds
 NavigationSpamDelay := 10
 
@@ -68,38 +68,38 @@ NavigationSpamDelay := 10
 ; Based on the rod's control stat
 Control := 0.22
 ; Color range to scan for fish bar
-FishBarColorTolerance := 5
+FishBarColorTolerance := 6
 ; Color range to scan for minigame white bar
 WhiteBarColorTolerance := 15
 ; Color range to scan for minigame arrow
 ArrowColorTolerance := 6
 
 ; Ratio for bar side maximum hold (1 = max bar|0.5 = half bar)
-SideBarRatio := 0.725
+SideBarRatio := 0.6
 ; How long before moving before the bar after the fish moves out side the Deadzone
-SideDelay := 600
+SideDelay := 800
 ; Minigame Refresh Rate
 ScanDelay := 10
 ; Bait Delay leave at 600 as default
-BaitDelay := 600
+BaitDelay := 10
 
 ; Strength for moving right in correct zone
-StableRightMultiplier := 2.121
+StableRightMultiplier := 1.90
 ; Counter strafe after moving right in correct zone
-StableRightDivision := 1.39
+StableRightDivision := 1.60
 ; Strength for moving left in correct zone
-StableLeftMultiplier := 1.895
+StableLeftMultiplier := 1.90
 ; Counter strafe after moving left in correct zone
-StableLeftDivision := 1.25
+StableLeftDivision := 1.30
 
 ; Strength for moving right when in wrong zone
-UnstableRightMultiplier := 2.4
+UnstableRightMultiplier := 2.2
 ; Counter strafe after moving right in wrong zone
-UnstableRightDivision := 1.54
+UnstableRightDivision := 1.0
 ; Strength for moving left when in wrong zone
-UnstableLeftMultiplier := 2.25
+UnstableLeftMultiplier := 2.4
 ; Counter strafe after moving left in wrong zone
-UnstableLeftDivision := 1.25
+UnstableLeftDivision := 1.0
 
 ; Strength for moving right after a shift in the middle
 RightAnkleBreakMultiplier := 0.45

@@ -13,7 +13,7 @@ CoordMode, Mouse, Relative
 ; Rod name
 Rod := "Seraphic"
 ; Config maker credit
-Creator := ""
+Creator := "Kai & Shiirou"
 
 ;     GENERAL SETTINGS     ====================================================================================================;
 
@@ -83,23 +83,23 @@ SideDelay := 400
 ; Minigame Refresh Rate
 ScanDelay := 10
 ; Bait Delay leave at 600 as default
-BaitDelay := 600
+BaitDelay := 10
 
 ; Strength for moving right in correct zone
-StableRightMultiplier := 2.121
+StableRightMultiplier := 2.2
 ; Counter strafe after moving right in correct zone
-StableRightDivision := 1.39
+StableRightDivision := 1.40
 ; Strength for moving left in correct zone
-StableLeftMultiplier := 1.895
+StableLeftMultiplier := 1.80
 ; Counter strafe after moving left in correct zone
-StableLeftDivision := 1.25
+StableLeftDivision := 1.30
 
 ; Strength for moving right when in wrong zone
-UnstableRightMultiplier := 2.4
+UnstableRightMultiplier := 2.0
 ; Counter strafe after moving right in wrong zone
-UnstableRightDivision := 1.54
+UnstableRightDivision := 1.3
 ; Strength for moving left when in wrong zone
-UnstableLeftMultiplier := 2.25
+UnstableLeftMultiplier := 2.0
 ; Counter strafe after moving left in wrong zone
 UnstableLeftDivision := 1.25
 
