@@ -11,7 +11,7 @@ CoordMode, Mouse, Relative
 ;	 CREDITS		===============
 
 ; Rod name
-Rod := "Eternal King"
+Rod := "Tempest"
 ; Config maker credit
 Creator := ""
 
@@ -66,7 +66,7 @@ NavigationSpamDelay := 10
 ;     MINIGAME SETTINGS     ====================================================================================================;
 
 ; Based on the rod's control stat
-Control := 0.175
+Control := 0.17
 ; Color range to scan for fish bar
 FishBarColorTolerance := 5
 ; Color range to scan for minigame white bar
@@ -158,9 +158,10 @@ else
 	}
 
 if (A_ScreenDPI != 96) {
-    MsgBox, 0x40030, Error, Your display scale is not set to 100`nPlease check your display settings.
+    MsgBox, 0x40030, Error, Your display scale is not set to 100\nPlease check your display settings.
 	exitapp
 }
+	
 ;====================================================================================================;
 
 send {lbutton up}
@@ -615,6 +616,7 @@ if Control == 0:
 WhiteBarSize := Round((A_ScreenWidth / 247.03) * (InStr(Control, "0.") ? (Control * 100) : Control) + (A_ScreenWidth / 8.2759), 0)
 sleep 50
 goto BarMinigameSingle
+
 ;====================================================================================================;
 
 BarMinigameSingle:
