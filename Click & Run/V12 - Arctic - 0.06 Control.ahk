@@ -102,7 +102,7 @@ UnstableLeftMultiplier := 2.190
 UnstableLeftDivision := 1.17
 
 ; Strength for moving right after a shift in the middle
-RightAnkleBreakMultiplier := 1.35
+RightAnkleBreakMultiplier := 0.55
 ; Strength for moving left after a shift in the middle
 LeftAnkleBreakMultiplier := 0.45
 
