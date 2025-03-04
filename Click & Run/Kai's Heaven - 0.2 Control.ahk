@@ -18,7 +18,7 @@ Creator := "Saint Laurent"
 ;     GENERAL SETTINGS     ====================================================================================================;
 
 ; Set to true to automatically lower graphics to 1
-AutoLowerGraphics := false
+AutoLowerGraphics := true
 AutoGraphicsDelay := 50
 
 ; Set to true to automatically zoom in the camera
@@ -26,12 +26,12 @@ AutoZoomInCamera := true
 AutoZoomDelay := 50
 
 ; Set to true to check for camera mode and enable it
-AutoEnableCameraMode := false
-AutoCameraDelay := 100
+AutoEnableCameraMode := true
+AutoCameraDelay := 50
 
 ; Set to true to automatically look down
 AutoLookDownCamera := false
-AutoLookDelay := 200
+AutoLookDelay := 50
 
 ; Set to true to automatically blur the camera
 AutoBlurCamera := true
@@ -75,13 +75,13 @@ WhiteBarColorTolerance := 16
 ArrowColorTolerance := 0
 
 ; Ratio for bar side maximum hold (1 = max bar|0.5 = half bar)
-SideBarRatio := 0.8
+SideBarRatio := 0.725
 ; How long before moving before the bar after the fish moves out side the Deadzone
-SideDelay := 600
+SideDelay := 400
 ; Minigame Refresh Rate
 ScanDelay := 10
 ; Bait Delay leave at 600 as default
-BaitDelay := 600
+BaitDelay := 0
 
 ; Strength for moving right in correct zone
 StableRightMultiplier := 2.73

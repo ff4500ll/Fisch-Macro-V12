@@ -34,8 +34,8 @@ Gui, Add, Edit, x170 y280 w100 vHoldRodCastDuration, 600
 Gui, Add, Text, x30 y320, Wait for Bobber to Land (ms):
 Gui, Add, Edit, x170 y320 w100 vWaitForBobberDelay, 1000
 Gui, Add, Text, x30 y360, Bait Delay (ms):
-Gui, Add, Edit, x170 y360 w100 vBaitDelay, 600
-Gui, Add, Text, x30 y400, Please put Bait Delay at 600 or higher
+Gui, Add, Edit, x170 y360 w100 vBaitDelay, 0
+Gui, Add, Text, x30 y400, Apparently Fisch fixed it so its back to 0
 
 Gui, Add, Text, x380 y300, Seraphic Rod Check:
 Gui, Add, Checkbox, x500 y300 vSera, Enable
@@ -98,16 +98,16 @@ Gui, Add, Edit, x180 y180 w100 vArrowColorTolerance, 6
 Gui, Add, Text, x30 y220, Scan Delay:
 Gui, Add, Edit, x180 y220 w100 vScanDelay, 10
 Gui, Add, Text, x30 y260, Side Bar Ratio:
-Gui, Add, Edit, x180 y260 w100 vSideBarRatio, 0.8
+Gui, Add, Edit, x180 y260 w100 vSideBarRatio, 0.7
 Gui, Add, Text, x30 y300, Side Bar Delay:
-Gui, Add, Edit, x180 y300 w100 vSideDelay, 800
+Gui, Add, Edit, x180 y300 w100 vSideDelay, 400
 
 Gui, Add, Link, x30 y340, <a href="https://docs.google.com/document/d/1V2ahBQhzkFwZgpPdOJz0qpVSXPwTyQ92uIGbeyUILac/edit?usp=sharing">Minigame Settings Guide</a>
 Gui, Add, Text, x30 y360, Make your own config or use others'
 
 ; Stable
 Gui, Add, Text, x400 y40, Stable Right Multiplier:
-Gui, Add, Edit, x550 y40 w100 vStableRightMultiplier, 2.360
+Gui, Add, Edit, x550 y40 w100 vStableRightMultiplier, 2.36
 Gui, Add, Text, x400 y80, Stable Right Division:
 Gui, Add, Edit, x550 y80 w100 vStableRightDivision, 1.55
 Gui, Add, Text, x400 y120, Stable Left Multiplier:
@@ -121,7 +121,7 @@ Gui, Add, Edit, x550 y200 w100 vUnstableRightMultiplier, 2.665
 Gui, Add, Text, x400 y240, Unstable Right Division:
 Gui, Add, Edit, x550 y240 w100 vUnstableRightDivision, 1.5
 Gui, Add, Text, x400 y280, Unstable Left Multiplier:
-Gui, Add, Edit, x550 y280 w100 vUnstableLeftMultiplier, 2.190
+Gui, Add, Edit, x550 y280 w100 vUnstableLeftMultiplier, 2.19
 Gui, Add, Text, x400 y320, Unstable Left Division:
 Gui, Add, Edit, x550 y320 w100 vUnstableLeftDivision, 1
 
@@ -376,7 +376,7 @@ if (ShakeMode != "Navigation" and ShakeMode != "Click")
 ;====================================================================================================;
 
 WinActivate, Roblox
-if WinActive("ahk_exe RobloxPlayerBeta.exe")
+if WinActive("ahk_exe RobloxPlayerBeta.exe") || WinActive("ahk_exe eurotruck2.exe")
 	{
 	WinMaximize, Roblox
 	}
@@ -387,7 +387,7 @@ else
 	}
 
 if (A_ScreenDPI != 96) {
-    MsgBox, 0x40030, Error, Your display scale is not set to 100`nPlease check your display settings.
+    MsgBox, 0x40030, Error, Display Scale is not set to 100.`nPress the Windows key > Find "Change the resolution of the display" > Set the Scale to 100
 	exitapp
 }
 
@@ -540,13 +540,12 @@ runtime:
 
     tooltip, Runtime: %runtimeH%h %runtimeM%m %runtimeS%s, %TooltipX%, %Tooltip3%, 3
 
-    if (WinExist("ahk_exe RobloxPlayerBeta.exe")) {
-        if (!WinActive("ahk_exe RobloxPlayerBeta.exe")) {
+    if (WinExist("ahk_exe RobloxPlayerBeta.exe") || WinExist("ahk_exe eurotruck2.exe")) {
+        if (!WinActive("ahk_exe RobloxPlayerBeta.exe") || !WinActive("ahk_exe eurotruck2.exe")) {
             WinActivate
         }
     }
     else {
-		MsgBox, 0x40030, Error, Make sure you are using the Roblox Player (not from Microsoft)
         exitapp
     }
 return
@@ -630,16 +629,16 @@ if (AutoEnableCameraMode == true)
 	PixelSearch, , , CameraCheckLeft, CameraCheckTop, CameraCheckRight, CameraCheckBottom, 0xFFFFFF, 0, Fast
 	if !ErrorLevel
 		{
-		sleep 150
+		sleep 50
 		send {2}
 		tooltip, Action: Presss 2, %TooltipX%, %Tooltip8%, 8
-		sleep 150
+		sleep 50
 		send {1}
 		tooltip, Action: Press 1, %TooltipX%, %Tooltip8%, 8
-		sleep 150
+		sleep 50
 		send {%NavigationKey%}
 		tooltip, Action: Press %NavigationKey%, %TooltipX%, %Tooltip8%, 8
-		sleep 150
+		sleep 50
 		loop, 10
 			{
 			rightcounter++
@@ -650,7 +649,7 @@ if (AutoEnableCameraMode == true)
 			}
 		send {enter}
 		tooltip, Action: Press Enter, %TooltipX%, %Tooltip8%, 8
-		sleep 150
+		sleep 50
 		}
 	}
 
@@ -661,22 +660,22 @@ tooltip, Current Task: AutoLookDownCamera, %TooltipX%, %Tooltip7%, 7
 if (AutoLookDownCamera == true)
 	{
 	send {rbutton up}
-	sleep 100
+	sleep 50
 	mousemove, LookDownX, LookDownY
 	tooltip, Action: Position Mouse, %TooltipX%, %Tooltip8%, 8
-	sleep 100
+	sleep 50
 	send {rbutton down}
 	tooltip, Action: Hold Right Click, %TooltipX%, %Tooltip8%, 8
-	sleep 100
+	sleep 50
 	DllCall("mouse_event", "UInt", 0x01, "UInt", 0, "UInt", 10000)
 	tooltip, Action: Move Mouse Down, %TooltipX%, %Tooltip8%, 8
-	sleep 100
+	sleep 50
 	send {rbutton up}
 	tooltip, Action: Release Right Click, %TooltipX%, %Tooltip8%, 8
-	sleep 100
+	sleep 50
 	mousemove, LookDownX, LookDownY
 	tooltip, Action: Position Mouse, %TooltipX%, %Tooltip8%, 8
-	sleep 100
+	sleep 50
 	}
 	
 tooltip, Current Task: AutoBlurCamera, %TooltipX%, %Tooltip7%, 7	
@@ -885,116 +884,71 @@ BarMinigameSingle:
 
 BarMinigameAction:
 if (EndMinigame == true)
-	{
-		sleep %RestartDelay%
-		goto RestartMacro
-	}
+{
+    sleep %RestartDelay%
+    goto RestartMacro
+}
+
 if (Action == 0)
-	{
-		SideToggle := false
-		send {lbutton down}
-		sleep 10
-		send {lbutton up}
-		sleep 10
-	}
-else if (Action == 1)
-	{
-		SideToggle := false
-		send {lbutton up}
-		if (AnkleBreak == false)
-		{
-			sleep %AnkleBreakDuration%
-			AnkleBreakDuration := 0
-		}
-		Duration := Abs(Direction)*StableLeftMultiplier*PixelScaling
-		sleep %Duration%
-		send {lbutton down}
-		CounterStrafe := Duration/StableLeftDivision
-		sleep %CounterStrafe%
-		AnkleBreak := true
-		AnkleBreakDuration := AnkleBreakDuration+(Duration-CounterStrafe)*LeftAnkleBreakMultiplier
-	}
-else if (Action == 2)
-	{
-		SideToggle := false
-		send {lbutton down}
-		if (AnkleBreak == true)
-		{
-			sleep %AnkleBreakDuration%
-			AnkleBreakDuration := 0
-		}
-		Duration := Abs(Direction)*StableRightMultiplier*PixelScaling
-		sleep %Duration%
-		send {lbutton up}
-		CounterStrafe := Duration/StableRightDivision
-		sleep %CounterStrafe%
-		AnkleBreak := false
-		AnkleBreakDuration := AnkleBreakDuration+(Duration-CounterStrafe)*RightAnkleBreakMultiplier
-	}
-else if (Action == 3)
-	{
-		if (SideToggle == false)
-		{
-			AnkleBreak := none
-			AnkleBreakDuration := 0
-			SideToggle := true
-			send {lbutton down}
-			send {lbutton up}
-			sleep %SideDelay%
-		}
-		sleep %ScanDelay%
-	}
-else if (Action == 4)
-	{
-		if (SideToggle == false)
-		{
-			AnkleBreak := none
-			AnkleBreakDuration := 0
-			SideToggle := true
-			send {lbutton down}
-			sleep %SideDelay%
-		}
-		sleep %ScanDelay%
-	}
-else if (Action == 5)
-	{
-		SideToggle := false
-		send {lbutton up}
-		if (AnkleBreak == false)
-		{
-			sleep %AnkleBreakDuration%
-			AnkleBreakDuration := 0
-		}
-		Duration := Abs(Direction)*UnstableLeftMultiplier*PixelScaling
-		sleep %Duration%
-		send {lbutton down}
-		CounterStrafe := Duration/UnstableLeftDivision
-		sleep %CounterStrafe%
-		AnkleBreak := true
-		AnkleBreakDuration := AnkleBreakDuration+(Duration-CounterStrafe)*LeftAnkleBreakMultiplier
-	}
-else if (Action == 6)
-	{
-		SideToggle := false
-		send {lbutton down}
-		if (AnkleBreak == true)
-		{
-			sleep %AnkleBreakDuration%
-			AnkleBreakDuration := 0
-		}
-		Duration := Abs(Direction)*UnstableRightMultiplier*PixelScaling
-		sleep %Duration%
-		send {lbutton up}
-		CounterStrafe := Duration/UnstableRightDivision
-		sleep %CounterStrafe%
-		AnkleBreak := false
-		AnkleBreakDuration := AnkleBreakDuration+(Duration-CounterStrafe)*RightAnkleBreakMultiplier
-	}
+{
+    SideToggle := false
+    send {LButton down}
+    sleep 10
+    send {LButton up}
+    sleep 10
+}
+else if (Action == 1 || Action == 2 || Action == 5 || Action == 6)
+{
+    SideToggle := false
+    isLeft := (Action == 1 || Action == 5)
+    isStable := (Action == 1 || Action == 2)
+
+    state := isLeft ? "up" : "down"
+    send {LButton %state%}
+
+    if (AnkleBreak == !isLeft)
+    {
+        Sleep, %AnkleBreakDuration%
+        AnkleBreakDuration := 0
+    }
+
+    Multiplier := isStable ? (isLeft ? StableLeftMultiplier : StableRightMultiplier) : (isLeft ? UnstableLeftMultiplier : UnstableRightMultiplier)
+    Division := isStable ? (isLeft ? StableLeftDivision : StableRightDivision) : (isLeft ? UnstableLeftDivision : UnstableRightDivision)
+    Duration := Abs(Direction) * Multiplier * PixelScaling
+
+    sleep %Duration%
+    
+    state := isLeft ? "down" : "up"
+    send {LButton %state%}
+
+    CounterStrafe := Duration / Division
+    sleep %CounterStrafe%
+
+    AnkleBreak := isLeft
+    AnkleBreakDuration += (Duration - CounterStrafe) * (isLeft ? LeftAnkleBreakMultiplier : RightAnkleBreakMultiplier)
+}
+else if (Action == 3 || Action == 4)
+{
+    if (SideToggle == false)
+    {
+        AnkleBreak := 0
+        AnkleBreakDuration := 0
+        SideToggle := true
+
+        state := (Action == 3) ? "up" : "down"
+        send {LButton %state%}
+
+        sleep %SideDelay%
+    }
+    sleep %ScanDelay%
+}
 else
-	{
-		sleep %ScanDelay%
-	}
+{
+    sleep %ScanDelay%
+}
 goto BarMinigameAction
+
+
 
 BarMinigame2:
 sleep 1
@@ -1037,37 +991,42 @@ if !ErrorLevel
 	PixelSearch, BarX, , FishBarLeft, FishBarTop, FishBarRight, FishBarBottom, 0xFFFFFF, %WhiteBarColorTolerance%, Fast
 	if !ErrorLevel
 		{
-		tooltip, , , , 18
-		BarX := BarX+(WhiteBarSize/2)
-		Direction := BarX-FishX
-		if (Direction > Deadzone && Direction < Deadzone2)
+			tooltip, , , , 18
+			BarX := BarX + (WhiteBarSize / 2)
+			Direction := BarX - FishX
+			DistanceFactor := Abs(Direction) / HalfBarSize
+
+			Deadzone := (WhiteBarSize * 0.05) + (WhiteBarSize * 0.15 * DistanceFactor)
+			Deadzone2 := (WhiteBarSize * 0.5) + (WhiteBarSize * 0.25 * DistanceFactor)
+
+			if (Direction > Deadzone && Direction < Deadzone2)
 			{
 				Action := 1
 				tooltip, Tracking direction: <, %TooltipX%, %Tooltip10%, 10
 				tooltip, <, %BarX%, %FishBarTooltipHeight%, 19
 			}
-		else if (Direction < -Deadzone && Direction > -Deadzone2)
+			else if (Direction < -Deadzone && Direction > -Deadzone2)
 			{
 				Action := 2
 				tooltip, Tracking direction: >, %TooltipX%, %Tooltip10%, 10
 				tooltip, >, %BarX%, %FishBarTooltipHeight%, 19
 			}
-		else if (Direction > Deadzone2)
+			else if (Direction > Deadzone2)
 			{
 				Action := 5
-				tooltip, Tracking direction: <, %TooltipX%, %Tooltip10%, 10
+				tooltip, Tracking direction: < (Fast), %TooltipX%, %Tooltip10%, 10
 				tooltip, <, %BarX%, %FishBarTooltipHeight%, 19
 			}
-		else if (Direction < -Deadzone2)
+			else if (Direction < -Deadzone2)
 			{
 				Action := 6
-				tooltip, Tracking direction: >, %TooltipX%, %Tooltip10%, 10
+				tooltip, Tracking direction: > (Fast), %TooltipX%, %Tooltip10%, 10
 				tooltip, >, %BarX%, %FishBarTooltipHeight%, 19
 			}
-		else
+			else
 			{
 				Action := 0
-				tooltip, Stablizing, %TooltipX%, %Tooltip10%, 10
+				tooltip, Stabilizing, %TooltipX%, %Tooltip10%, 10
 				tooltip, ., %BarX%, %FishBarTooltipHeight%, 19
 			}
 		}
