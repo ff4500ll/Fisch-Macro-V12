@@ -93,13 +93,13 @@ StableLeftMultiplier := 1.893
 StableLeftDivision := 1.25
 
 ; Strength for moving right when in wrong zone
-UnstableRightMultiplier := 2.28
+UnstableRightMultiplier := 2.351
 ; Counter strafe after moving right in wrong zone
-UnstableRightDivision := 1.45
+UnstableRightDivision := 1.62
 ; Strength for moving left when in wrong zone
 UnstableLeftMultiplier := 2.264
 ; Counter strafe after moving left in wrong zone
-UnstableLeftDivision := 2
+UnstableLeftDivision := 1.4
 
 ; Strength for moving right after a shift in the middle
 RightAnkleBreakMultiplier := 0.45
