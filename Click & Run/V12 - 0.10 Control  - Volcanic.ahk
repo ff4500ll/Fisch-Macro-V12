@@ -11,7 +11,7 @@ CoordMode, Mouse, Relative
 ;	 CREDITS		===============
 
 ; Rod name
-Rod := "Steady"
+Rod := "Volcanic"
 ; Config maker credit
 Creator := ""
 
@@ -55,7 +55,7 @@ NavigationKey := "\"
 ShakeMode := "Click"
 
 ; Seconds for shake minigame to be considered failed
-ShakeFailsafe := 22
+ShakeFailsafe := 10
 ; Color range to scan for "shake" text
 ClickShakeColorTolerance := 3
 ; Delay between each scan in miliseconds
@@ -66,7 +66,7 @@ NavigationSpamDelay := 10
 ;     MINIGAME SETTINGS     ====================================================================================================;
 
 ; Based on the rod's control stat
-Control := 0.05
+Control := 0.1
 ; Color range to scan for fish bar
 FishBarColorTolerance := 5
 ; Color range to scan for minigame white bar
@@ -75,7 +75,7 @@ WhiteBarColorTolerance := 15
 ArrowColorTolerance := 6
 
 ; Ratio for bar side maximum hold (1 = max bar|0.5 = half bar)
-SideBarRatio := 0.6
+SideBarRatio := 0.65
 ; How long before moving before the bar after the fish moves out side the Deadzone
 SideDelay := 400
 ; Minigame Refresh Rate
@@ -84,9 +84,9 @@ ScanDelay := 10
 BaitDelay := 0
 
 ; Strength for moving right in correct zone
-StableRightMultiplier := 2.36
+StableRightMultiplier := 2.23
 ; Counter strafe after moving right in correct zone
-StableRightDivision := 1.3
+StableRightDivision := 1.5
 ; Strength for moving left in correct zone
 StableLeftMultiplier := 1.95
 ; Counter strafe after moving left in correct zone
@@ -102,9 +102,9 @@ UnstableLeftMultiplier := 2.264
 UnstableLeftDivision := 1.75
 
 ; Strength for moving right after a shift in the middle
-RightAnkleBreakMultiplier := 0.751
+RightAnkleBreakMultiplier := 0.55
 ; Strength for moving left after a shift in the middle
-LeftAnkleBreakMultiplier := 0.356
+LeftAnkleBreakMultiplier := 0.3
 
 ;====================================================================================================;
 

@@ -756,6 +756,8 @@ else
 	}
 goto BarMinigameAction
 
+
+
 BarMinigame2:
 sleep 1
 PixelSearch, FishX, , FishBarLeft, FishBarTop, FishBarRight, FishBarBottom, 0x5B4B43, %FishBarColorTolerance%, Fast
@@ -797,42 +799,43 @@ if !ErrorLevel
 	PixelSearch, BarX, , FishBarLeft, FishBarTop, FishBarRight, FishBarBottom, 0x878584, %ArrowColorTolerance%, Fast
 	if !ErrorLevel
 		{
-		tooltip, , , , 18
-		BarX := BarX+(WhiteBarSize/2)
-		Direction := BarX-FishX
-		if (Direction > Deadzone && Direction < Deadzone2)
+			tooltip, , , , 18
+			BarX := BarX + (WhiteBarSize / 2)
+			Direction := BarX - FishX
+			DistanceFactor := Abs(Direction) / HalfBarSize
+
+			; Scale deadzones dynamically
+			Deadzone := (WhiteBarSize * 0.05) + (WhiteBarSize * 0.15 * DistanceFactor)
+			Deadzone2 := (WhiteBarSize * 0.5) + (WhiteBarSize * 0.25 * DistanceFactor)
+
+			if (Direction > Deadzone && Direction < Deadzone2)
 			{
 				Action := 1
 				tooltip, Tracking direction: <, %TooltipX%, %Tooltip10%, 10
-				tooltip, Lbutton: %State%, %TooltipX%, %Tooltip11%, 11
 				tooltip, <, %BarX%, %FishBarTooltipHeight%, 19
 			}
-		else if (Direction < -Deadzone && Direction > -Deadzone2)
+			else if (Direction < -Deadzone && Direction > -Deadzone2)
 			{
 				Action := 2
 				tooltip, Tracking direction: >, %TooltipX%, %Tooltip10%, 10
-				tooltip, Lbutton: %State%, %TooltipX%, %Tooltip11%, 11
 				tooltip, >, %BarX%, %FishBarTooltipHeight%, 19
 			}
-		else if (Direction > Deadzone2)
+			else if (Direction > Deadzone2)
 			{
 				Action := 5
-				tooltip, Tracking direction: <, %TooltipX%, %Tooltip10%, 10
-				tooltip, Lbutton: %State%, %TooltipX%, %Tooltip11%, 11
+				tooltip, Tracking direction: < (Fast), %TooltipX%, %Tooltip10%, 10
 				tooltip, <, %BarX%, %FishBarTooltipHeight%, 19
 			}
-		else if (Direction < -Deadzone2)
+			else if (Direction < -Deadzone2)
 			{
 				Action := 6
-				tooltip, Tracking direction: >, %TooltipX%, %Tooltip10%, 10
-				tooltip, Lbutton: %State%, %TooltipX%, %Tooltip11%, 11
+				tooltip, Tracking direction: > (Fast), %TooltipX%, %Tooltip10%, 10
 				tooltip, >, %BarX%, %FishBarTooltipHeight%, 19
 			}
-		else
+			else
 			{
 				Action := 0
-				tooltip, Stablizing, %TooltipX%, %Tooltip10%, 10
-				tooltip, Lbutton: %State%, %TooltipX%, %Tooltip11%, 11
+				tooltip, Stabilizing, %TooltipX%, %Tooltip10%, 10
 				tooltip, ., %BarX%, %FishBarTooltipHeight%, 19
 			}
 		}

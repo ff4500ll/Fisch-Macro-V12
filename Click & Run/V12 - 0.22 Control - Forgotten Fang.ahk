@@ -632,69 +632,119 @@ BarMinigameSingle:
 	
 BarMinigameAction:
 if (EndMinigame == true)
-{
-    sleep %RestartDelay%
-    goto RestartMacro
-}
-
+	{
+		sleep %RestartDelay%
+		goto RestartMacro
+	}
 if (Action == 0)
-{
-    SideToggle := false
-    send {LButton down}
-    sleep 10
-    send {LButton up}
-    sleep 10
-}
-else if (Action == 1 || Action == 2 || Action == 5 || Action == 6)
-{
-    SideToggle := false
-    isLeft := (Action == 1 || Action == 5)
-    isStable := (Action == 1 || Action == 2)
-
-    state := isLeft ? "up" : "down"
-    send {LButton %state%}
-
-    if (AnkleBreak == !isLeft)
-    {
-        Sleep, %AnkleBreakDuration%
-        AnkleBreakDuration := 0
-    }
-
-    Multiplier := isStable ? (isLeft ? StableLeftMultiplier : StableRightMultiplier) : (isLeft ? UnstableLeftMultiplier : UnstableRightMultiplier)
-    Division := isStable ? (isLeft ? StableLeftDivision : StableRightDivision) : (isLeft ? UnstableLeftDivision : UnstableRightDivision)
-    Duration := Abs(Direction) * Multiplier * PixelScaling
-
-    sleep %Duration%
-    
-    state := isLeft ? "down" : "up"
-    send {LButton %state%}
-
-    CounterStrafe := Duration / Division
-    sleep %CounterStrafe%
-
-    AnkleBreak := isLeft
-    AnkleBreakDuration += (Duration - CounterStrafe) * (isLeft ? LeftAnkleBreakMultiplier : RightAnkleBreakMultiplier)
-}
-else if (Action == 3 || Action == 4)
-{
-    if (SideToggle == false)
-    {
-        AnkleBreak := 0
-        AnkleBreakDuration := 0
-        SideToggle := true
-
-        state := (Action == 3) ? "up" : "down"
-        send {LButton %state%}
-
-        sleep %SideDelay%
-    }
-    sleep %ScanDelay%
-}
+	{
+		SideToggle := false
+		send {lbutton down}
+		sleep 10
+		send {lbutton up}
+		sleep 10
+	}
+else if (Action == 1)
+	{
+		SideToggle := false
+		send {lbutton up}
+		if (AnkleBreak == false)
+		{
+			sleep %AnkleBreakDuration%
+			AnkleBreakDuration := 0
+		}
+		Duration := Abs(Direction)*StableLeftMultiplier*PixelScaling
+		sleep %Duration%
+		send {lbutton down}
+		CounterStrafe := Duration/StableLeftDivision
+		sleep %CounterStrafe%
+		AnkleBreak := true
+		AnkleBreakDuration := AnkleBreakDuration+(Duration-CounterStrafe)*LeftAnkleBreakMultiplier
+	}
+else if (Action == 2)
+	{
+		SideToggle := false
+		send {lbutton down}
+		if (AnkleBreak == true)
+		{
+			sleep %AnkleBreakDuration%
+			AnkleBreakDuration := 0
+		}
+		Duration := Abs(Direction)*StableRightMultiplier*PixelScaling
+		sleep %Duration%
+		send {lbutton up}
+		CounterStrafe := Duration/StableRightDivision
+		sleep %CounterStrafe%
+		AnkleBreak := false
+		AnkleBreakDuration := AnkleBreakDuration+(Duration-CounterStrafe)*RightAnkleBreakMultiplier
+	}
+else if (Action == 3)
+	{
+		if (SideToggle == false)
+		{
+			AnkleBreak := none
+			AnkleBreakDuration := 0
+			SideToggle := true
+			send {lbutton down}
+			send {lbutton up}
+			sleep %SideDelay%
+		}
+		sleep %ScanDelay%
+	}
+else if (Action == 4)
+	{
+		if (SideToggle == false)
+		{
+			AnkleBreak := none
+			AnkleBreakDuration := 0
+			SideToggle := true
+			send {lbutton down}
+			sleep %SideDelay%
+		}
+		sleep %ScanDelay%
+	}
+else if (Action == 5)
+	{
+		SideToggle := false
+		send {lbutton up}
+		if (AnkleBreak == false)
+		{
+			sleep %AnkleBreakDuration%
+			AnkleBreakDuration := 0
+		}
+		Duration := Abs(Direction)*UnstableLeftMultiplier*PixelScaling
+		sleep %Duration%
+		send {lbutton down}
+		CounterStrafe := Duration/UnstableLeftDivision
+		sleep %CounterStrafe%
+		AnkleBreak := true
+		AnkleBreakDuration := AnkleBreakDuration+(Duration-CounterStrafe)*LeftAnkleBreakMultiplier
+	}
+else if (Action == 6)
+	{
+		SideToggle := false
+		send {lbutton down}
+		if (AnkleBreak == true)
+		{
+			sleep %AnkleBreakDuration%
+			AnkleBreakDuration := 0
+		}
+		Duration := Abs(Direction)*UnstableRightMultiplier*PixelScaling
+		sleep %Duration%
+		send {lbutton up}
+		CounterStrafe := Duration/UnstableRightDivision
+		sleep %CounterStrafe%
+		AnkleBreak := false
+		AnkleBreakDuration := AnkleBreakDuration+(Duration-CounterStrafe)*RightAnkleBreakMultiplier
+	}
 else
-{
-    sleep %ScanDelay%
-}
+	{
+		sleep %ScanDelay%
+	}
 goto BarMinigameAction
+
+
+
 
 BarMinigame2:
 sleep 1
