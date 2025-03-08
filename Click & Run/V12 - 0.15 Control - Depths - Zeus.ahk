@@ -30,11 +30,11 @@ AutoEnableCameraMode := true
 AutoCameraDelay := 50
 
 ; Set to true to automatically look down
-AutoLookDownCamera := false
+AutoLookDownCamera := true
 AutoLookDelay := 50
 
 ; Set to true to automatically blur the camera
-AutoBlurCamera := false
+AutoBlurCamera := true
 AutoBlurDelay := 50
 
 ; How long to wait after fishing before restarting
@@ -93,18 +93,18 @@ StableLeftMultiplier := 1.893
 StableLeftDivision := 1.25
 
 ; Strength for moving right when in wrong zone
-UnstableRightMultiplier := 2.351
+UnstableRightMultiplier := 2.28
 ; Counter strafe after moving right in wrong zone
-UnstableRightDivision := 1.62
+UnstableRightDivision := 1.45
 ; Strength for moving left when in wrong zone
 UnstableLeftMultiplier := 2.264
 ; Counter strafe after moving left in wrong zone
-UnstableLeftDivision := 1.4
+UnstableLeftDivision := 1.25
 
 ; Strength for moving right after a shift in the middle
-RightAnkleBreakMultiplier := 0.45
+RightAnkleBreakMultiplier := 0.5
 ; Strength for moving left after a shift in the middle
-LeftAnkleBreakMultiplier := 0.25
+LeftAnkleBreakMultiplier := 0.36
 
 ;====================================================================================================;
 
@@ -606,6 +606,8 @@ else
 
 ;=========== BAR ====================================================================================================;
 
+
+
 BarMinigame:
 sleep %BaitDelay%
 ; Thanks Lunar ==================
@@ -653,7 +655,8 @@ else if (Action == 1)
 			sleep %AnkleBreakDuration%
 			AnkleBreakDuration := 0
 		}
-		Duration := Log(Abs(Direction) + 1)*StableLeftMultiplier*PixelScaling
+		AdaptiveDuration := 0.5 + 0.5 * (Abs(Direction) / HalfBarSize)
+		Duration := Abs(Direction) * StableLeftMultiplier * PixelScaling * AdaptiveDuration
 		sleep %Duration%
 		send {lbutton down}
 		CounterStrafe := Duration/StableLeftDivision
@@ -670,7 +673,8 @@ else if (Action == 2)
 			sleep %AnkleBreakDuration%
 			AnkleBreakDuration := 0
 		}
-		Duration := Log(Abs(Direction) + 1)*StableRightMultiplier*PixelScaling
+		AdaptiveDuration := 0.5 + 0.5 * (Abs(Direction) / HalfBarSize)
+		Duration := Abs(Direction) * StableLeftMultiplier * PixelScaling * AdaptiveDuration
 		sleep %Duration%
 		send {lbutton up}
 		CounterStrafe := Duration/StableRightDivision
@@ -711,7 +715,8 @@ else if (Action == 5)
 			sleep %AnkleBreakDuration%
 			AnkleBreakDuration := 0
 		}
-		Duration := Log(Abs(Direction) + 1)*UnstableLeftMultiplier*PixelScaling
+		AdaptiveDuration := 0.5 + 0.5 * (Abs(Direction) / HalfBarSize)
+		Duration := Abs(Direction) * StableLeftMultiplier * PixelScaling * AdaptiveDuration
 		sleep %Duration%
 		send {lbutton down}
 		CounterStrafe := Duration/UnstableLeftDivision
@@ -728,7 +733,8 @@ else if (Action == 6)
 			sleep %AnkleBreakDuration%
 			AnkleBreakDuration := 0
 		}
-		Duration := Log(Abs(Direction) + 1)*UnstableRightMultiplier*PixelScaling
+		AdaptiveDuration := 0.5 + 0.5 * (Abs(Direction) / HalfBarSize)
+		Duration := Abs(Direction) * StableLeftMultiplier * PixelScaling * AdaptiveDuration
 		sleep %Duration%
 		send {lbutton up}
 		CounterStrafe := Duration/UnstableRightDivision

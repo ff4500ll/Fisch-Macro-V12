@@ -650,7 +650,8 @@ else if (Action == 1)
 			sleep %AnkleBreakDuration%
 			AnkleBreakDuration := 0
 		}
-		Duration := Abs(Direction)*StableLeftMultiplier*PixelScaling
+		AdaptiveDuration := 0.5 + 0.5 * (Abs(Direction) / HalfBarSize)
+		Duration := Abs(Direction) * StableLeftMultiplier * PixelScaling * AdaptiveDuration
 		sleep %Duration%
 		send {lbutton down}
 		CounterStrafe := Duration/StableLeftDivision
@@ -667,7 +668,8 @@ else if (Action == 2)
 			sleep %AnkleBreakDuration%
 			AnkleBreakDuration := 0
 		}
-		Duration := Abs(Direction)*StableRightMultiplier*PixelScaling
+		AdaptiveDuration := 0.5 + 0.5 * (Abs(Direction) / HalfBarSize)
+		Duration := Abs(Direction) * StableLeftMultiplier * PixelScaling * AdaptiveDuration
 		sleep %Duration%
 		send {lbutton up}
 		CounterStrafe := Duration/StableRightDivision
@@ -708,7 +710,8 @@ else if (Action == 5)
 			sleep %AnkleBreakDuration%
 			AnkleBreakDuration := 0
 		}
-		Duration := Abs(Direction)*UnstableLeftMultiplier*PixelScaling
+		AdaptiveDuration := 0.5 + 0.5 * (Abs(Direction) / HalfBarSize)
+		Duration := Abs(Direction) * StableLeftMultiplier * PixelScaling * AdaptiveDuration
 		sleep %Duration%
 		send {lbutton down}
 		CounterStrafe := Duration/UnstableLeftDivision
@@ -725,7 +728,8 @@ else if (Action == 6)
 			sleep %AnkleBreakDuration%
 			AnkleBreakDuration := 0
 		}
-		Duration := Abs(Direction)*UnstableRightMultiplier*PixelScaling
+		AdaptiveDuration := 0.5 + 0.5 * (Abs(Direction) / HalfBarSize)
+		Duration := Abs(Direction) * StableLeftMultiplier * PixelScaling * AdaptiveDuration
 		sleep %Duration%
 		send {lbutton up}
 		CounterStrafe := Duration/UnstableRightDivision
@@ -738,7 +742,6 @@ else
 		sleep %ScanDelay%
 	}
 goto BarMinigameAction
-
 
 
 
