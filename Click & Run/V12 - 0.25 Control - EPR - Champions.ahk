@@ -102,9 +102,9 @@ UnstableLeftMultiplier := 2.25
 UnstableLeftDivision := 1.25
 
 ; Strength for moving right after a shift in the middle
-RightAnkleBreakMultiplier := 0.25
+RightAnkleBreakMultiplier := 0.55
 ; Strength for moving left after a shift in the middle
-LeftAnkleBreakMultiplier := 0.15
+LeftAnkleBreakMultiplier := 0.35
 
 ;====================================================================================================;
 
@@ -381,7 +381,8 @@ if (AutoZoomInCamera == true)
 	AutoZoomDelay := AutoZoomDelay*5
 	sleep %AutoZoomDelay%
 	}
-	
+
+RestartMacro:
 tooltip, , , , 10
 
 tooltip, Current Task: AutoEnableCameraMode, %TooltipX%, %Tooltip7%, 7
@@ -415,8 +416,6 @@ if (AutoEnableCameraMode == true)
 		sleep %AutoCameraDelay%
 		}
 	}
-
-RestartMacro:
 
 tooltip, , , , 9
 
@@ -685,7 +684,6 @@ else if (Action == 3)
 			AnkleBreak := none
 			AnkleBreakDuration := 0
 			SideToggle := true
-			send {lbutton down}
 			send {lbutton up}
 			sleep %SideDelay%
 		}

@@ -618,9 +618,9 @@ if (AutoZoomInCamera == true)
 	AutoZoomDelay := AutoZoomDelay*5
 	sleep 50
 	}
-	
-tooltip, , , , 10
 
+RestartMacro:
+tooltip, , , , 10
 tooltip, Current Task: AutoEnableCameraMode, %TooltipX%, %Tooltip7%, 7
 tooltip, Right Count: 0/10, %TooltipX%, %Tooltip9%, 9
 rightcounter := 0
@@ -652,8 +652,6 @@ if (AutoEnableCameraMode == true)
 		sleep 50
 		}
 	}
-
-RestartMacro:
 
 tooltip, , , , 9
 tooltip, Current Task: AutoLookDownCamera, %TooltipX%, %Tooltip7%, 7
@@ -937,7 +935,6 @@ else if (Action == 3)
 			AnkleBreak := none
 			AnkleBreakDuration := 0
 			SideToggle := true
-			send {lbutton down}
 			send {lbutton up}
 			sleep %SideDelay%
 		}

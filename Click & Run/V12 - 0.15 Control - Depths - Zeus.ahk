@@ -382,6 +382,7 @@ if (AutoZoomInCamera == true)
 	sleep %AutoZoomDelay%
 	}
 	
+RestartMacro:
 tooltip, , , , 10
 
 tooltip, Current Task: AutoEnableCameraMode, %TooltipX%, %Tooltip7%, 7
@@ -415,8 +416,6 @@ if (AutoEnableCameraMode == true)
 		sleep %AutoCameraDelay%
 		}
 	}
-
-RestartMacro:
 
 tooltip, , , , 9
 
@@ -654,7 +653,7 @@ else if (Action == 1)
 			sleep %AnkleBreakDuration%
 			AnkleBreakDuration := 0
 		}
-		Duration := Abs(Direction)*StableLeftMultiplier*PixelScaling
+		Duration := Log(Abs(Direction) + 1)*StableLeftMultiplier*PixelScaling
 		sleep %Duration%
 		send {lbutton down}
 		CounterStrafe := Duration/StableLeftDivision
@@ -671,7 +670,7 @@ else if (Action == 2)
 			sleep %AnkleBreakDuration%
 			AnkleBreakDuration := 0
 		}
-		Duration := Abs(Direction)*StableRightMultiplier*PixelScaling
+		Duration := Log(Abs(Direction) + 1)*StableRightMultiplier*PixelScaling
 		sleep %Duration%
 		send {lbutton up}
 		CounterStrafe := Duration/StableRightDivision
@@ -686,7 +685,6 @@ else if (Action == 3)
 			AnkleBreak := none
 			AnkleBreakDuration := 0
 			SideToggle := true
-			send {lbutton down}
 			send {lbutton up}
 			sleep %SideDelay%
 		}
@@ -713,7 +711,7 @@ else if (Action == 5)
 			sleep %AnkleBreakDuration%
 			AnkleBreakDuration := 0
 		}
-		Duration := Abs(Direction)*UnstableLeftMultiplier*PixelScaling
+		Duration := Log(Abs(Direction) + 1)*UnstableLeftMultiplier*PixelScaling
 		sleep %Duration%
 		send {lbutton down}
 		CounterStrafe := Duration/UnstableLeftDivision
@@ -730,7 +728,7 @@ else if (Action == 6)
 			sleep %AnkleBreakDuration%
 			AnkleBreakDuration := 0
 		}
-		Duration := Abs(Direction)*UnstableRightMultiplier*PixelScaling
+		Duration := Log(Abs(Direction) + 1)*UnstableRightMultiplier*PixelScaling
 		sleep %Duration%
 		send {lbutton up}
 		CounterStrafe := Duration/UnstableRightDivision
