@@ -336,6 +336,9 @@ tooltip, , , , 12
 tooltip, , , , 14
 tooltip, , , , 16
 
+if (ShakeMode == "Navigation") 
+send {lshift}
+
 tooltip, Current Task: AutoLowerGraphics, %TooltipX%, %Tooltip7%, 7
 tooltip, F10 Count: 0/20, %TooltipX%, %Tooltip9%, 9
 f10counter := 0
@@ -383,6 +386,13 @@ if (AutoZoomInCamera == true)
 	}
 	
 RestartMacro:
+if (AutoBlurCamera == true)
+	{
+		if (EndMinigame == true or NavigationFail == true)
+		{
+			send ``
+		}
+	}
 tooltip, , , , 10
 
 tooltip, Current Task: AutoEnableCameraMode, %TooltipX%, %Tooltip7%, 7
@@ -399,6 +409,19 @@ if (AutoEnableCameraMode == true)
 		sleep %AutoCameraDelay%
 		send {1}
 		tooltip, Action: Press 1, %TooltipX%, %Tooltip8%, 8
+		sleep %AutoCameraDelay%
+		
+		if (NavigationFail == true)
+		{
+			send {esc}
+			sleep 50
+			send {esc}
+			sleep 50
+			send {%NavigationKey%}
+			sleep 50
+			NavigationFail := false
+		}
+
 		sleep %AutoCameraDelay%
 		send {%NavigationKey%}
 		tooltip, Action: Press %NavigationKey%, %TooltipX%, %Tooltip8%, 8
@@ -440,14 +463,10 @@ if (AutoLookDownCamera == true)
 	tooltip, Action: Position Mouse, %TooltipX%, %Tooltip8%, 8
 	sleep %AutoLookDelay%
 	}
-
+	
 tooltip, Current Task: AutoBlurCamera, %TooltipX%, %Tooltip7%, 7	
 if (AutoBlurCamera == true)
 	{
-	if (EndMinigame == true)
-	{
-		send ``
-	}
 	sleep %AutoBlurDelay%
 	send ``
 	tooltip, Action: Press ``, %TooltipX%, %Tooltip8%, 8
@@ -584,6 +603,7 @@ NavigationShakeModeRedo:
 if (ForceReset == true)
 	{
 	tooltip, , , , 10
+	NavigationFail := true
 	goto RestartMacro
 	}
 sleep %NavigationSpamDelay%

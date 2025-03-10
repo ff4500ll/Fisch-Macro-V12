@@ -573,6 +573,9 @@ tooltip, , , , 12
 tooltip, , , , 14
 tooltip, , , , 16
 
+if (ShakeMode == "Navigation") 
+send {lshift}
+
 tooltip, Current Task: AutoLowerGraphics, %TooltipX%, %Tooltip7%, 7
 tooltip, F10 Count: 0/20, %TooltipX%, %Tooltip9%, 9
 f10counter := 0
@@ -620,7 +623,15 @@ if (AutoZoomInCamera == true)
 	}
 
 RestartMacro:
+if (AutoBlurCamera == true)
+	{
+		if (EndMinigame == true or NavigationFail == true)
+		{
+			send ``
+		}
+	}
 tooltip, , , , 10
+
 tooltip, Current Task: AutoEnableCameraMode, %TooltipX%, %Tooltip7%, 7
 tooltip, Right Count: 0/10, %TooltipX%, %Tooltip9%, 9
 rightcounter := 0
@@ -635,6 +646,19 @@ if (AutoEnableCameraMode == true)
 		sleep 50
 		send {1}
 		tooltip, Action: Press 1, %TooltipX%, %Tooltip8%, 8
+		sleep 50
+
+		if (NavigationFail == true)
+		{
+			send {esc}
+			sleep 50
+			send {esc}
+			sleep 50
+			send {%NavigationKey%}
+			sleep 50
+			NavigationFail := false
+		}
+
 		sleep 50
 		send {%NavigationKey%}
 		tooltip, Action: Press %NavigationKey%, %TooltipX%, %Tooltip8%, 8
@@ -679,10 +703,6 @@ if (AutoLookDownCamera == true)
 tooltip, Current Task: AutoBlurCamera, %TooltipX%, %Tooltip7%, 7	
 if (AutoBlurCamera == true)
 	{
-	if (EndMinigame == true)
-	{
-		send ``
-	}
 	sleep 50
 	send ``
 	tooltip, Action: Press ``, %TooltipX%, %Tooltip8%, 8
@@ -819,6 +839,7 @@ NavigationShakeModeRedo:
 if (ForceReset == true)
 	{
 	tooltip, , , , 10
+	NavigationFail := true
 	goto RestartMacro
 	}
 sleep %NavigationSpamDelay%
@@ -1087,12 +1108,14 @@ if !ErrorLevel
 			{	
 				Action := 5
 				BarX := FishX+HalfBarSize
+				tooltip, Tracking direction: <, %TooltipX%, %Tooltip10%, 10
 				tooltip, <, %BarX%, %FishBarTooltipHeight%, 19
 			}
 			else
 			{	
 				Action := 6
 				BarX := FishX-HalfBarSize
+				tooltip, Tracking direction: >, %TooltipX%, %Tooltip10%, 10
 				tooltip, >, %BarX%, %FishBarTooltipHeight%, 19
 			}
 		}
