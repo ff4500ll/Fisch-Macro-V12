@@ -826,7 +826,7 @@ if !ErrorLevel
 			Direction := BarX - FishX
 			DistanceFactor := Abs(Direction) / HalfBarSize
 
-			Deadzone := (WhiteBarSize * 0.08) + (WhiteBarSize * 0.12 * (DistanceFactor ** 1.2)) 
+			Deadzone := (WhiteBarSize * 0.08) + (WhiteBarSize * 0.12 * (DistanceFactor ** 1.1)) 
 			Deadzone2 := (WhiteBarSize * 0.4) + (WhiteBarSize * 0.2 * (DistanceFactor ** 1.3))
 
 			if (Direction > Deadzone && Direction < Deadzone2)

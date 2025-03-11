@@ -11,9 +11,9 @@ CoordMode, Mouse, Relative
 ;	 CREDITS		===============
 
 ; Rod name
-Rod := "No Life"
+Rod := "NLR"
 ; Config maker credit
-Creator := ""
+Creator := "Saint Laurent"
 
 ;     GENERAL SETTINGS     ====================================================================================================;
 
@@ -84,27 +84,27 @@ ScanDelay := 10
 BaitDelay := 0
 
 ; Strength for moving right in correct zone
-StableRightMultiplier := 2.121
+StableRightMultiplier := 2.0
 ; Counter strafe after moving right in correct zone
-StableRightDivision := 1.39
+StableRightDivision := 1.66
 ; Strength for moving left in correct zone
-StableLeftMultiplier := 1.895
+StableLeftMultiplier := 1.97
 ; Counter strafe after moving left in correct zone
-StableLeftDivision := 1.25
+StableLeftDivision := 1.45
 
 ; Strength for moving right when in wrong zone
-UnstableRightMultiplier := 2.4
+UnstableRightMultiplier := 2.3
 ; Counter strafe after moving right in wrong zone
-UnstableRightDivision := 1.54
+UnstableRightDivision := 1.2
 ; Strength for moving left when in wrong zone
-UnstableLeftMultiplier := 2.15
+UnstableLeftMultiplier := 2.5
 ; Counter strafe after moving left in wrong zone
-UnstableLeftDivision := 1.25
+UnstableLeftDivision := 1.0
 
 ; Strength for moving right after a shift in the middle
-RightAnkleBreakMultiplier := 0.45
+RightAnkleBreakMultiplier := 1.35
 ; Strength for moving left after a shift in the middle
-LeftAnkleBreakMultiplier := 0.25
+LeftAnkleBreakMultiplier := 0.45
 
 ;====================================================================================================;
 
@@ -826,7 +826,7 @@ if !ErrorLevel
 			Direction := BarX - FishX
 			DistanceFactor := Abs(Direction) / HalfBarSize
 
-			Deadzone := (WhiteBarSize * 0.08) + (WhiteBarSize * 0.12 * (DistanceFactor ** 1.2)) 
+			Deadzone := (WhiteBarSize * 0.08) + (WhiteBarSize * 0.12 * (DistanceFactor ** 1.1)) 
 			Deadzone2 := (WhiteBarSize * 0.4) + (WhiteBarSize * 0.2 * (DistanceFactor ** 1.3))
 
 			if (Direction > Deadzone && Direction < Deadzone2)

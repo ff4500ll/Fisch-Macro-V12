@@ -86,25 +86,25 @@ BaitDelay := 0
 ; Strength for moving right in correct zone
 StableRightMultiplier := 2.23
 ; Counter strafe after moving right in correct zone
-StableRightDivision := 1.5
+StableRightDivision := 1.2
 ; Strength for moving left in correct zone
-StableLeftMultiplier := 1.95
+StableLeftMultiplier := 2.26
 ; Counter strafe after moving left in correct zone
-StableLeftDivision := 1.29
+StableLeftDivision := 1.25
 
 ; Strength for moving right when in wrong zone
 UnstableRightMultiplier := 2.38
 ; Counter strafe after moving right in wrong zone
-UnstableRightDivision := 1.3
+UnstableRightDivision := 1.45
 ; Strength for moving left when in wrong zone
 UnstableLeftMultiplier := 2.264
 ; Counter strafe after moving left in wrong zone
-UnstableLeftDivision := 1.75
+UnstableLeftDivision := 1.25
 
 ; Strength for moving right after a shift in the middle
-RightAnkleBreakMultiplier := 0.55
+RightAnkleBreakMultiplier := 0.45
 ; Strength for moving left after a shift in the middle
-LeftAnkleBreakMultiplier := 0.3
+LeftAnkleBreakMultiplier := 0.36
 
 ;====================================================================================================;
 
@@ -826,7 +826,7 @@ if !ErrorLevel
 			Direction := BarX - FishX
 			DistanceFactor := Abs(Direction) / HalfBarSize
 
-			Deadzone := (WhiteBarSize * 0.08) + (WhiteBarSize * 0.12 * (DistanceFactor ** 1.2)) 
+			Deadzone := (WhiteBarSize * 0.08) + (WhiteBarSize * 0.12 * (DistanceFactor ** 1.1)) 
 			Deadzone2 := (WhiteBarSize * 0.4) + (WhiteBarSize * 0.2 * (DistanceFactor ** 1.3))
 
 			if (Direction > Deadzone && Direction < Deadzone2)

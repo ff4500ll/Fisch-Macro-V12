@@ -13,7 +13,7 @@ CoordMode, Mouse, Relative
 ; Rod name
 Rod := "Heaven"
 ; Config maker credit
-Creator := ""
+Creator := "Saint Laurent"
 
 ;     GENERAL SETTINGS     ====================================================================================================;
 
@@ -75,7 +75,7 @@ WhiteBarColorTolerance := 15
 ArrowColorTolerance := 6
 
 ; Ratio for bar side maximum hold (1 = max bar|0.5 = half bar)
-SideBarRatio := 0.67
+SideBarRatio := 0.65
 ; How long before moving before the bar after the fish moves out side the Deadzone
 SideDelay := 400
 ; Minigame Refresh Rate
@@ -84,27 +84,27 @@ ScanDelay := 10
 BaitDelay := 0
 
 ; Strength for moving right in correct zone
-StableRightMultiplier := 2.121
+StableRightMultiplier := 2.64
 ; Counter strafe after moving right in correct zone
-StableRightDivision := 1.39
+StableRightDivision := 1.2
 ; Strength for moving left in correct zone
-StableLeftMultiplier := 1.895
+StableLeftMultiplier := 2.5
 ; Counter strafe after moving left in correct zone
-StableLeftDivision := 1.25
+StableLeftDivision := 1.2
 
 ; Strength for moving right when in wrong zone
-UnstableRightMultiplier := 2.34
+UnstableRightMultiplier := 2.5
 ; Counter strafe after moving right in wrong zone
-UnstableRightDivision := 1.54
+UnstableRightDivision := 1.2
 ; Strength for moving left when in wrong zone
-UnstableLeftMultiplier := 2.15
+UnstableLeftMultiplier := 2.5
 ; Counter strafe after moving left in wrong zone
-UnstableLeftDivision := 1.7
+UnstableLeftDivision := 1.2
 
 ; Strength for moving right after a shift in the middle
-RightAnkleBreakMultiplier := 0.45
+RightAnkleBreakMultiplier := 1.231
 ; Strength for moving left after a shift in the middle
-LeftAnkleBreakMultiplier := 0.25
+LeftAnkleBreakMultiplier := 0.751
 
 ;====================================================================================================;
 
@@ -222,7 +222,7 @@ Tooltip18 := (WindowHeight/2)+(20*8)
 Tooltip19 := (WindowHeight/2)+(20*9)
 Tooltip20 := (WindowHeight/2)+(20*10)
 
-tooltip, Made By AsphaltCake, %TooltipX%, %Tooltip1%, 1
+tooltip, Made By AsphaltCake - Please use Seaweed/Bagel/Coral, %TooltipX%, %Tooltip1%, 1
 tooltip, V12 Config for %Rod% by %Creator%, %TooltipX%, %Tooltip2%, 2
 tooltip, Runtime: 0h 0m 0s, %TooltipX%, %Tooltip3%, 3
 
@@ -826,7 +826,7 @@ if !ErrorLevel
 			Direction := BarX - FishX
 			DistanceFactor := Abs(Direction) / HalfBarSize
 
-			Deadzone := (WhiteBarSize * 0.08) + (WhiteBarSize * 0.12 * (DistanceFactor ** 1.2)) 
+			Deadzone := (WhiteBarSize * 0.08) + (WhiteBarSize * 0.12 * (DistanceFactor ** 1.1)) 
 			Deadzone2 := (WhiteBarSize * 0.4) + (WhiteBarSize * 0.2 * (DistanceFactor ** 1.3))
 
 			if (Direction > Deadzone && Direction < Deadzone2)

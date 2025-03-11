@@ -75,7 +75,7 @@ WhiteBarColorTolerance := 15
 ArrowColorTolerance := 6
 
 ; Ratio for bar side maximum hold (1 = max bar|0.5 = half bar)
-SideBarRatio := 0.65
+SideBarRatio := 0.6
 ; How long before moving before the bar after the fish moves out side the Deadzone
 SideDelay := 400
 ; Minigame Refresh Rate
@@ -88,9 +88,9 @@ StableRightMultiplier := 2.136
 ; Counter strafe after moving right in correct zone
 StableRightDivision := 1.27
 ; Strength for moving left in correct zone
-StableLeftMultiplier := 1.893
+StableLeftMultiplier := 2.26
 ; Counter strafe after moving left in correct zone
-StableLeftDivision := 1.45
+StableLeftDivision := 1.25
 
 ; Strength for moving right when in wrong zone
 UnstableRightMultiplier := 2.38
@@ -826,7 +826,7 @@ if !ErrorLevel
 			Direction := BarX - FishX
 			DistanceFactor := Abs(Direction) / HalfBarSize
 
-			Deadzone := (WhiteBarSize * 0.08) + (WhiteBarSize * 0.12 * (DistanceFactor ** 1.2)) 
+			Deadzone := (WhiteBarSize * 0.08) + (WhiteBarSize * 0.12 * (DistanceFactor ** 1.1)) 
 			Deadzone2 := (WhiteBarSize * 0.4) + (WhiteBarSize * 0.2 * (DistanceFactor ** 1.3))
 
 			if (Direction > Deadzone && Direction < Deadzone2)
