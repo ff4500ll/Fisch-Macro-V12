@@ -39,14 +39,14 @@ Gui, Add, Text, x30 y400, Apparently Fisch fixed it so its back to 0
 
 Gui, Add, Text, x380 y300, Seraphic Rod Check:
 Gui, Add, Checkbox, x500 y300 vSera, Enable
-Gui, Add, Text, x380 y320, Only Enable if you're using Seraphic Rod
+Gui, Add, Text, x380 y320, Only Enable if youre using Seraphic Rod
 
 ; Mini guide
 Gui, Add, Link, x380 y40, <a href="https://discord.com/invite/mangos"> Join White Sands Macros</a>
 Gui, Add, Link, x380 y60, <a href="https://discord.com/channels/1322430437536170037/1323672910640185415">Check out the pre-setup before you begin (Only available in the discord above)</a>
-Gui, Add, Text, x380 y80, If it's your first time, please check all the boxes
-Gui, Add, Text, x380 y120, Click the camera icon top right in case it doesn't work
-Gui, Add, Text, x380 y200, If you're wondering, this will open the menu after enabling camera mode
+Gui, Add, Text, x380 y80, If its your first time, please check all the boxes
+Gui, Add, Text, x380 y120, Click the camera icon top right in case it doesnt work
+Gui, Add, Text, x380 y200, If youre wondering, this will open the menu after enabling camera mode
 Gui, Add, Text, x380 y240, Adjust wait time before restarting the macro
 Gui, Add, Text, x380 y280, Increase the Hold duration if you have high ping
 Gui, Add, Text, x380 y360, If you cant load or save settings, Right click the macro and choose Run as Admin `n( requires AutoHotkey v2 )
@@ -103,7 +103,7 @@ Gui, Add, Text, x30 y300, Side Bar Delay:
 Gui, Add, Edit, x180 y300 w100 vSideDelay, 400
 
 Gui, Add, Link, x30 y340, <a href="https://docs.google.com/document/d/1V2ahBQhzkFwZgpPdOJz0qpVSXPwTyQ92uIGbeyUILac/edit?usp=sharing">Minigame Settings Guide</a>
-Gui, Add, Text, x30 y360, Make your own config or use others'
+Gui, Add, Text, x30 y360, Make your own config or use others
 
 ; Stable
 Gui, Add, Text, x400 y40, Stable Right Multiplier:
@@ -370,7 +370,7 @@ Gui, Hide
 	
 if (ShakeMode != "Navigation" and ShakeMode != "Click")
 	{
-	msgbox, Shake Mode wasn't saved, remember to Save before you Start
+	msgbox, Shake Mode wasnt saved, remember to Save before you Start
 	exitapp
 	}
 ;====================================================================================================;
@@ -924,7 +924,11 @@ else if (Action == 1)
 			sleep %AnkleBreakDuration%
 			AnkleBreakDuration := 0
 		}
-		AdaptiveDuration := 0.5 + 0.5 * (Abs(Direction) / HalfBarSize)
+		DistanceFactor := Abs(Direction) / HalfBarSize
+		AdaptiveDuration := 0.3 + 0.7 * (DistanceFactor ** 1.5)
+		if (DistanceFactor < 0.2)
+			AdaptiveDuration := 0.15 + 0.15 * DistanceFactor
+
 		Duration := Abs(Direction) * StableLeftMultiplier * PixelScaling * AdaptiveDuration
 		sleep %Duration%
 		send {lbutton down}
@@ -942,8 +946,11 @@ else if (Action == 2)
 			sleep %AnkleBreakDuration%
 			AnkleBreakDuration := 0
 		}
-		AdaptiveDuration := 0.5 + 0.5 * (Abs(Direction) / HalfBarSize)
-		Duration := Abs(Direction) * StableLeftMultiplier * PixelScaling * AdaptiveDuration
+		DistanceFactor := Abs(Direction) / HalfBarSize
+		AdaptiveDuration := 0.3 + 0.7 * (DistanceFactor ** 1.5)
+		if (DistanceFactor < 0.2)
+			AdaptiveDuration := 0.15 + 0.15 * DistanceFactor
+		Duration := Abs(Direction) * StableRightMultiplier * PixelScaling * AdaptiveDuration
 		sleep %Duration%
 		send {lbutton up}
 		CounterStrafe := Duration/StableRightDivision
@@ -984,8 +991,11 @@ else if (Action == 5)
 			sleep %AnkleBreakDuration%
 			AnkleBreakDuration := 0
 		}
-		AdaptiveDuration := 0.5 + 0.5 * (Abs(Direction) / HalfBarSize)
-		Duration := Abs(Direction) * StableLeftMultiplier * PixelScaling * AdaptiveDuration
+		DistanceFactor := Abs(Direction) / HalfBarSize
+		AdaptiveDuration := 0.3 + 0.7 * (DistanceFactor ** 1.5)
+		if (DistanceFactor < 0.2)
+			AdaptiveDuration := 0.15 + 0.15 * DistanceFactor
+		Duration := Abs(Direction) * UnstableLeftMultiplier * PixelScaling * AdaptiveDuration
 		sleep %Duration%
 		send {lbutton down}
 		CounterStrafe := Duration/UnstableLeftDivision
@@ -1002,8 +1012,11 @@ else if (Action == 6)
 			sleep %AnkleBreakDuration%
 			AnkleBreakDuration := 0
 		}
-		AdaptiveDuration := 0.5 + 0.5 * (Abs(Direction) / HalfBarSize)
-		Duration := Abs(Direction) * StableLeftMultiplier * PixelScaling * AdaptiveDuration
+		DistanceFactor := Abs(Direction) / HalfBarSize
+		AdaptiveDuration := 0.3 + 0.7 * (DistanceFactor ** 1.5)
+		if (DistanceFactor < 0.2)
+			AdaptiveDuration := 0.15 + 0.15 * DistanceFactor
+		Duration := Abs(Direction) * UnstableRightMultiplier * PixelScaling * AdaptiveDuration
 		sleep %Duration%
 		send {lbutton up}
 		CounterStrafe := Duration/UnstableRightDivision
@@ -1065,8 +1078,8 @@ if !ErrorLevel
 			Direction := BarX - FishX
 			DistanceFactor := Abs(Direction) / HalfBarSize
 
-			Deadzone := (WhiteBarSize * 0.05) + (WhiteBarSize * 0.15 * DistanceFactor)
-			Deadzone2 := (WhiteBarSize * 0.5) + (WhiteBarSize * 0.25 * DistanceFactor)
+			Deadzone := (WhiteBarSize * 0.08) + (WhiteBarSize * 0.12 * (DistanceFactor ** 1.2)) 
+			Deadzone2 := (WhiteBarSize * 0.4) + (WhiteBarSize * 0.2 * (DistanceFactor ** 1.3))
 
 			if (Direction > Deadzone && Direction < Deadzone2)
 			{

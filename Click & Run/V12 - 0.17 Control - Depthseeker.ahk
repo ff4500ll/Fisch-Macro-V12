@@ -673,7 +673,11 @@ else if (Action == 1)
 			sleep %AnkleBreakDuration%
 			AnkleBreakDuration := 0
 		}
-		AdaptiveDuration := 0.5 + 0.5 * (Abs(Direction) / HalfBarSize)
+		DistanceFactor := Abs(Direction) / HalfBarSize
+		AdaptiveDuration := 0.3 + 0.7 * (DistanceFactor ** 1.5)
+		if (DistanceFactor < 0.2)
+			AdaptiveDuration := 0.15 + 0.15 * DistanceFactor
+
 		Duration := Abs(Direction) * StableLeftMultiplier * PixelScaling * AdaptiveDuration
 		sleep %Duration%
 		send {lbutton down}
@@ -691,8 +695,11 @@ else if (Action == 2)
 			sleep %AnkleBreakDuration%
 			AnkleBreakDuration := 0
 		}
-		AdaptiveDuration := 0.5 + 0.5 * (Abs(Direction) / HalfBarSize)
-		Duration := Abs(Direction) * StableLeftMultiplier * PixelScaling * AdaptiveDuration
+		DistanceFactor := Abs(Direction) / HalfBarSize
+		AdaptiveDuration := 0.3 + 0.7 * (DistanceFactor ** 1.5)
+		if (DistanceFactor < 0.2)
+			AdaptiveDuration := 0.15 + 0.15 * DistanceFactor
+		Duration := Abs(Direction) * StableRightMultiplier * PixelScaling * AdaptiveDuration
 		sleep %Duration%
 		send {lbutton up}
 		CounterStrafe := Duration/StableRightDivision
@@ -733,8 +740,11 @@ else if (Action == 5)
 			sleep %AnkleBreakDuration%
 			AnkleBreakDuration := 0
 		}
-		AdaptiveDuration := 0.5 + 0.5 * (Abs(Direction) / HalfBarSize)
-		Duration := Abs(Direction) * StableLeftMultiplier * PixelScaling * AdaptiveDuration
+		DistanceFactor := Abs(Direction) / HalfBarSize
+		AdaptiveDuration := 0.3 + 0.7 * (DistanceFactor ** 1.5)
+		if (DistanceFactor < 0.2)
+			AdaptiveDuration := 0.15 + 0.15 * DistanceFactor
+		Duration := Abs(Direction) * UnstableLeftMultiplier * PixelScaling * AdaptiveDuration
 		sleep %Duration%
 		send {lbutton down}
 		CounterStrafe := Duration/UnstableLeftDivision
@@ -751,8 +761,11 @@ else if (Action == 6)
 			sleep %AnkleBreakDuration%
 			AnkleBreakDuration := 0
 		}
-		AdaptiveDuration := 0.5 + 0.5 * (Abs(Direction) / HalfBarSize)
-		Duration := Abs(Direction) * StableLeftMultiplier * PixelScaling * AdaptiveDuration
+		DistanceFactor := Abs(Direction) / HalfBarSize
+		AdaptiveDuration := 0.3 + 0.7 * (DistanceFactor ** 1.5)
+		if (DistanceFactor < 0.2)
+			AdaptiveDuration := 0.15 + 0.15 * DistanceFactor
+		Duration := Abs(Direction) * UnstableRightMultiplier * PixelScaling * AdaptiveDuration
 		sleep %Duration%
 		send {lbutton up}
 		CounterStrafe := Duration/UnstableRightDivision
@@ -813,9 +826,9 @@ if !ErrorLevel
 			BarX := BarX + (WhiteBarSize / 2)
 			Direction := BarX - FishX
 			DistanceFactor := Abs(Direction) / HalfBarSize
-			
-			Deadzone := (WhiteBarSize * 0.05) + (WhiteBarSize * 0.15 * DistanceFactor)
-			Deadzone2 := (WhiteBarSize * 0.5) + (WhiteBarSize * 0.25 * DistanceFactor)
+
+			Deadzone := (WhiteBarSize * 0.08) + (WhiteBarSize * 0.12 * (DistanceFactor ** 1.2)) 
+			Deadzone2 := (WhiteBarSize * 0.4) + (WhiteBarSize * 0.2 * (DistanceFactor ** 1.3))
 
 			if (Direction > Deadzone && Direction < Deadzone2)
 			{
