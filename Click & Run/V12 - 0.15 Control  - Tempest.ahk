@@ -673,8 +673,7 @@ else if (Action == 1)
 			sleep %AnkleBreakDuration%
 			AnkleBreakDuration := 0
 		}
-		DistanceFactor := Abs(Direction) / HalfBarSize
-		AdaptiveDuration := 0.3 + 0.7 * (DistanceFactor ** 1.5)
+		AdaptiveDuration := 0.3 + 0.7 * (DistanceFactor ** 1.15)
 		if (DistanceFactor < 0.2)
 			AdaptiveDuration := 0.15 + 0.15 * DistanceFactor
 
@@ -695,7 +694,6 @@ else if (Action == 2)
 			sleep %AnkleBreakDuration%
 			AnkleBreakDuration := 0
 		}
-		DistanceFactor := Abs(Direction) / HalfBarSize
 		AdaptiveDuration := 0.3 + 0.7 * (DistanceFactor ** 1.5)
 		if (DistanceFactor < 0.2)
 			AdaptiveDuration := 0.15 + 0.15 * DistanceFactor
@@ -740,8 +738,7 @@ else if (Action == 5)
 			sleep %AnkleBreakDuration%
 			AnkleBreakDuration := 0
 		}
-		DistanceFactor := Abs(Direction) / HalfBarSize
-		AdaptiveDuration := 0.3 + 0.7 * (DistanceFactor ** 1.5)
+		AdaptiveDuration := 0.3 + 0.7 * (DistanceFactor ** 1.15)
 		if (DistanceFactor < 0.2)
 			AdaptiveDuration := 0.15 + 0.15 * DistanceFactor
 		Duration := Abs(Direction) * UnstableLeftMultiplier * PixelScaling * AdaptiveDuration
@@ -761,7 +758,6 @@ else if (Action == 6)
 			sleep %AnkleBreakDuration%
 			AnkleBreakDuration := 0
 		}
-		DistanceFactor := Abs(Direction) / HalfBarSize
 		AdaptiveDuration := 0.3 + 0.7 * (DistanceFactor ** 1.5)
 		if (DistanceFactor < 0.2)
 			AdaptiveDuration := 0.15 + 0.15 * DistanceFactor
