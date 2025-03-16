@@ -693,7 +693,7 @@ else if (Action == 2)
 			sleep %AnkleBreakDuration%
 			AnkleBreakDuration := 0
 		}
-		AdaptiveDuration := 0.3 + 0.7 * (DistanceFactor ** 1.5)
+		AdaptiveDuration := 0.3 + 0.7 * (DistanceFactor ** 1.2)
 		if (DistanceFactor < 0.2)
 			AdaptiveDuration := 0.15 + 0.15 * DistanceFactor
 		Duration := Abs(Direction) * StableRightMultiplier * PixelScaling * AdaptiveDuration
@@ -757,7 +757,7 @@ else if (Action == 6)
 			sleep %AnkleBreakDuration%
 			AnkleBreakDuration := 0
 		}
-		AdaptiveDuration := 0.3 + 0.7 * (DistanceFactor ** 1.5)
+		AdaptiveDuration := 0.3 + 0.7 * (DistanceFactor ** 1.2)
 		if (DistanceFactor < 0.2)
 			AdaptiveDuration := 0.15 + 0.15 * DistanceFactor
 		Duration := Abs(Direction) * UnstableRightMultiplier * PixelScaling * AdaptiveDuration

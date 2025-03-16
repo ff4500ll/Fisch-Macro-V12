@@ -672,7 +672,7 @@ else if (Action == 1)
 			sleep %AnkleBreakDuration%
 			AnkleBreakDuration := 0
 		}
-		AdaptiveDuration := 0.3 + 0.7 * (DistanceFactor ** 1.15)
+		AdaptiveDuration := 0.5 + 0.5 * (DistanceFactor ** 1.15)
 		if (DistanceFactor < 0.2)
 			AdaptiveDuration := 0.15 + 0.15 * DistanceFactor
 
@@ -693,7 +693,7 @@ else if (Action == 2)
 			sleep %AnkleBreakDuration%
 			AnkleBreakDuration := 0
 		}
-		AdaptiveDuration := 0.3 + 0.7 * (DistanceFactor ** 1.5)
+		AdaptiveDuration := 0.5 + 0.5 * (DistanceFactor ** 1.2)
 		if (DistanceFactor < 0.2)
 			AdaptiveDuration := 0.15 + 0.15 * DistanceFactor
 		Duration := Abs(Direction) * StableRightMultiplier * PixelScaling * AdaptiveDuration
@@ -737,7 +737,7 @@ else if (Action == 5)
 			sleep %AnkleBreakDuration%
 			AnkleBreakDuration := 0
 		}
-		AdaptiveDuration := 0.3 + 0.7 * (DistanceFactor ** 1.15)
+		AdaptiveDuration := 0.5 + 0.5 * (DistanceFactor ** 1.15)
 		if (DistanceFactor < 0.2)
 			AdaptiveDuration := 0.15 + 0.15 * DistanceFactor
 		Duration := Abs(Direction) * UnstableLeftMultiplier * PixelScaling * AdaptiveDuration
@@ -757,7 +757,7 @@ else if (Action == 6)
 			sleep %AnkleBreakDuration%
 			AnkleBreakDuration := 0
 		}
-		AdaptiveDuration := 0.3 + 0.7 * (DistanceFactor ** 1.5)
+		AdaptiveDuration := 0.5 + 0.5 * (DistanceFactor ** 1.2)
 		if (DistanceFactor < 0.2)
 			AdaptiveDuration := 0.15 + 0.15 * DistanceFactor
 		Duration := Abs(Direction) * UnstableRightMultiplier * PixelScaling * AdaptiveDuration
@@ -822,7 +822,6 @@ if !ErrorLevel
 			Direction := BarX - FishX
 			DistanceFactor := Abs(Direction) / HalfBarSize
 
-			Deadzone := (WhiteBarSize * 0.08) + (WhiteBarSize * 0.12 * (DistanceFactor ** 1.1)) 
 			Deadzone2 := (WhiteBarSize * 0.4) + (WhiteBarSize * 0.2 * (DistanceFactor ** 1.3))
 
 			if (Direction > Deadzone && Direction < Deadzone2)
