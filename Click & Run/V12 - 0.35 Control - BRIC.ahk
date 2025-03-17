@@ -639,6 +639,7 @@ BarMinigameSingle:
 	EndMinigame := false
 	tooltip, Current Task: Playing Bar Minigame, %TooltipX%, %Tooltip7%, 7
 	tooltip, Bar Size: %WhiteBarSize%, %TooltipX%, %Tooltip8%, 8
+	tooltip, Looking for Bar, %TooltipX%, %Tooltip10%, 10
 	HalfBarSize := WhiteBarSize/2
 	Deadzone := WhiteBarSize*0.1
 	Deadzone2 := WhiteBarSize*0.75
