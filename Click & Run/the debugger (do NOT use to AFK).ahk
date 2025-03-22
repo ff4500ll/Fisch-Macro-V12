@@ -11,30 +11,30 @@ CoordMode, Mouse, Relative
 ;	 CREDITS		===============
 
 ; Rod name
-Rod := "EPR"
+Rod := "Steady"
 ; Config maker credit
 Creator := ""
 
 ;     GENERAL SETTINGS     ====================================================================================================;
 
 ; Set to true to automatically lower graphics to 1
-AutoLowerGraphics := true
+AutoLowerGraphics := false
 AutoGraphicsDelay := 50
 
 ; Set to true to automatically zoom in the camera
-AutoZoomInCamera := true
+AutoZoomInCamera := false
 AutoZoomDelay := 50
 
 ; Set to true to check for camera mode and enable it
-AutoEnableCameraMode := true
+AutoEnableCameraMode := false
 AutoCameraDelay := 50
 
 ; Set to true to automatically look down
-AutoLookDownCamera := true
+AutoLookDownCamera := false
 AutoLookDelay := 50
 
 ; Set to true to automatically blur the camera
-AutoBlurCamera := true
+AutoBlurCamera := false
 AutoBlurDelay := 50
 
 ; How long to wait after fishing before restarting
@@ -55,7 +55,7 @@ NavigationKey := "\"
 ShakeMode := "Click"
 
 ; Seconds for shake minigame to be considered failed
-ShakeFailsafe := 15
+ShakeFailsafe := 22
 ; Color range to scan for "shake" text
 ClickShakeColorTolerance := 3
 ; Delay between each scan in miliseconds
@@ -66,7 +66,7 @@ NavigationSpamDelay := 10
 ;     MINIGAME SETTINGS     ====================================================================================================;
 
 ; Based on the rod's control stat
-Control := 0.25
+Control := 0.05
 ; Color range to scan for fish bar
 FishBarColorTolerance := 5
 ; Color range to scan for minigame white bar
@@ -75,36 +75,36 @@ WhiteBarColorTolerance := 15
 ArrowColorTolerance := 6
 
 ; Ratio for bar side maximum hold (1 = max bar|0.5 = half bar)
-SideBarRatio := 0.57
+SideBarRatio := 0.8
 ; How long before moving before the bar after the fish moves out side the Deadzone
-SideDelay := 400
+SideDelay := 300
 ; Minigame Refresh Rate
 ScanDelay := 10
 ; Bait Delay leave at 600 as default
 BaitDelay := 0
 
 ; Strength for moving right in correct zone
-StableRightMultiplier := 1.85
+StableRightMultiplier := 1.9
 ; Counter strafe after moving right in correct zone
-StableRightDivision := 1.31
+StableRightDivision := 1.1
 ; Strength for moving left in correct zone
-StableLeftMultiplier := 1.75
+StableLeftMultiplier := 1.85
 ; Counter strafe after moving left in correct zone
-StableLeftDivision := 2
+StableLeftDivision := 1.1
 
 ; Strength for moving right when in wrong zone
 UnstableRightMultiplier := 2.1
 ; Counter strafe after moving right in wrong zone
-UnstableRightDivision := 2.1
+UnstableRightDivision := 3.7
 ; Strength for moving left when in wrong zone
-UnstableLeftMultiplier := 2.1
+UnstableLeftMultiplier := 2.4
 ; Counter strafe after moving left in wrong zone
-UnstableLeftDivision := 2.1
+UnstableLeftDivision := 3.8
 
 ; Strength for moving right after a shift in the middle
-RightAnkleBreakMultiplier := 0.25
+RightAnkleBreakMultiplier := 0.1
 ; Strength for moving left after a shift in the middle
-LeftAnkleBreakMultiplier := 0.25
+LeftAnkleBreakMultiplier := 0.1
 
 ;====================================================================================================;
 
@@ -305,7 +305,7 @@ runtime:
 
     tooltip, Runtime: %runtimeH%h %runtimeM%m %runtimeS%s, %TooltipX%, %Tooltip3%, 3
 
-	if (WinExist("ahk_exe RobloxPlayerBeta.exe") || WinExist("ahk_exe eurotruck2.exe")) {
+    if (WinExist("ahk_exe RobloxPlayerBeta.exe") || WinExist("ahk_exe eurotruck2.exe")) {
         if (!WinActive("ahk_exe RobloxPlayerBeta.exe") || !WinActive("ahk_exe eurotruck2.exe")) {
             WinActivate
         }
@@ -731,7 +731,12 @@ else if (Action == 5)
 			AnkleBreakDuration := 0
 		}
 		MinDuration := 10
-		MaxDuration := WhiteBarSize
+		if (Control == 0.15 or Control > 0.15)
+		{
+			MaxDuration := WhiteBarSize
+		}else{
+			MaxDuration := WhiteBarSize + (Abs(Direction) * 0.2)
+		}	
 		Duration := Max(MinDuration, Min(Abs(Direction) * UnstableLeftMultiplier * PixelScaling, MaxDuration))
 		sleep %Duration%
 		send {lbutton down}
@@ -755,7 +760,7 @@ else if (Action == 6)
 			MaxDuration := WhiteBarSize
 		}else{
 			MaxDuration := WhiteBarSize + (Abs(Direction) * 0.2)
-		}		
+		}	
 		Duration := Max(MinDuration, Min(Abs(Direction) * UnstableRightMultiplier * PixelScaling, MaxDuration))
 		sleep %Duration%
 		send {lbutton up}
@@ -783,6 +788,10 @@ if !ErrorLevel
 			Action := 3
 			tooltip, |, %MaxLeftBar%, %FishBarTooltipHeight%, 19
 			tooltip, Direction: Max Left, %TooltipX%, %Tooltip10%, 10
+			tooltip, Duration: 0, %TooltipX%, %Tooltip11%, 11
+			tooltip, Counter: 0, %TooltipX%, %Tooltip12%, 12
+			tooltip, Factor: 0, %TooltipX%, %Tooltip13%, 13
+			tooltip, Distance: %Direction%, %TooltipX%, %Tooltip14%, 14
 			PixelSearch, ArrowX, , FishBarLeft, FishBarTop, FishBarRight, FishBarBottom, 0x878584, %ArrowColorTolerance%, Fast
 				if !ErrorLevel
 				{	
@@ -799,6 +808,10 @@ if !ErrorLevel
 			Action := 4
 			tooltip, |, %MaxRightBar%, %FishBarTooltipHeight%, 19
 			tooltip, Direction: Max Right, %TooltipX%, %Tooltip10%, 10
+			tooltip, Duration: 0, %TooltipX%, %Tooltip11%, 11
+			tooltip, Counter: 0, %TooltipX%, %Tooltip12%, 12
+			tooltip, Factor: 0, %TooltipX%, %Tooltip13%, 13
+			tooltip, Distance: %Direction%, %TooltipX%, %Tooltip14%, 14
 			PixelSearch, ArrowX, , FishBarLeft, FishBarTop, FishBarRight, FishBarBottom, 0x878584, %ArrowColorTolerance%, Fast
 				if !ErrorLevel
 				{	
@@ -823,30 +836,55 @@ if !ErrorLevel
 			{
 				Action := 1
 				tooltip, Tracking direction: <, %TooltipX%, %Tooltip10%, 10
+				tooltip, Duration: %Duration%, %TooltipX%, %Tooltip11%, 11
+				tooltip, Counter: %CounterStrafe%, %TooltipX%, %Tooltip12%, 12
+				tooltip, Factor: %DistanceFactor%, %TooltipX%, %Tooltip13%, 13
+				tooltip, Distance: %Direction%, %TooltipX%, %Tooltip14%, 14
+				tooltip, Deadzone2: %Deadzone2%, %TooltipX%, %Tooltip15%, 15
 				tooltip, <, %BarX%, %FishBarTooltipHeight%, 19
 			}
 			else if (Direction < -Deadzone && Direction > -Deadzone2)
 			{
 				Action := 2
 				tooltip, Tracking direction: >, %TooltipX%, %Tooltip10%, 10
+				tooltip, Duration: %Duration%, %TooltipX%, %Tooltip11%, 11
+				tooltip, Counter: %CounterStrafe%, %TooltipX%, %Tooltip12%, 12
+				tooltip, Factor: %DistanceFactor%, %TooltipX%, %Tooltip13%, 13
+				tooltip, Distance: %Direction%, %TooltipX%, %Tooltip14%, 14
+				tooltip, Deadzone2: %Deadzone2%, %TooltipX%, %Tooltip15%, 15
 				tooltip, >, %BarX%, %FishBarTooltipHeight%, 19
 			}
 			else if (Direction > Deadzone2)
 			{
 				Action := 5
 				tooltip, Tracking direction: <<<, %TooltipX%, %Tooltip10%, 10
+				tooltip, Duration: %Duration%, %TooltipX%, %Tooltip11%, 11
+				tooltip, Counter: %CounterStrafe%, %TooltipX%, %Tooltip12%, 12
+				tooltip, Factor: %DistanceFactor%, %TooltipX%, %Tooltip13%, 13
+				tooltip, Distance: %Direction%, %TooltipX%, %Tooltip14%, 14
+				tooltip, Deadzone2: %Deadzone2%, %TooltipX%, %Tooltip15%, 15
 				tooltip, <, %BarX%, %FishBarTooltipHeight%, 19
 			}
 			else if (Direction < -Deadzone2)
 			{
 				Action := 6
 				tooltip, Tracking direction: >>>, %TooltipX%, %Tooltip10%, 10
+				tooltip, Duration: %Duration%, %TooltipX%, %Tooltip11%, 11
+				tooltip, Counter: %CounterStrafe%, %TooltipX%, %Tooltip12%, 12
+				tooltip, Factor: %DistanceFactor%, %TooltipX%, %Tooltip13%, 13
+				tooltip, Distance: %Direction%, %TooltipX%, %Tooltip14%, 14
+				tooltip, Deadzone2: %Deadzone2%, %TooltipX%, %Tooltip15%, 15
 				tooltip, >, %BarX%, %FishBarTooltipHeight%, 19
 			}
 			else
 			{
 				Action := 0
 				tooltip, Stabilizing, %TooltipX%, %Tooltip10%, 10
+				tooltip, Duration: 0, %TooltipX%, %Tooltip11%, 11
+				tooltip, Counter: 0, %TooltipX%, %Tooltip12%, 12
+				tooltip, Factor: 0, %TooltipX%, %Tooltip13%, 13
+				tooltip, Distance: %Direction%, %TooltipX%, %Tooltip14%, 14
+				tooltip, Deadzone2: %Deadzone2%, %TooltipX%, %Tooltip15%, 15
 				tooltip, ., %BarX%, %FishBarTooltipHeight%, 19
 			}
 		}
@@ -860,6 +898,11 @@ if !ErrorLevel
 				Action := 5
 				BarX := FishX+HalfBarSize
 				tooltip, Tracking direction: <<<, %TooltipX%, %Tooltip10%, 10
+				tooltip, Duration: %Duration%, %TooltipX%, %Tooltip11%, 11
+				tooltip, Counter: %CounterStrafe%, %TooltipX%, %Tooltip12%, 12
+				tooltip, Factor: %DistanceFactor%, %TooltipX%, %Tooltip13%, 13
+				tooltip, Distance: %Direction%, %TooltipX%, %Tooltip14%, 14
+				tooltip, Deadzone2: %Deadzone2%, %TooltipX%, %Tooltip15%, 15
 				tooltip, <, %BarX%, %FishBarTooltipHeight%, 19
 			}
 			else
@@ -867,6 +910,11 @@ if !ErrorLevel
 				Action := 6
 				BarX := FishX-HalfBarSize
 				tooltip, Tracking direction: >>>, %TooltipX%, %Tooltip10%, 10
+				tooltip, Duration: %Duration%, %TooltipX%, %Tooltip11%, 11
+				tooltip, Counter: %CounterStrafe%, %TooltipX%, %Tooltip12%, 12
+				tooltip, Factor: %DistanceFactor%, %TooltipX%, %Tooltip13%, 13
+				tooltip, Distance: %Direction%, %TooltipX%, %Tooltip14%, 14
+				tooltip, Deadzone2: %Deadzone2%, %TooltipX%, %Tooltip15%, 15
 				tooltip, >, %BarX%, %FishBarTooltipHeight%, 19
 			}
 		}

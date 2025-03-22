@@ -73,7 +73,6 @@ FishBarColorTolerance := 5
 WhiteBarColorTolerance := 15
 ; Color range to scan for minigame arrow
 ArrowColorTolerance := 6
-
 ; Ratio for bar side maximum hold (1 = max bar|0.5 = half bar)
 SideBarRatio := 0.61
 ; How long before moving before the bar after the fish moves out side the Deadzone
@@ -88,18 +87,18 @@ StableRightMultiplier := 2.3
 ; Counter strafe after moving right in correct zone
 StableRightDivision := 1.27
 ; Strength for moving left in correct zone
-StableLeftMultiplier := 2.15
+StableLeftMultiplier := 2.3
 ; Counter strafe after moving left in correct zone
-StableLeftDivision := 1.4
+StableLeftDivision := 1.7
 
 ; Strength for moving right when in wrong zone
 UnstableRightMultiplier := 2.5
 ; Counter strafe after moving right in wrong zone
-UnstableRightDivision := 1.3
+UnstableRightDivision := 3
 ; Strength for moving left when in wrong zone
-UnstableLeftMultiplier := 2.7
+UnstableLeftMultiplier := 2.5
 ; Counter strafe after moving left in wrong zone
-UnstableLeftDivision := 1.3
+UnstableLeftDivision := 3
 
 ; Strength for moving right after a shift in the middle
 RightAnkleBreakMultiplier := 0.35
@@ -501,11 +500,10 @@ return
 ClickShakeMode:
 
 tooltip, Current Task: Shaking, %TooltipX%, %Tooltip7%, 7
-tooltip, Click X: None, %TooltipX%, %Tooltip8%, 8
-tooltip, Click Y: None, %TooltipX%, %Tooltip9%, 9
-
+tooltip, Looking for White pixels, %TooltipX%, %Tooltip8%, 8
+tooltip, Click X: None, %TooltipX%, %Tooltip9%, 9
+tooltip, Click Y: None, %TooltipX%, %Tooltip10%, 10
 tooltip, Click Count: 0, %TooltipX%, %Tooltip11%, 11
-tooltip, Bypass Count: 0/10, %TooltipX%, %Tooltip12%, 12
 
 tooltip, Failsafe: 0/%ShakeFailsafe%, %TooltipX%, %Tooltip14%, 14
 
@@ -543,13 +541,12 @@ else
 	if !ErrorLevel
 		{
 
-		tooltip, Click X: %ClickX%, %TooltipX%, %Tooltip8%, 8
-		tooltip, Click Y: %ClickY%, %TooltipX%, %Tooltip9%, 9
+		tooltip, Click X: %ClickX%, %TooltipX%, %Tooltip9%, 9
+		tooltip, Click Y: %ClickY%, %TooltipX%, %Tooltip10%, 10
 
 		if (ClickX != MemoryX and ClickY != MemoryY)
 			{
 			ClickShakeRepeatBypassCounter := 0
-			tooltip, Bypass Count: %ClickShakeRepeatBypassCounter%/10, %TooltipX%, %Tooltip12%, 12
 			ClickCount++
 			click, %ClickX%, %ClickY%
 			tooltip, Click Count: %ClickCount%, %TooltipX%, %Tooltip11%, 11
@@ -560,7 +557,6 @@ else
 		else
 			{
 			ClickShakeRepeatBypassCounter++
-			tooltip, Bypass Count: %ClickShakeRepeatBypassCounter%/10, %TooltipX%, %Tooltip12%, 12
 			if (ClickShakeRepeatBypassCounter >= 10)
 				{
 				MemoryX := 0
@@ -645,7 +641,7 @@ BarMinigameSingle:
 	tooltip, Looking for Bar, %TooltipX%, %Tooltip10%, 10
 	HalfBarSize := WhiteBarSize/2
 	Deadzone := WhiteBarSize*0.1
-	Deadzone2 := WhiteBarSize*0.75
+	Deadzone2 := HalfBarSize*0.75
 	
 	MaxLeftBar := FishBarLeft+(WhiteBarSize*SideBarRatio)
 	MaxRightBar := FishBarRight-(WhiteBarSize*SideBarRatio)
@@ -674,10 +670,7 @@ else if (Action == 1)
 			sleep %AnkleBreakDuration%
 			AnkleBreakDuration := 0
 		}
-		AdaptiveDuration := 0.5 + 0.5 * (DistanceFactor ** 1.15)
-		if (DistanceFactor < 0.2)
-			AdaptiveDuration := 0.15 + 0.15 * DistanceFactor
-
+		AdaptiveDuration := 0.15 + (0.35 * (DistanceFactor ** 1.5))
 		Duration := Abs(Direction) * StableLeftMultiplier * PixelScaling * AdaptiveDuration
 		sleep %Duration%
 		send {lbutton down}
@@ -695,9 +688,7 @@ else if (Action == 2)
 			sleep %AnkleBreakDuration%
 			AnkleBreakDuration := 0
 		}
-		AdaptiveDuration := 0.5 + 0.5 * (DistanceFactor ** 1.2)
-		if (DistanceFactor < 0.2)
-			AdaptiveDuration := 0.15 + 0.15 * DistanceFactor
+		AdaptiveDuration := 0.15 + (0.35 * (DistanceFactor ** 1.5))
 		Duration := Abs(Direction) * StableRightMultiplier * PixelScaling * AdaptiveDuration
 		sleep %Duration%
 		send {lbutton up}
@@ -739,10 +730,14 @@ else if (Action == 5)
 			sleep %AnkleBreakDuration%
 			AnkleBreakDuration := 0
 		}
-		AdaptiveDuration := 0.5 + 0.5 * (DistanceFactor ** 1.15)
-		if (DistanceFactor < 0.2)
-			AdaptiveDuration := 0.15 + 0.15 * DistanceFactor
-		Duration := Abs(Direction) * UnstableLeftMultiplier * PixelScaling * AdaptiveDuration
+		MinDuration := 10
+		if (Control == 0.15 or Control > 0.15)
+		{
+			MaxDuration := WhiteBarSize
+		}else{
+			MaxDuration := WhiteBarSize + (Abs(Direction) * 0.2)
+		}	
+		Duration := Max(MinDuration, Min(Abs(Direction) * UnstableLeftMultiplier * PixelScaling, MaxDuration))
 		sleep %Duration%
 		send {lbutton down}
 		CounterStrafe := Duration/UnstableLeftDivision
@@ -759,10 +754,14 @@ else if (Action == 6)
 			sleep %AnkleBreakDuration%
 			AnkleBreakDuration := 0
 		}
-		AdaptiveDuration := 0.5 + 0.5 * (DistanceFactor ** 1.2)
-		if (DistanceFactor < 0.2)
-			AdaptiveDuration := 0.15 + 0.15 * DistanceFactor
-		Duration := Abs(Direction) * UnstableRightMultiplier * PixelScaling * AdaptiveDuration
+		MinDuration := 10
+		if (Control == 0.15 or Control > 0.15)
+		{
+			MaxDuration := WhiteBarSize
+		}else{
+			MaxDuration := WhiteBarSize + (Abs(Direction) * 0.2)
+		}	
+		Duration := Max(MinDuration, Min(Abs(Direction) * UnstableRightMultiplier * PixelScaling, MaxDuration))
 		sleep %Duration%
 		send {lbutton up}
 		CounterStrafe := Duration/UnstableRightDivision
@@ -820,12 +819,11 @@ if !ErrorLevel
 	if !ErrorLevel
 		{
 			tooltip, , , , 18
-			BarX := BarX + (WhiteBarSize / 2)
+			BarX := BarX + HalfBarSize
 			Direction := BarX - FishX
 			DistanceFactor := Abs(Direction) / HalfBarSize
 
-			Deadzone2 := (WhiteBarSize * 0.55) + (WhiteBarSize * 0.2 * (DistanceFactor ** 1.3))
-
+			Ratio2 := Deadzone2/WhiteBarSize
 			if (Direction > Deadzone && Direction < Deadzone2)
 			{
 				Action := 1
@@ -841,13 +839,13 @@ if !ErrorLevel
 			else if (Direction > Deadzone2)
 			{
 				Action := 5
-				tooltip, Tracking direction: < (Fast), %TooltipX%, %Tooltip10%, 10
+				tooltip, Tracking direction: <<<, %TooltipX%, %Tooltip10%, 10
 				tooltip, <, %BarX%, %FishBarTooltipHeight%, 19
 			}
 			else if (Direction < -Deadzone2)
 			{
 				Action := 6
-				tooltip, Tracking direction: > (Fast), %TooltipX%, %Tooltip10%, 10
+				tooltip, Tracking direction: >>>, %TooltipX%, %Tooltip10%, 10
 				tooltip, >, %BarX%, %FishBarTooltipHeight%, 19
 			}
 			else
@@ -866,14 +864,14 @@ if !ErrorLevel
 			{	
 				Action := 5
 				BarX := FishX+HalfBarSize
-				tooltip, Tracking direction: <, %TooltipX%, %Tooltip10%, 10
+				tooltip, Tracking direction: <<<, %TooltipX%, %Tooltip10%, 10
 				tooltip, <, %BarX%, %FishBarTooltipHeight%, 19
 			}
 			else
 			{	
 				Action := 6
 				BarX := FishX-HalfBarSize
-				tooltip, Tracking direction: >, %TooltipX%, %Tooltip10%, 10
+				tooltip, Tracking direction: >>>, %TooltipX%, %Tooltip10%, 10
 				tooltip, >, %BarX%, %FishBarTooltipHeight%, 19
 			}
 		}
