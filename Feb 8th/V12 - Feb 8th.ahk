@@ -34,8 +34,8 @@ Gui, Add, Edit, x170 y280 w100 vHoldRodCastDuration, 600
 Gui, Add, Text, x30 y320, Wait for Bobber to Land (ms):
 Gui, Add, Edit, x170 y320 w100 vWaitForBobberDelay, 1000
 Gui, Add, Text, x30 y360, Bait Delay (ms):
-Gui, Add, Edit, x170 y360 w100 vBaitDelay, 0
-Gui, Add, Text, x30 y400, Apparently Fisch fixed it so its back to 0
+Gui, Add, Edit, x170 y360 w100 vBaitDelay, 300
+Gui, Add, Text, x30 y400, Default at 300
 
 Gui, Add, Text, x380 y300, Seraphic Rod Check:
 Gui, Add, Checkbox, x500 y300 vSera, Enable
@@ -625,6 +625,7 @@ if (AutoZoomInCamera == true)
 	}
 
 RestartMacro:
+sleep 100
 if (AutoBlurCamera == true)
 	{
 		if (EndMinigame == true or NavigationFail == true)

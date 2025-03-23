@@ -80,7 +80,7 @@ SideDelay := 400
 ; Minigame Refresh Rate
 ScanDelay := 10
 ; Bait Delay leave at 600 as default
-BaitDelay := 0
+BaitDelay := 300
 
 ; Strength for moving right in correct zone
 StableRightMultiplier := 2.3
@@ -385,6 +385,7 @@ if (AutoZoomInCamera == true)
 	}
 	
 RestartMacro:
+sleep 100
 if (AutoBlurCamera == true)
 	{
 		if (EndMinigame == true or NavigationFail == true)
