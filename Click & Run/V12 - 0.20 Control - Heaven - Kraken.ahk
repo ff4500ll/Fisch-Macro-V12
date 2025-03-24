@@ -81,30 +81,30 @@ SideDelay := 400
 ; Minigame Refresh Rate
 ScanDelay := 10
 ; Bait Delay leave at 600 as default
-BaitDelay := 300
+BaitDelay := 350
 
 ; Strength for moving right in correct zone
-StableRightMultiplier := 2.25
+StableRightMultiplier := 1.9
 ; Counter strafe after moving right in correct zone
 StableRightDivision := 1.25
 ; Strength for moving left in correct zone
-StableLeftMultiplier := 2.4
+StableLeftMultiplier := 2.3
 ; Counter strafe after moving left in correct zone
-StableLeftDivision := 1.25
+StableLeftDivision := 1.8
 
 ; Strength for moving right when in wrong zone
-UnstableRightMultiplier := 2.5
+UnstableRightMultiplier := 2.2
 ; Counter strafe after moving right in wrong zone
 UnstableRightDivision := 4
 ; Strength for moving left when in wrong zone
-UnstableLeftMultiplier := 2.5
+UnstableLeftMultiplier := 2.4
 ; Counter strafe after moving left in wrong zone
 UnstableLeftDivision := 4
 
 ; Strength for moving right after a shift in the middle
-RightAnkleBreakMultiplier := 0.45
+RightAnkleBreakMultiplier := 0.1
 ; Strength for moving left after a shift in the middle
-LeftAnkleBreakMultiplier := 0.35
+LeftAnkleBreakMultiplier := 0.1
 
 ;====================================================================================================;
 
@@ -671,7 +671,9 @@ else if (Action == 1)
 			sleep %AnkleBreakDuration%
 			AnkleBreakDuration := 0
 		}
-		AdaptiveDuration := 0.15 + (0.35 * (DistanceFactor ** 1.5))
+		AdaptiveDuration := 0.5 + 0.5 * (DistanceFactor ** 1.2)
+		if (DistanceFactor < 0.2)
+			AdaptiveDuration := 0.15 + 0.15 * DistanceFactor
 		Duration := Abs(Direction) * StableLeftMultiplier * PixelScaling * AdaptiveDuration
 		sleep %Duration%
 		send {lbutton down}
@@ -689,7 +691,9 @@ else if (Action == 2)
 			sleep %AnkleBreakDuration%
 			AnkleBreakDuration := 0
 		}
-		AdaptiveDuration := 0.15 + (0.35 * (DistanceFactor ** 1.5))
+		AdaptiveDuration := 0.5 + 0.5 * (DistanceFactor ** 1.2)
+		if (DistanceFactor < 0.2)
+			AdaptiveDuration := 0.15 + 0.15 * DistanceFactor
 		Duration := Abs(Direction) * StableRightMultiplier * PixelScaling * AdaptiveDuration
 		sleep %Duration%
 		send {lbutton up}
@@ -732,12 +736,15 @@ else if (Action == 5)
 			AnkleBreakDuration := 0
 		}
 		MinDuration := 10
-		if (Control == 0.15 or Control > 0.15)
-		{
-			MaxDuration := WhiteBarSize
+		if (Control == 0.15 or Control > 0.15){
+			MaxDuration := WhiteBarSize*0.88
+		}else if(Control == 0.2 or Control > 0.2){
+			MaxDuration := WhiteBarSize*0.8
+		}else if(Control == 0.25 or Control > 0.25){
+			MaxDuration := WhiteBarSize*0.75
 		}else{
 			MaxDuration := WhiteBarSize + (Abs(Direction) * 0.2)
-		}	
+		}
 		Duration := Max(MinDuration, Min(Abs(Direction) * UnstableLeftMultiplier * PixelScaling, MaxDuration))
 		sleep %Duration%
 		send {lbutton down}
@@ -756,9 +763,12 @@ else if (Action == 6)
 			AnkleBreakDuration := 0
 		}
 		MinDuration := 10
-		if (Control == 0.15 or Control > 0.15)
-		{
-			MaxDuration := WhiteBarSize
+		if (Control == 0.15 or Control > 0.15){
+			MaxDuration := WhiteBarSize*0.88
+		}else if(Control == 0.2 or Control > 0.2){
+			MaxDuration := WhiteBarSize*0.8
+		}else if(Control == 0.25 or Control > 0.25){
+			MaxDuration := WhiteBarSize*0.75
 		}else{
 			MaxDuration := WhiteBarSize + (Abs(Direction) * 0.2)
 		}	

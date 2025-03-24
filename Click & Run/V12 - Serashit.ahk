@@ -683,7 +683,9 @@ else if (Action == 1)
 			sleep %AnkleBreakDuration%
 			AnkleBreakDuration := 0
 		}
-		AdaptiveDuration := 0.15 + (0.35 * (DistanceFactor ** 1.5))
+		AdaptiveDuration := 0.5 + 0.5 * (DistanceFactor ** 1.2)
+		if (DistanceFactor < 0.2)
+			AdaptiveDuration := 0.15 + 0.15 * DistanceFactor
 		Duration := Abs(Direction) * StableLeftMultiplier * PixelScaling * AdaptiveDuration
 		sleep %Duration%
 		send {lbutton down}
@@ -701,7 +703,9 @@ else if (Action == 2)
 			sleep %AnkleBreakDuration%
 			AnkleBreakDuration := 0
 		}
-		AdaptiveDuration := 0.15 + (0.35 * (DistanceFactor ** 1.5))
+		AdaptiveDuration := 0.5 + 0.5 * (DistanceFactor ** 1.2)
+		if (DistanceFactor < 0.2)
+			AdaptiveDuration := 0.15 + 0.15 * DistanceFactor
 		Duration := Abs(Direction) * StableRightMultiplier * PixelScaling * AdaptiveDuration
 		sleep %Duration%
 		send {lbutton up}
@@ -744,12 +748,15 @@ else if (Action == 5)
 			AnkleBreakDuration := 0
 		}
 		MinDuration := 10
-		if (Control == 0.15 or Control > 0.15)
-		{
-			MaxDuration := WhiteBarSize
+		if (Control == 0.15 or Control > 0.15){
+			MaxDuration := WhiteBarSize*0.88
+		}else if(Control == 0.2 or Control > 0.2){
+			MaxDuration := WhiteBarSize*0.8
+		}else if(Control == 0.25 or Control > 0.25){
+			MaxDuration := WhiteBarSize*0.75
 		}else{
 			MaxDuration := WhiteBarSize + (Abs(Direction) * 0.2)
-		}	
+		}
 		Duration := Max(MinDuration, Min(Abs(Direction) * UnstableLeftMultiplier * PixelScaling, MaxDuration))
 		sleep %Duration%
 		send {lbutton down}
@@ -768,9 +775,12 @@ else if (Action == 6)
 			AnkleBreakDuration := 0
 		}
 		MinDuration := 10
-		if (Control == 0.15 or Control > 0.15)
-		{
-			MaxDuration := WhiteBarSize
+		if (Control == 0.15 or Control > 0.15){
+			MaxDuration := WhiteBarSize*0.88
+		}else if(Control == 0.2 or Control > 0.2){
+			MaxDuration := WhiteBarSize*0.8
+		}else if(Control == 0.25 or Control > 0.25){
+			MaxDuration := WhiteBarSize*0.75
 		}else{
 			MaxDuration := WhiteBarSize + (Abs(Direction) * 0.2)
 		}	
