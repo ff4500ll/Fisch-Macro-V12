@@ -79,9 +79,9 @@ SideBarRatio := 0.63
 ; How long before moving before the bar after the fish moves out side the Deadzone
 SideDelay := 500
 ; Minigame Refresh Rate
-ScanDelay := 1
-; Bait Delay leave at 600 as default
-BaitDelay := 300
+ScanDelay := 10
+; Bait Delay leave at 350 as default
+BaitDelay := 350
 
 ; Strength for moving right in correct zone
 StableRightMultiplier := 2.5
@@ -336,8 +336,11 @@ tooltip, , , , 12
 tooltip, , , , 14
 tooltip, , , , 16
 
-if (ShakeMode == "Navigation") 
-send {lshift}
+if (ShakeMode == "Navigation")
+{
+	send {lshift}
+	AutoBlurCamera := false
+}
 
 tooltip, Current Task: AutoLowerGraphics, %TooltipX%, %Tooltip7%, 7
 tooltip, F10 Count: 0/20, %TooltipX%, %Tooltip9%, 9

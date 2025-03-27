@@ -575,8 +575,11 @@ tooltip, , , , 12
 tooltip, , , , 14
 tooltip, , , , 16
 
-if (ShakeMode == "Navigation") 
-send {lshift}
+if (ShakeMode == "Navigation")
+{
+	send {lshift}
+	AutoBlurCamera := false
+}
 
 tooltip, Current Task: AutoLowerGraphics, %TooltipX%, %Tooltip7%, 7
 tooltip, F10 Count: 0/20, %TooltipX%, %Tooltip9%, 9

@@ -80,8 +80,8 @@ SideBarRatio := 0.8
 SideDelay := 400
 ; Minigame Refresh Rate
 ScanDelay := 10
-; Bait Delay leave at 600 as default
-BaitDelay := 300
+; Bait Delay leave at 350 as default
+BaitDelay := 350
 
 ; Strength for moving right in correct zone
 StableRightMultiplier := 2.1
@@ -336,8 +336,11 @@ tooltip, , , , 12
 tooltip, , , , 14
 tooltip, , , , 16
 
-if (ShakeMode == "Navigation") 
-send {lshift}
+if (ShakeMode == "Navigation")
+{
+	send {lshift}
+	AutoBlurCamera := false
+}
 
 tooltip, Current Task: AutoLowerGraphics, %TooltipX%, %Tooltip7%, 7
 tooltip, F10 Count: 0/20, %TooltipX%, %Tooltip9%, 9
