@@ -18,11 +18,11 @@ Creator := ""
 ;     GENERAL SETTINGS     ====================================================================================================;
 
 ; Set to true to automatically lower graphics to 1
-AutoLowerGraphics := false
+AutoLowerGraphics := true
 AutoGraphicsDelay := 50
 
 ; Set to true to automatically zoom in the camera
-AutoZoomInCamera := false
+AutoZoomInCamera := true
 AutoZoomDelay := 50
 
 ; Set to true to check for camera mode and enable it
@@ -30,11 +30,11 @@ AutoEnableCameraMode := true
 AutoCameraDelay := 50
 
 ; Set to true to automatically look down
-AutoLookDownCamera := false
+AutoLookDownCamera := true
 AutoLookDelay := 50
 
 ; Set to true to automatically blur the camera
-AutoBlurCamera := false
+AutoBlurCamera := true
 AutoBlurDelay := 50
 
 ; How long to wait after fishing before restarting
@@ -75,7 +75,7 @@ WhiteBarColorTolerance := 15
 ArrowColorTolerance := 6
 
 ; Ratio for bar side maximum hold (1 = max bar|0.5 = half bar)
-SideBarRatio := 0.6
+SideBarRatio := 0.5
 ; How long before moving before the bar after the fish moves out side the Deadzone
 SideDelay := 400
 ; Minigame Refresh Rate
