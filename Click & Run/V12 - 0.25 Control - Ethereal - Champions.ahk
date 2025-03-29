@@ -18,11 +18,11 @@ Creator := ""
 ;     GENERAL SETTINGS     ====================================================================================================;
 
 ; Set to true to automatically lower graphics to 1
-AutoLowerGraphics := true
+AutoLowerGraphics := false
 AutoGraphicsDelay := 50
 
 ; Set to true to automatically zoom in the camera
-AutoZoomInCamera := true
+AutoZoomInCamera := false
 AutoZoomDelay := 50
 
 ; Set to true to check for camera mode and enable it
@@ -30,11 +30,11 @@ AutoEnableCameraMode := true
 AutoCameraDelay := 50
 
 ; Set to true to automatically look down
-AutoLookDownCamera := true
+AutoLookDownCamera := false
 AutoLookDelay := 50
 
 ; Set to true to automatically blur the camera
-AutoBlurCamera := true
+AutoBlurCamera := false
 AutoBlurDelay := 50
 
 ; How long to wait after fishing before restarting
@@ -55,7 +55,7 @@ NavigationKey := "\"
 ShakeMode := "Click"
 
 ; Seconds for shake minigame to be considered failed
-ShakeFailsafe := 15
+ShakeFailsafe := 8
 ; Color range to scan for "shake" text
 ClickShakeColorTolerance := 3
 ; Delay between each scan in miliseconds
@@ -75,7 +75,7 @@ WhiteBarColorTolerance := 15
 ArrowColorTolerance := 6
 
 ; Ratio for bar side maximum hold (1 = max bar|0.5 = half bar)
-SideBarRatio := 0.65
+SideBarRatio := 0.6
 ; How long before moving before the bar after the fish moves out side the Deadzone
 SideDelay := 400
 ; Minigame Refresh Rate
@@ -90,7 +90,7 @@ StableRightDivision := 1.31
 ; Strength for moving left in correct zone
 StableLeftMultiplier := 2.5
 ; Counter strafe after moving left in correct zone
-StableLeftDivision := 1.8
+StableLeftDivision := 1.2
 
 ; Strength for moving right when in wrong zone
 UnstableRightMultiplier := 2.1
@@ -325,6 +325,7 @@ $p::
 
 gosub, Calculations
 settimer, runtime, 1000
+settimer, CutsceneCheck, 1000
 
 tooltip, Press "O" to Reload, %TooltipX%, %Tooltip4%, 4
 tooltip, Press "M" to Exit, %TooltipX%, %Tooltip5%, 5
@@ -335,6 +336,7 @@ tooltip, , , , 11
 tooltip, , , , 12
 tooltip, , , , 14
 tooltip, , , , 16
+
 
 if (ShakeMode == "Navigation")
 {
@@ -408,24 +410,21 @@ if (AutoEnableCameraMode == true)
 	if !ErrorLevel
 		{
 		sleep %AutoCameraDelay%
+		if (NavigationFail == true)
+		{
+			sleep %AutoCameraDelay%
+			send {%NavigationKey%}
+			sleep %AutoCameraDelay%
+			send {2}
+			sleep %AutoCameraDelay%
+			NavigationFail := false
+		}
+		sleep %AutoCameraDelay%
 		send {2}
 		tooltip, Action: Presss 2, %TooltipX%, %Tooltip8%, 8
 		sleep %AutoCameraDelay%
 		send {1}
 		tooltip, Action: Press 1, %TooltipX%, %Tooltip8%, 8
-		sleep %AutoCameraDelay%
-		
-		if (NavigationFail == true)
-		{
-			send {esc}
-			sleep 50
-			send {esc}
-			sleep 50
-			send {%NavigationKey%}
-			sleep 50
-			NavigationFail := false
-		}
-
 		sleep %AutoCameraDelay%
 		send {%NavigationKey%}
 		tooltip, Action: Press %NavigationKey%, %TooltipX%, %Tooltip8%, 8

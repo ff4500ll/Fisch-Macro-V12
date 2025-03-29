@@ -11,18 +11,18 @@ CoordMode, Mouse, Relative
 ;	 CREDITS		===============
 
 ; Rod name
-Rod := "Steady"
+Rod := "EPR"
 ; Config maker credit
 Creator := ""
 
 ;     GENERAL SETTINGS     ====================================================================================================;
 
 ; Set to true to automatically lower graphics to 1
-AutoLowerGraphics := true
+AutoLowerGraphics := false
 AutoGraphicsDelay := 50
 
 ; Set to true to automatically zoom in the camera
-AutoZoomInCamera := true
+AutoZoomInCamera := false
 AutoZoomDelay := 50
 
 ; Set to true to check for camera mode and enable it
@@ -30,11 +30,11 @@ AutoEnableCameraMode := true
 AutoCameraDelay := 50
 
 ; Set to true to automatically look down
-AutoLookDownCamera := true
+AutoLookDownCamera := false
 AutoLookDelay := 50
 
 ; Set to true to automatically blur the camera
-AutoBlurCamera := true
+AutoBlurCamera := false
 AutoBlurDelay := 50
 
 ; How long to wait after fishing before restarting
@@ -55,7 +55,7 @@ NavigationKey := "\"
 ShakeMode := "Click"
 
 ; Seconds for shake minigame to be considered failed
-ShakeFailsafe := 22
+ShakeFailsafe := 8
 ; Color range to scan for "shake" text
 ClickShakeColorTolerance := 3
 ; Delay between each scan in miliseconds
@@ -66,7 +66,7 @@ NavigationSpamDelay := 10
 ;     MINIGAME SETTINGS     ====================================================================================================;
 
 ; Based on the rod's control stat
-Control := 0.05
+Control := 0.25
 ; Color range to scan for fish bar
 FishBarColorTolerance := 5
 ; Color range to scan for minigame white bar
@@ -75,7 +75,7 @@ WhiteBarColorTolerance := 15
 ArrowColorTolerance := 6
 
 ; Ratio for bar side maximum hold (1 = max bar|0.5 = half bar)
-SideBarRatio := 0.8
+SideBarRatio := 0.6
 ; How long before moving before the bar after the fish moves out side the Deadzone
 SideDelay := 400
 ; Minigame Refresh Rate
@@ -84,27 +84,27 @@ ScanDelay := 10
 BaitDelay := 350
 
 ; Strength for moving right in correct zone
-StableRightMultiplier := 2.1
+StableRightMultiplier := 2
 ; Counter strafe after moving right in correct zone
-StableRightDivision := 1.1
+StableRightDivision := 1.31
 ; Strength for moving left in correct zone
-StableLeftMultiplier := 1.85
+StableLeftMultiplier := 2.5
 ; Counter strafe after moving left in correct zone
-StableLeftDivision := 1.6
+StableLeftDivision := 1.2
 
 ; Strength for moving right when in wrong zone
-UnstableRightMultiplier := 2.2
+UnstableRightMultiplier := 2.1
 ; Counter strafe after moving right in wrong zone
-UnstableRightDivision := 3.7
+UnstableRightDivision := 1.8
 ; Strength for moving left when in wrong zone
-UnstableLeftMultiplier := 2.4
+UnstableLeftMultiplier := 2.1
 ; Counter strafe after moving left in wrong zone
-UnstableLeftDivision := 3.8
+UnstableLeftDivision := 1.8
 
 ; Strength for moving right after a shift in the middle
-RightAnkleBreakMultiplier := 0.36
+RightAnkleBreakMultiplier := 0.1
 ; Strength for moving left after a shift in the middle
-LeftAnkleBreakMultiplier := 0.25
+LeftAnkleBreakMultiplier := 0.1
 
 ;====================================================================================================;
 
@@ -305,7 +305,7 @@ runtime:
 
     tooltip, Runtime: %runtimeH%h %runtimeM%m %runtimeS%s, %TooltipX%, %Tooltip3%, 3
 
-    if (WinExist("ahk_exe RobloxPlayerBeta.exe") || WinExist("ahk_exe eurotruck2.exe")) {
+	if (WinExist("ahk_exe RobloxPlayerBeta.exe") || WinExist("ahk_exe eurotruck2.exe")) {
         if (!WinActive("ahk_exe RobloxPlayerBeta.exe") || !WinActive("ahk_exe eurotruck2.exe")) {
             WinActivate
         }
@@ -314,6 +314,13 @@ runtime:
         exitapp
     }
 return
+
+CutsceneCheck:
+Pixelsearch, , ,1900, 900, 1900, 900, 0x000000, 0, fast
+if !(ErrorLevel){
+	Cutscene := true
+	goto RestartMacro
+}
 
 ;====================================================================================================;
 
@@ -325,6 +332,7 @@ $p::
 
 gosub, Calculations
 settimer, runtime, 1000
+settimer, CutsceneCheck, 1000
 
 tooltip, Press "O" to Reload, %TooltipX%, %Tooltip4%, 4
 tooltip, Press "M" to Exit, %TooltipX%, %Tooltip5%, 5
@@ -335,6 +343,7 @@ tooltip, , , , 11
 tooltip, , , , 12
 tooltip, , , , 14
 tooltip, , , , 16
+
 
 if (ShakeMode == "Navigation")
 {
@@ -389,6 +398,12 @@ if (AutoZoomInCamera == true)
 	}
 	
 RestartMacro:
+if (Cutscene == true){
+	tooltip, Waiting for Cutscene, %TooltipX%, %Tooltip7%, 7
+	tooltip, , , , 8
+	sleep 25000
+	Cutscene := false
+}
 sleep 100
 if (AutoBlurCamera == true)
 	{
@@ -423,7 +438,6 @@ if (AutoEnableCameraMode == true)
 		sleep %AutoCameraDelay%
 		send {1}
 		tooltip, Action: Press 1, %TooltipX%, %Tooltip8%, 8
-	
 		sleep %AutoCameraDelay%
 		send {%NavigationKey%}
 		tooltip, Action: Press %NavigationKey%, %TooltipX%, %Tooltip8%, 8

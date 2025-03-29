@@ -55,7 +55,7 @@ NavigationKey := "\"
 ShakeMode := "Click"
 
 ; Seconds for shake minigame to be considered failed
-ShakeFailsafe := 15
+ShakeFailsafe := 8
 ; Color range to scan for "shake" text
 ClickShakeColorTolerance := 3
 ; Delay between each scan in miliseconds
@@ -408,24 +408,21 @@ if (AutoEnableCameraMode == true)
 	if !ErrorLevel
 		{
 		sleep %AutoCameraDelay%
+		if (NavigationFail == true)
+		{
+			sleep %AutoCameraDelay%
+			send {%NavigationKey%}
+			sleep %AutoCameraDelay%
+			send {2}
+			sleep %AutoCameraDelay%
+			NavigationFail := false
+		}
+		sleep %AutoCameraDelay%
 		send {2}
 		tooltip, Action: Presss 2, %TooltipX%, %Tooltip8%, 8
 		sleep %AutoCameraDelay%
 		send {1}
 		tooltip, Action: Press 1, %TooltipX%, %Tooltip8%, 8
-		sleep %AutoCameraDelay%
-		
-		if (NavigationFail == true)
-		{
-			send {esc}
-			sleep 50
-			send {esc}
-			sleep 50
-			send {%NavigationKey%}
-			sleep 50
-			NavigationFail := false
-		}
-
 		sleep %AutoCameraDelay%
 		send {%NavigationKey%}
 		tooltip, Action: Press %NavigationKey%, %TooltipX%, %Tooltip8%, 8

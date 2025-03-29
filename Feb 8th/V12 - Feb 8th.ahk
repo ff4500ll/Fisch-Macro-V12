@@ -646,25 +646,23 @@ if (AutoEnableCameraMode == true)
 	PixelSearch, , , CameraCheckLeft, CameraCheckTop, CameraCheckRight, CameraCheckBottom, 0xFFFFFF, 0, Fast
 	if !ErrorLevel
 		{
+		{
+		sleep 50
+		if (NavigationFail == true)
+		{
+			sleep 50
+			send {%NavigationKey%}
+			sleep 50
+			send {2}
+			sleep 50
+			NavigationFail := false
+		}
 		sleep 50
 		send {2}
 		tooltip, Action: Presss 2, %TooltipX%, %Tooltip8%, 8
 		sleep 50
 		send {1}
 		tooltip, Action: Press 1, %TooltipX%, %Tooltip8%, 8
-		sleep 50
-
-		if (NavigationFail == true)
-		{
-			send {esc}
-			sleep 50
-			send {esc}
-			sleep 50
-			send {%NavigationKey%}
-			sleep 50
-			NavigationFail := false
-		}
-
 		sleep 50
 		send {%NavigationKey%}
 		tooltip, Action: Press %NavigationKey%, %TooltipX%, %Tooltip8%, 8
