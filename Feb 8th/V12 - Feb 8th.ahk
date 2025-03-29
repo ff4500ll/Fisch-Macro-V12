@@ -646,7 +646,6 @@ if (AutoEnableCameraMode == true)
 	PixelSearch, , , CameraCheckLeft, CameraCheckTop, CameraCheckRight, CameraCheckBottom, 0xFFFFFF, 0, Fast
 	if !ErrorLevel
 		{
-		{
 		sleep 50
 		if (NavigationFail == true)
 		{
