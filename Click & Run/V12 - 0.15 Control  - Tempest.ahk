@@ -34,7 +34,7 @@ AutoLookDownCamera := true
 AutoLookDelay := 50
 
 ; Set to true to automatically blur the camera
-AutoBlurCamera := true
+AutoBlurCamera := false
 AutoBlurDelay := 50
 
 ; How long to wait after fishing before restarting
@@ -55,7 +55,7 @@ NavigationKey := "\"
 ShakeMode := "Click"
 
 ; Seconds for shake minigame to be considered failed
-ShakeFailsafe := 8
+ShakeFailsafe := 5
 ; Color range to scan for "shake" text
 ClickShakeColorTolerance := 3
 ; Delay between each scan in miliseconds
@@ -84,27 +84,27 @@ ScanDelay := 10
 BaitDelay := 350
 
 ; Strength for moving right in correct zone
-StableRightMultiplier := 2.1
+StableRightMultiplier := 1.8
 ; Counter strafe after moving right in correct zone
-StableRightDivision := 1.4
+StableRightDivision := 1.8
 ; Strength for moving left in correct zone
-StableLeftMultiplier := 2.1
+StableLeftMultiplier := 1.8
 ; Counter strafe after moving left in correct zone
-StableLeftDivision := 2
+StableLeftDivision := 1.8
 
 ; Strength for moving right when in wrong zone
 UnstableRightMultiplier := 2.3
 ; Counter strafe after moving right in wrong zone
-UnstableRightDivision := 2.5
+UnstableRightDivision := 2
 ; Strength for moving left when in wrong zone
 UnstableLeftMultiplier := 2.264
 ; Counter strafe after moving left in wrong zone
-UnstableLeftDivision := 2.5
+UnstableLeftDivision := 2
 
 ; Strength for moving right after a shift in the middle
-RightAnkleBreakMultiplier := 0.35
+RightAnkleBreakMultiplier := 0.1
 ; Strength for moving left after a shift in the middle
-LeftAnkleBreakMultiplier := 0.35
+LeftAnkleBreakMultiplier := 0.1
 
 ;====================================================================================================;
 

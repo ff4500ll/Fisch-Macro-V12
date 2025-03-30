@@ -11,9 +11,9 @@ CoordMode, Mouse, Relative
 ;	 CREDITS		===============
 
 ; Rod name
-Rod := "Heaven"
+Rod := "Great Dreamer"
 ; Config maker credit
-Creator := "Saint Laurent"
+Creator := ""
 
 ;     GENERAL SETTINGS     ====================================================================================================;
 
@@ -55,7 +55,7 @@ NavigationKey := "\"
 ShakeMode := "Click"
 
 ; Seconds for shake minigame to be considered failed
-ShakeFailsafe := 15
+ShakeFailsafe := 10
 ; Color range to scan for "shake" text
 ClickShakeColorTolerance := 3
 ; Delay between each scan in miliseconds
@@ -66,7 +66,7 @@ NavigationSpamDelay := 10
 ;     MINIGAME SETTINGS     ====================================================================================================;
 
 ; Based on the rod's control stat
-Control := 0.2
+Control := 0.12
 ; Color range to scan for fish bar
 FishBarColorTolerance := 5
 ; Color range to scan for minigame white bar
@@ -84,27 +84,27 @@ ScanDelay := 10
 BaitDelay := 350
 
 ; Strength for moving right in correct zone
-StableRightMultiplier := 1.9
+StableRightMultiplier := 2.1
 ; Counter strafe after moving right in correct zone
-StableRightDivision := 1.25
+StableRightDivision := 1.2
 ; Strength for moving left in correct zone
-StableLeftMultiplier := 2.3
+StableLeftMultiplier := 2.12
 ; Counter strafe after moving left in correct zone
-StableLeftDivision := 1.8
+StableLeftDivision := 2
 
 ; Strength for moving right when in wrong zone
-UnstableRightMultiplier := 2.2
+UnstableRightMultiplier := 2.16
 ; Counter strafe after moving right in wrong zone
-UnstableRightDivision := 4
+UnstableRightDivision := 3
 ; Strength for moving left when in wrong zone
-UnstableLeftMultiplier := 2.4
+UnstableLeftMultiplier := 2.23
 ; Counter strafe after moving left in wrong zone
-UnstableLeftDivision := 4
+UnstableLeftDivision := 3
 
 ; Strength for moving right after a shift in the middle
-RightAnkleBreakMultiplier := 0.1
+RightAnkleBreakMultiplier := 0.45
 ; Strength for moving left after a shift in the middle
-LeftAnkleBreakMultiplier := 0.1
+LeftAnkleBreakMultiplier := 0.36
 
 ;====================================================================================================;
 
@@ -222,7 +222,7 @@ Tooltip18 := (WindowHeight/2)+(20*8)
 Tooltip19 := (WindowHeight/2)+(20*9)
 Tooltip20 := (WindowHeight/2)+(20*10)
 
-tooltip, Made By AsphaltCake - Please use Seaweed/Bagel/Coral, %TooltipX%, %Tooltip1%, 1
+tooltip, Made By AsphaltCake, %TooltipX%, %Tooltip1%, 1
 tooltip, V12 Config for %Rod% by %Creator%, %TooltipX%, %Tooltip2%, 2
 tooltip, Runtime: 0h 0m 0s, %TooltipX%, %Tooltip3%, 3
 
@@ -633,7 +633,7 @@ WhiteBarSize := Round((A_ScreenWidth / 247.03) * (InStr(Control, "0.") ? (Contro
 sleep 50
 goto BarMinigameSingle
 ;====================================================================================================;
-	
+
 BarMinigameSingle:
 
 	EndMinigame := false

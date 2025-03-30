@@ -34,7 +34,7 @@ AutoLookDownCamera := true
 AutoLookDelay := 50
 
 ; Set to true to automatically blur the camera
-AutoBlurCamera := true
+AutoBlurCamera := false
 AutoBlurDelay := 50
 
 ; How long to wait after fishing before restarting
@@ -55,7 +55,7 @@ NavigationKey := "\"
 ShakeMode := "Click"
 
 ; Seconds for shake minigame to be considered failed
-ShakeFailsafe := 8
+ShakeFailsafe := 5
 ; Color range to scan for "shake" text
 ClickShakeColorTolerance := 3
 ; Delay between each scan in miliseconds
@@ -75,29 +75,29 @@ WhiteBarColorTolerance := 15
 ArrowColorTolerance := 6
 
 ; Ratio for bar side maximum hold (1 = max bar|0.5 = half bar)
-SideBarRatio := 0.5
+SideBarRatio := 0.6
 ; How long before moving before the bar after the fish moves out side the Deadzone
-SideDelay := 400
+SideDelay := 100
 ; Minigame Refresh Rate
 ScanDelay := 10
 ; Bait Delay leave at 350 as default
 BaitDelay := 350
 
 ; Strength for moving right in correct zone
-StableRightMultiplier := 2
+StableRightMultiplier := 1.75
 ; Counter strafe after moving right in correct zone
-StableRightDivision := 1.31
+StableRightDivision := 2
 ; Strength for moving left in correct zone
-StableLeftMultiplier := 2.5
+StableLeftMultiplier := 1.75
 ; Counter strafe after moving left in correct zone
-StableLeftDivision := 1.2
+StableLeftDivision := 2
 
 ; Strength for moving right when in wrong zone
-UnstableRightMultiplier := 2.1
+UnstableRightMultiplier := 1.9
 ; Counter strafe after moving right in wrong zone
 UnstableRightDivision := 1.8
 ; Strength for moving left when in wrong zone
-UnstableLeftMultiplier := 2.1
+UnstableLeftMultiplier := 1.9
 ; Counter strafe after moving left in wrong zone
 UnstableLeftDivision := 1.8
 

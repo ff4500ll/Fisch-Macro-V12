@@ -11,9 +11,9 @@ CoordMode, Mouse, Relative
 ;	 CREDITS		===============
 
 ; Rod name
-Rod := "Heaven"
+Rod := "Azure of Lagoon"
 ; Config maker credit
-Creator := "Saint Laurent"
+Creator := ""
 
 ;     GENERAL SETTINGS     ====================================================================================================;
 
@@ -66,7 +66,7 @@ NavigationSpamDelay := 10
 ;     MINIGAME SETTINGS     ====================================================================================================;
 
 ; Based on the rod's control stat
-Control := 0.2
+Control := -0.01
 ; Color range to scan for fish bar
 FishBarColorTolerance := 5
 ; Color range to scan for minigame white bar
@@ -75,31 +75,31 @@ WhiteBarColorTolerance := 15
 ArrowColorTolerance := 6
 
 ; Ratio for bar side maximum hold (1 = max bar|0.5 = half bar)
-SideBarRatio := 0.65
+SideBarRatio := 0.8
 ; How long before moving before the bar after the fish moves out side the Deadzone
 SideDelay := 400
 ; Minigame Refresh Rate
 ScanDelay := 10
-; Bait Delay leave at 350 as default
-BaitDelay := 350
+; Bait Delay leave at 320 as default
+BaitDelay := 320
 
 ; Strength for moving right in correct zone
-StableRightMultiplier := 1.9
+StableRightMultiplier := 1.2
 ; Counter strafe after moving right in correct zone
-StableRightDivision := 1.25
+StableRightDivision := 1.75
 ; Strength for moving left in correct zone
-StableLeftMultiplier := 2.3
+StableLeftMultiplier := 1.2
 ; Counter strafe after moving left in correct zone
-StableLeftDivision := 1.8
+StableLeftDivision := 1.45
 
 ; Strength for moving right when in wrong zone
-UnstableRightMultiplier := 2.2
+UnstableRightMultiplier := 1.46
 ; Counter strafe after moving right in wrong zone
-UnstableRightDivision := 4
+UnstableRightDivision := 2.8
 ; Strength for moving left when in wrong zone
-UnstableLeftMultiplier := 2.4
+UnstableLeftMultiplier := 1.46
 ; Counter strafe after moving left in wrong zone
-UnstableLeftDivision := 4
+UnstableLeftDivision := 2.8
 
 ; Strength for moving right after a shift in the middle
 RightAnkleBreakMultiplier := 0.1
@@ -222,7 +222,7 @@ Tooltip18 := (WindowHeight/2)+(20*8)
 Tooltip19 := (WindowHeight/2)+(20*9)
 Tooltip20 := (WindowHeight/2)+(20*10)
 
-tooltip, Made By AsphaltCake - Please use Seaweed/Bagel/Coral, %TooltipX%, %Tooltip1%, 1
+tooltip, Made By AsphaltCake, %TooltipX%, %Tooltip1%, 1
 tooltip, V12 Config for %Rod% by %Creator%, %TooltipX%, %Tooltip2%, 2
 tooltip, Runtime: 0h 0m 0s, %TooltipX%, %Tooltip3%, 3
 
@@ -423,6 +423,7 @@ if (AutoEnableCameraMode == true)
 		sleep %AutoCameraDelay%
 		send {1}
 		tooltip, Action: Press 1, %TooltipX%, %Tooltip8%, 8
+	
 		sleep %AutoCameraDelay%
 		send {%NavigationKey%}
 		tooltip, Action: Press %NavigationKey%, %TooltipX%, %Tooltip8%, 8
@@ -633,7 +634,7 @@ WhiteBarSize := Round((A_ScreenWidth / 247.03) * (InStr(Control, "0.") ? (Contro
 sleep 50
 goto BarMinigameSingle
 ;====================================================================================================;
-	
+
 BarMinigameSingle:
 
 	EndMinigame := false
@@ -642,7 +643,7 @@ BarMinigameSingle:
 	tooltip, Looking for Bar, %TooltipX%, %Tooltip10%, 10
 	HalfBarSize := WhiteBarSize/2
 	Deadzone := WhiteBarSize*0.1
-	Deadzone2 := HalfBarSize*0.75
+	Deadzone2 := HalfBarSize
 	
 	MaxLeftBar := FishBarLeft+(WhiteBarSize*SideBarRatio)
 	MaxRightBar := FishBarRight-(WhiteBarSize*SideBarRatio)
@@ -671,8 +672,8 @@ else if (Action == 1)
 			sleep %AnkleBreakDuration%
 			AnkleBreakDuration := 0
 		}
-		AdaptiveDuration := 0.5 + 0.5 * (DistanceFactor ** 1.2)
-		if (DistanceFactor < 0.2)
+		AdaptiveDuration := 0.5 + 0.5 * (DistanceFactor ** 1.1)
+		if (DistanceFactor < 0.5)
 			AdaptiveDuration := 0.15 + 0.15 * DistanceFactor
 		Duration := Abs(Direction) * StableLeftMultiplier * PixelScaling * AdaptiveDuration
 		sleep %Duration%
@@ -691,8 +692,8 @@ else if (Action == 2)
 			sleep %AnkleBreakDuration%
 			AnkleBreakDuration := 0
 		}
-		AdaptiveDuration := 0.5 + 0.5 * (DistanceFactor ** 1.2)
-		if (DistanceFactor < 0.2)
+		AdaptiveDuration := 0.5 + 0.5 * (DistanceFactor ** 1.1)
+		if (DistanceFactor < 0.5)
 			AdaptiveDuration := 0.15 + 0.15 * DistanceFactor
 		Duration := Abs(Direction) * StableRightMultiplier * PixelScaling * AdaptiveDuration
 		sleep %Duration%
@@ -735,17 +736,7 @@ else if (Action == 5)
 			sleep %AnkleBreakDuration%
 			AnkleBreakDuration := 0
 		}
-		MinDuration := 10
-		if (Control == 0.15 or Control > 0.15){
-			MaxDuration := WhiteBarSize*0.88
-		}else if(Control == 0.2 or Control > 0.2){
-			MaxDuration := WhiteBarSize*0.8
-		}else if(Control == 0.25 or Control > 0.25){
-			MaxDuration := WhiteBarSize*0.75
-		}else{
-			MaxDuration := WhiteBarSize + (Abs(Direction) * 0.2)
-		}
-		Duration := Max(MinDuration, Min(Abs(Direction) * UnstableLeftMultiplier * PixelScaling, MaxDuration))
+		Duration := Abs(Direction) * UnstableLeftMultiplier * PixelScaling
 		sleep %Duration%
 		send {lbutton down}
 		CounterStrafe := Duration/UnstableLeftDivision
@@ -762,17 +753,7 @@ else if (Action == 6)
 			sleep %AnkleBreakDuration%
 			AnkleBreakDuration := 0
 		}
-		MinDuration := 10
-		if (Control == 0.15 or Control > 0.15){
-			MaxDuration := WhiteBarSize*0.88
-		}else if(Control == 0.2 or Control > 0.2){
-			MaxDuration := WhiteBarSize*0.8
-		}else if(Control == 0.25 or Control > 0.25){
-			MaxDuration := WhiteBarSize*0.75
-		}else{
-			MaxDuration := WhiteBarSize + (Abs(Direction) * 0.2)
-		}	
-		Duration := Max(MinDuration, Min(Abs(Direction) * UnstableRightMultiplier * PixelScaling, MaxDuration))
+		Duration := Abs(Direction) * UnstableLeftMultiplier * PixelScaling
 		sleep %Duration%
 		send {lbutton up}
 		CounterStrafe := Duration/UnstableRightDivision

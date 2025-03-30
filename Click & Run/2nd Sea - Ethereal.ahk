@@ -11,9 +11,9 @@ CoordMode, Mouse, Relative
 ;	 CREDITS		===============
 
 ; Rod name
-Rod := "Heaven"
+Rod := "EPR"
 ; Config maker credit
-Creator := "Saint Laurent"
+Creator := ""
 
 ;     GENERAL SETTINGS     ====================================================================================================;
 
@@ -55,7 +55,7 @@ NavigationKey := "\"
 ShakeMode := "Click"
 
 ; Seconds for shake minigame to be considered failed
-ShakeFailsafe := 15
+ShakeFailsafe := 8
 ; Color range to scan for "shake" text
 ClickShakeColorTolerance := 3
 ; Delay between each scan in miliseconds
@@ -66,7 +66,7 @@ NavigationSpamDelay := 10
 ;     MINIGAME SETTINGS     ====================================================================================================;
 
 ; Based on the rod's control stat
-Control := 0.2
+Control := 0.125
 ; Color range to scan for fish bar
 FishBarColorTolerance := 5
 ; Color range to scan for minigame white bar
@@ -75,36 +75,36 @@ WhiteBarColorTolerance := 15
 ArrowColorTolerance := 6
 
 ; Ratio for bar side maximum hold (1 = max bar|0.5 = half bar)
-SideBarRatio := 0.65
+SideBarRatio := 0.67
 ; How long before moving before the bar after the fish moves out side the Deadzone
-SideDelay := 400
+SideDelay := 100
 ; Minigame Refresh Rate
 ScanDelay := 10
 ; Bait Delay leave at 350 as default
 BaitDelay := 350
 
 ; Strength for moving right in correct zone
-StableRightMultiplier := 1.9
+StableRightMultiplier := 1.75
 ; Counter strafe after moving right in correct zone
-StableRightDivision := 1.25
+StableRightDivision := 2
 ; Strength for moving left in correct zone
-StableLeftMultiplier := 2.3
+StableLeftMultiplier := 1.75
 ; Counter strafe after moving left in correct zone
-StableLeftDivision := 1.8
+StableLeftDivision := 2
 
 ; Strength for moving right when in wrong zone
-UnstableRightMultiplier := 2.2
+UnstableRightMultiplier := 1.9
 ; Counter strafe after moving right in wrong zone
-UnstableRightDivision := 4
+UnstableRightDivision := 1.8
 ; Strength for moving left when in wrong zone
-UnstableLeftMultiplier := 2.4
+UnstableLeftMultiplier := 1.9
 ; Counter strafe after moving left in wrong zone
-UnstableLeftDivision := 4
+UnstableLeftDivision := 1.8
 
 ; Strength for moving right after a shift in the middle
-RightAnkleBreakMultiplier := 0.1
+RightAnkleBreakMultiplier := 0.35
 ; Strength for moving left after a shift in the middle
-LeftAnkleBreakMultiplier := 0.1
+LeftAnkleBreakMultiplier := 0.35
 
 ;====================================================================================================;
 
@@ -222,8 +222,8 @@ Tooltip18 := (WindowHeight/2)+(20*8)
 Tooltip19 := (WindowHeight/2)+(20*9)
 Tooltip20 := (WindowHeight/2)+(20*10)
 
-tooltip, Made By AsphaltCake - Please use Seaweed/Bagel/Coral, %TooltipX%, %Tooltip1%, 1
-tooltip, V12 Config for %Rod% by %Creator%, %TooltipX%, %Tooltip2%, 2
+tooltip, Made By AsphaltCake - with Bagel or Seaweed, %TooltipX%, %Tooltip1%, 1
+tooltip, V12 2nd Sea for %Rod% by %Creator%, %TooltipX%, %Tooltip2%, 2
 tooltip, Runtime: 0h 0m 0s, %TooltipX%, %Tooltip3%, 3
 
 tooltip, Press "P" to Start, %TooltipX%, %Tooltip4%, 4
@@ -305,7 +305,7 @@ runtime:
 
     tooltip, Runtime: %runtimeH%h %runtimeM%m %runtimeS%s, %TooltipX%, %Tooltip3%, 3
 
-    if (WinExist("ahk_exe RobloxPlayerBeta.exe") || WinExist("ahk_exe eurotruck2.exe")) {
+	if (WinExist("ahk_exe RobloxPlayerBeta.exe") || WinExist("ahk_exe eurotruck2.exe")) {
         if (!WinActive("ahk_exe RobloxPlayerBeta.exe") || !WinActive("ahk_exe eurotruck2.exe")) {
             WinActivate
         }
@@ -325,7 +325,6 @@ $p::
 
 gosub, Calculations
 settimer, runtime, 1000
-
 tooltip, Press "O" to Reload, %TooltipX%, %Tooltip4%, 4
 tooltip, Press "M" to Exit, %TooltipX%, %Tooltip5%, 5
 
@@ -335,6 +334,7 @@ tooltip, , , , 11
 tooltip, , , , 12
 tooltip, , , , 14
 tooltip, , , , 16
+
 
 if (ShakeMode == "Navigation")
 {
@@ -633,7 +633,7 @@ WhiteBarSize := Round((A_ScreenWidth / 247.03) * (InStr(Control, "0.") ? (Contro
 sleep 50
 goto BarMinigameSingle
 ;====================================================================================================;
-	
+
 BarMinigameSingle:
 
 	EndMinigame := false
