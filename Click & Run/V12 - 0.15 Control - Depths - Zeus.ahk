@@ -175,8 +175,9 @@ WinGetActiveStats, Title, WindowWidth, WindowHeight, WindowLeft, WindowTop
 
 CameraCheckLeft := WindowWidth/2.8444
 CameraCheckRight := WindowWidth/1.5421
-CameraCheckTop := WindowHeight/1.28
+CameraCheckTop := WindowHeight/1.12
 CameraCheckBottom := WindowHeight
+MsgBox, 0x40040, Loaded, %CameraCheckLeft% %CameraCheckRight% %CameraCheckTop% %CameraCheckBottom%
 
 ClickShakeLeft := WindowWidth/4
 ClickShakeRight := WindowWidth/1.2736
