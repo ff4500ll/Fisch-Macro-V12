@@ -52,16 +52,16 @@ NavigationKey := "\"
 ;     SHAKE SETTINGS     ====================================================================================================;
 
 ; Change to "Navigation" or "Click"
-ShakeMode := "Click"
+ShakeMode := "Navigation"
 
 ; Seconds for shake minigame to be considered failed
-ShakeFailsafe := 5
+ShakeFailsafe := 10
 ; Color range to scan for "shake" text
 ClickShakeColorTolerance := 3
 ; Delay between each scan in miliseconds
 ClickScanDelay := 20
 ; Delay between each "S+Enter" in miliseconds
-NavigationSpamDelay := 10
+NavigationSpamDelay := 20
 
 ;     MINIGAME SETTINGS     ====================================================================================================;
 
